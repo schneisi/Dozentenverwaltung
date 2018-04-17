@@ -12534,28 +12534,30 @@
     ]
   },
   "packageFolders": {
-    "/Users/simonschneider /.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\Jessi\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/simonschneider /Documents/CloudStation/DHBW/Semester 6/Projekt/Dozentenplanung/Dozentenplanung/Dozentenplanung.csproj",
+      "projectUniqueName": "C:\\Users\\Jessi\\Documents\\DHBW 6. Semester\\Dozentenverwaltung\\Dozentenverwaltung\\Dozentenplanung\\Dozentenplanung.csproj",
       "projectName": "Dozentenplanung",
-      "projectPath": "/Users/simonschneider /Documents/CloudStation/DHBW/Semester 6/Projekt/Dozentenplanung/Dozentenplanung/Dozentenplanung.csproj",
-      "packagesPath": "/Users/simonschneider /.nuget/packages/",
-      "outputPath": "/Users/simonschneider /Documents/CloudStation/DHBW/Semester 6/Projekt/Dozentenplanung/Dozentenplanung/obj",
+      "projectPath": "C:\\Users\\Jessi\\Documents\\DHBW 6. Semester\\Dozentenverwaltung\\Dozentenverwaltung\\Dozentenplanung\\Dozentenplanung.csproj",
+      "packagesPath": "C:\\Users\\Jessi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Jessi\\Documents\\DHBW 6. Semester\\Dozentenverwaltung\\Dozentenverwaltung\\Dozentenplanung\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/simonschneider /.config/NuGet/NuGet.Config"
+        "C:\\Users\\Jessi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12572,19 +12574,18 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.NETCore.App": {
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "2.0",
-            "autoReferenced": true
-          },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "2.0.0"
+            "version": "[2.0.0, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
-            "version": "2.0.2"
+            "version": "[2.0.2, )"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "[2.0.0, )",
+            "autoReferenced": true
           }
         },
         "imports": [

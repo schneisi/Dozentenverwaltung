@@ -1,0 +1,52 @@
+﻿@model Dozentenplanung.Models.Lecturer
+
+    @{
+        string theTitleString = "Neuer Dozent";
+        bool isNew = Model == null;
+        if (!isNew)
+        {
+            theTitleString = Model.Lastname;
+        };
+
+        ViewData["title"] = theTitleString;
+        ViewData["menuId"] = "lecturer";
+
+    }
+    <form id="form" asp-action="" asp-controller="Lecturer" asp-action="post" asp-route-id=@Model.Id>
+        <div class="columns ">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Nachname</label>
+                    <div class="control">
+                        @Html.EditorFor(lecturer => lecturer.Lastname, new { htmlAttributes = new { @class = "input" } })
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Vorname</label>
+                    <div class="control">
+                        @Html.EditorFor(lecturer => lecturer.Firstname, new { htmlAttributes = new { @class = "input" } })
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">E-Mail</label>
+                    <div class="control">
+                        @Html.EditorFor(lecturer => lecturer.Mail, new { htmlAttributes = new { @class = "input" } })
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Notizen</label>
+                    <div class="control">
+                        @Html.EditorFor(lecturer => lecturer.Notes, new { htmlAttributes = new { @class = "input" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="button" form="form">Dozent speichern</button>
+    </form>

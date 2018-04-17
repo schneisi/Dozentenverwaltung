@@ -5,6 +5,8 @@
     ViewData["menuId"] = "lecturers";
 }
 
+<a asp-controller="lecturer" asp-action="edit" class="button is-success">Dozent erstellen</a>
+
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
@@ -12,15 +14,18 @@
             <th>Vorname</th>
             <th>Nachname</th>
             <th>E-Mail</th>
+            <th>Notizen</th>
         </tr>
     </thead>
     
-    @foreach (var eachLecteurer in Model) { 
-        <tr>
-            <td>@Html.DisplayFor(modelItem => eachLecteurer.Id)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecteurer.Firstname)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecteurer.Lastname)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecteurer.Mail)</td>
-        </tr>
+    @foreach (var eachLecturer in Model) { 
+    <tr>
+        <td>@Html.DisplayFor(modelItem => eachLecturer.Id)</td>
+        <td>@Html.DisplayFor(modelItem => eachLecturer.Firstname)</td>
+        <td>@Html.DisplayFor(modelItem => eachLecturer.Lastname)</td>
+        <td>@Html.DisplayFor(modelItem => eachLecturer.Mail)</td>
+        <td>@Html.DisplayFor(modelItem => eachLecturer.Notes)</td>
+        <td><a class="button" asp-controller="lecturer" asp-action="lecturer" asp-route-id=@eachLecturer.Id>Bearbeiten</a></td>
+    </tr>
     }
 </table>

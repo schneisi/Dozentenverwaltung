@@ -9,3 +9,14 @@
 /Users/simonschneider /Projects/Dozentenplanung/Dozentenplanung/obj/Debug/netcoreapp2.0/Dozentenplanung.AssemblyInfo.cs
 /Users/simonschneider /Projects/Dozentenplanung/Dozentenplanung/obj/Debug/netcoreapp2.0/Dozentenplanung.dll
 /Users/simonschneider /Projects/Dozentenplanung/Dozentenplanung/obj/Debug/netcoreapp2.0/Dozentenplanung.pdb
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\bin\Debug\netcoreapp2.0\Dozentenplanung.deps.json
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\bin\Debug\netcoreapp2.0\Dozentenplanung.runtimeconfig.json
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\bin\Debug\netcoreapp2.0\Dozentenplanung.runtimeconfig.dev.json
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\bin\Debug\netcoreapp2.0\Dozentenplanung.dll
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\bin\Debug\netcoreapp2.0\Dozentenplanung.pdb
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\obj\Debug\netcoreapp2.0\Dozentenplanung.csprojResolveAssemblyReference.cache
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\obj\Debug\netcoreapp2.0\Dozentenplanung.csproj.CoreCompileInputs.cache
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\obj\Debug\netcoreapp2.0\Dozentenplanung.AssemblyInfoInputs.cache
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\obj\Debug\netcoreapp2.0\Dozentenplanung.AssemblyInfo.cs
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\obj\Debug\netcoreapp2.0\Dozentenplanung.dll
+C:\Users\Jessi\Documents\DHBW 6. Semester\Dozentenverwaltung\Dozentenverwaltung\Dozentenplanung\obj\Debug\netcoreapp2.0\Dozentenplanung.pdb

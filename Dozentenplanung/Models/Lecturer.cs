@@ -13,5 +13,8 @@ namespace Dozentenplanung.Models
         public string Lastname { get; set; }
 
         public string Mail { get; set; }
+
+        public string Notes { get; set; }
+
     }
 }
