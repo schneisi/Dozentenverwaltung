@@ -15,7 +15,7 @@ namespace Dozentenplanung.Models
         public LecturerBuilder(ApplicationDbContext aContext, Lecturer anObject) : base(aContext, anObject)
         {}
 
-        public override void save()
+        public override void saveChanges()
         {
             Lecturer theLecturer;
             if (this.isNew())
