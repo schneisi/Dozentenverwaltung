@@ -16,7 +16,17 @@ namespace Dozentenplanung.Controllers
         {
             return View(this.Lecturers());
         }
+        public IActionResult Edit()
+        {
+            LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext);
+            theBuilder.Lastname = "Nachname";
+            theBuilder.Firstname = "Vorname";
+            theBuilder.Mail = "E - Mail";
+            theBuilder.Notes = "Notizen";
+            theBuilder.save();
 
+            return View(theBuilder.Lecturer());
+        }
         public IActionResult Create() {
             return View();
         }
