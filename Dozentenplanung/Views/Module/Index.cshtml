@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Dozentenplanung.Models.Module>;
+
+@{
+    ViewData["Title"] = "Module";
+    ViewData["menuId"] = "modules";
+}
+
+
+<table class="table is-fullwidth is-hoverable is-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Bezeichnung</th>
+            <th>Titel</th>
+            <th />
+        </tr>
+    </thead>
+    @foreach (var eachModule in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => eachModule.Id)</td>
+            <td>@Html.DisplayFor(modelItem => eachModule.Designation)</td>
+            <td>@Html.DisplayFor(modelItem => eachModule.Title)</td>
+            <td><a class="button" asp-controller="module" asp-action="edit" asp-route-id=@eachModule.Id>Bearbeiten</a></td>
+        </tr>
+    }
+</table>

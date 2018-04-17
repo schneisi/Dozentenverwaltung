@@ -1,0 +1,35 @@
+﻿@model Dozentenplanung.Models.Module
+
+@{
+    string theTitleString = "Neues Modul";
+    bool isNew = Model == null;
+    if (!isNew) {
+        theTitleString = Model.Title;
+    };
+
+    ViewData["title"] = theTitleString;
+    ViewData["menuId"] = "modules";
+
+}
+<form id="form" asp-action="SaveModule" asp-controller="Module" asp-action="post" asp-route-id=@Model.Id asp-route-courseId=@Model.CourseId>
+    <div class="columns ">
+        <div class="column">
+            <div class="field">
+                <label class="label">Bezeichnung</label>
+                <div class="control">
+                    @Html.EditorFor(module => module.Designation, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Titel</label>
+                <div class="control">
+                    @Html.EditorFor(module => module.Title, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="button" form="form">Modul speichern</button>
+</form>

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Dozentenplanung.Models.Lecturer>;
+
+@{
+    ViewData["title"] = "Dozenten";
+    ViewData["menuId"] = "lecturers";
+}
+
+<table class="table is-fullwidth is-hoverable is-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>E-Mail</th>
+        </tr>
+    </thead>
+    
+    @foreach (var eachLecteurer in Model) { 
+        <tr>
+            <td>@Html.DisplayFor(modelItem => eachLecteurer.Id)</td>
+            <td>@Html.DisplayFor(modelItem => eachLecteurer.Firstname)</td>
+            <td>@Html.DisplayFor(modelItem => eachLecteurer.Lastname)</td>
+            <td>@Html.DisplayFor(modelItem => eachLecteurer.Mail)</td>
+        </tr>
+    }
+</table>

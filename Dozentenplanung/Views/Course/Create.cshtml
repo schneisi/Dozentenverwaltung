@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["title"] = "Kurs erstellen";
+    ViewData["menuId"] = "courses";
+}
+<form id="form" asp-action="createcourse" asp-controller="Course" asp-action="post">
+    <div class="field">
+        <label class="label">Bezeichnung</label>
+        <div class="control">
+            <input name="designation" class="input" type="text" placeholder="Kursbezeichnung">
+        </div>
+    </div>
+    <button type="submit" class="button" form="form">Kurs anlegen</button>
+</form>

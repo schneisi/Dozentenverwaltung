@@ -1,0 +1,17 @@
+﻿@model Dozentenplanung.Models.Module;
+
+@{
+    ViewData["title"] = "Modul: " + Model.Designation;
+    ViewData["menuId"] = "modules";
+}
+
+<table class="attributesTable">
+    <tr>
+        <td>Bezeichnung:</td>
+        <td>@Model.Designation</td>
+    </tr>
+    <tr>
+        <td>Titel:</td>
+        <td>@Model.Title</td>
+    </tr>
+</table>

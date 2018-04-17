@@ -1,0 +1,41 @@
+﻿@model Dozentenplanung.Models.Course;
+
+@{
+    ViewData["title"] = "Kurs: " + Model.Designation;
+    ViewData["menuId"] = "courses";
+}
+
+<table class="attributesTable">
+    <tr>
+        <td>Bezeichnung:</td>
+        <td>@Model.Designation</td>
+    </tr>
+    <tr>
+        <td>Titel:</td>
+        <td>@Model.Title</td>
+    </tr>
+    <tr>
+        <td>Jahr:</td>
+        <td>@Model.Year</td>
+    </tr>
+</table>
+<br />
+<span>Module</span>
+<table class="table is-fullwidth">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Bezeichnung</th>
+            <th>Titel</th>
+            <th/>
+        </tr>
+    </thead>
+    @foreach(var eachModule in Model.Modules) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => eachModule.Id)</td>
+            <td>@Html.DisplayFor(modelItem => eachModule.Designation)</td>
+            <td>@Html.DisplayFor(modelItem => eachModule.Title)</td>
+            <td><a class="button" asp-controller="module" asp-action="edit" asp-route-id=@eachModule.Id>Bearbeiten</a></td>
+        </tr>
+    }
+</table>
