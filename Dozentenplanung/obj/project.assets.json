@@ -12540,11 +12540,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/simonschneider /Projects/Dozentenplanung/Dozentenplanung/Dozentenplanung.csproj",
+      "projectUniqueName": "/Users/simonschneider /Documents/CloudStation/DHBW/Semester 6/Projekt/Dozentenplanung/Dozentenplanung/Dozentenplanung.csproj",
       "projectName": "Dozentenplanung",
-      "projectPath": "/Users/simonschneider /Projects/Dozentenplanung/Dozentenplanung/Dozentenplanung.csproj",
+      "projectPath": "/Users/simonschneider /Documents/CloudStation/DHBW/Semester 6/Projekt/Dozentenplanung/Dozentenplanung/Dozentenplanung.csproj",
       "packagesPath": "/Users/simonschneider /.nuget/packages/",
-      "outputPath": "/Users/simonschneider /Projects/Dozentenplanung/Dozentenplanung/obj",
+      "outputPath": "/Users/simonschneider /Documents/CloudStation/DHBW/Semester 6/Projekt/Dozentenplanung/Dozentenplanung/obj",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
