@@ -9,7 +9,7 @@
         };
 
         ViewData["title"] = theTitleString;
-        ViewData["menuId"] = "lecturer";
+        ViewData["menuId"] = "lecturers";
 
     }
     <form id="form" asp-action="" asp-controller="Lecturer" asp-action="post" asp-route-id=@Model.Id>
@@ -48,5 +48,6 @@
             </div>
         </div>
 
-        <button type="submit" class="button" form="form">Dozent speichern</button>
+        <a asp-controller="" asp-action="" asp-route-id=@Model.Id class="button is-danger">Dozent löschen (WIP)</a>
+        <button type="submit" class="button is-success" form="form">Dozent speichern (WIP)</button>
     </form>

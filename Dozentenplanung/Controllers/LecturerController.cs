@@ -16,16 +16,22 @@ namespace Dozentenplanung.Controllers
         {
             return View(this.Lecturers());
         }
-        public IActionResult Edit()
+        public IActionResult Edit(int? id)
         {
-            LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext);
-            theBuilder.Lastname = "Nachname";
-            theBuilder.Firstname = "Vorname";
-            theBuilder.Mail = "E - Mail";
-            theBuilder.Notes = "Notizen";
-            theBuilder.save();
+            Lecturer theLecturer;
+            if (id.HasValue) {
+                theLecturer = this.DatabaseContext.Lecturers.Find(id);
+            } else {
+                LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext);
+                theBuilder.Lastname = "Nachname";
+                theBuilder.Firstname = "Vorname";
+                theBuilder.Mail = "mail@dhbw-loerrach.de";
+                theBuilder.Notes = "Notizen";
+                theBuilder.save();
+                theLecturer = theBuilder.Lecturer();
+            }
 
-            return View(theBuilder.Lecturer());
+            return View(theLecturer);
         }
         public IActionResult Create() {
             return View();

@@ -36,7 +36,6 @@ namespace Dozentenplanung.Models
             {
                 this.DatabaseContext.Lecturers.Add(theLecturer);
             }
-            this.saveChanges();
             this.Object = theLecturer;
         }
 
