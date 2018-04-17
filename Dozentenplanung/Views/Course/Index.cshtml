@@ -4,7 +4,7 @@
     ViewData["menuId"] = "courses";
 }
 
-<a asp-controller="course" asp-action="create" class="button is-success">Kurs erstellen</a>
+<a asp-controller="course" asp-action="edit" class="button is-success">Kurs erstellen</a>
 
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
@@ -17,12 +17,13 @@
         </tr>
     </thead>
     @foreach (var eachCourse in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => eachCourse.Id)</td>
+        <tr onclick="location.href = '@(Url.Action("course", "course", new { id = eachCourse.Id }))'">
+            <td>@Html.DisplayFor(modelItem => eachCourse.Id)
+        </td>
             <td>@Html.DisplayFor(modelItem => eachCourse.Designation)</td>
             <td>@Html.DisplayFor(modelItem => eachCourse.Year)</td>
             <td>@Html.DisplayFor(modelItem => eachCourse.Title)</td>
-            <td><a class="button" asp-controller="course" asp-action="course" asp-route-id=@eachCourse.Id>Bearbeiten</a></td>
+            <td><a class="button" asp-controller="course" asp-action="edit" asp-route-id=@eachCourse.Id>Bearbeiten</a></td>
         </tr>
     }
 </table>

@@ -15,5 +15,10 @@ namespace Dozentenplanung.Models
         public Course Course { get; set; }
 
         public virtual int CourseId { get; set; }
+
+        public void deleteFromContext(ApplicationDbContext aContext)
+        {
+            aContext.Modules.Remove(this);
+        }
     }
 }

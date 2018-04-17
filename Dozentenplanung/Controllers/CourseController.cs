@@ -6,18 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
 using Microsoft.EntityFrameworkCore;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Dozentenplanung.Controllers
 {
     public class CourseController : BaseController
     {
-        public CourseController(ApplicationDbContext aContext) : base(aContext) {
-
-            if (!DatabaseContext.Courses.Any())
-            {
-                this.CreateCourse("WWI15B-SE", 2015, "Wirtschaftsinformatik - Software Engineering");
-            }
+        public CourseController(ApplicationDbContext aContext) : base(aContext)
+        {
         }
 
         #region Views
@@ -26,51 +20,61 @@ namespace Dozentenplanung.Controllers
             return View(this.Courses());
         }
 
-        public IActionResult Create()
+        public IActionResult Edit(int? id)
         {
-            return View();
+            Course theCourse;
+            if (id.HasValue)
+            {
+                theCourse = this.CourseForId(id.Value);
+            }
+            else
+            {
+                CourseBuilder theBuilder = new CourseBuilder(this.DatabaseContext);
+                theBuilder.Title = "Neuer Kurs";
+                theBuilder.Designation = "Bezeichnung";
+                theBuilder.Year = DateTime.Now.Year;
+                theBuilder.save();
+                theCourse = theBuilder.Course();
+            }
+            return View(theCourse);
         }
 
         public IActionResult Course(int id)
         {
-            Course theCourse = DatabaseContext.Courses.Include("Modules").SingleOrDefault(x => x.Id == id);
+            Course theCourse = this.CourseForId(id);
             return View(theCourse);
         }
         #endregion
 
-
-
-
-
+        public IActionResult DeleteCourse(int id)
+        {
+            this.CourseForId(id).deleteFromContext(this.DatabaseContext);
+            this.DatabaseContext.SaveChanges();
+            return View("index", this.Courses());
+        }
 
         [HttpPost]
-        public IActionResult CreateCourse(string title, string designation, int year) {
-            this.CreateCourse(designation, year, title);
+        public IActionResult CreateCourse(string title, string designation, int year, int? id)
+        {
+            CourseBuilder theCourseBuilder = new CourseBuilder(this.DatabaseContext);
+            if (id.HasValue) {
+                theCourseBuilder.Object = this.CourseForId(id.Value);
+            }
+            theCourseBuilder.Title = title;
+            theCourseBuilder.Designation = designation;
+            theCourseBuilder.Year = year;
+            theCourseBuilder.save();
             return RedirectToAction("Index", this.Courses());
         }
 
-
-        private void CreateCourse(string aDesignationString, int aYearInt, string aTitleString) {
-           
-            Course theCourse = new Course
-            {
-                Title = aTitleString,
-                Year = aYearInt,
-                Designation = aDesignationString,
-            };
-            Module theModule = new Module
-            {
-                Title = "Modul",
-                Designation = "Modulbezeichnung"
-            };
-            theCourse.Modules.Add(theModule);
-            DatabaseContext.Courses.Add(theCourse);
-            DatabaseContext.Modules.Add(theModule);
-            DatabaseContext.SaveChanges();
+        private List<Course> Courses()
+        {
+            return this.DatabaseContext.Courses.ToList();
         }
 
-        private List<Course> Courses() {
-            return this.DatabaseContext.Courses.ToList();
+        private Course CourseForId(int id)
+        {
+            return DatabaseContext.Courses.Include("Modules").SingleOrDefault(course => course.Id == id);
         }
     }
 }

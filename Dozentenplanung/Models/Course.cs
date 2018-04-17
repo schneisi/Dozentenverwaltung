@@ -24,5 +24,12 @@ namespace Dozentenplanung.Models
         public Course() {
             this.Modules = new List<Module>();
         }
+
+        public void deleteFromContext(ApplicationDbContext aContext) {
+            foreach (Module eachModule in this.Modules) {
+                eachModule.deleteFromContext(aContext);
+            }
+            aContext.Courses.Remove(this);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Dozentenplanung.Models
             
         }
 
-        public override void save() {
+        public override void saveChanges() {
             Module theModule;
             if (this.isNew()) {
                 theModule = new Module();
@@ -26,11 +26,10 @@ namespace Dozentenplanung.Models
                 theModule.Course = this.Course;
             }
 
-            if (isNew()) {
+            if (isNew())
+            {
                 this.DatabaseContext.Modules.Add(theModule);
             }
-            this.saveChanges();
-            
         }
 
         private Module Module() {

@@ -20,15 +20,17 @@ namespace Dozentenplanung.Models
         public bool isNew() {
             return this.Object == null;
         }
-        protected void saveChanges() {
-            this.DatabaseContext.SaveChanges();
-        }
         public bool hasError() {
             return this.Errors.Count > 1;
         }
-
-        public abstract void save();
+        public void save() {
+            this.saveChanges();
+            this.DatabaseContext.SaveChanges();
+        }
+        public abstract void saveChanges();
     }
+
+
 
     public class BuilderError {
         public int Number { get; set; }

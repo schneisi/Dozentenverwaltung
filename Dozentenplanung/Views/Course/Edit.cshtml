@@ -1,17 +1,16 @@
-﻿@model Dozentenplanung.Models.Module
+﻿@model Dozentenplanung.Models.Course
 
 @{
-    string theTitleString = "Neues Modul";
+    string theTitleString = "Neuer Kurs";
+    ViewData["menuId"] = "courses";
     bool isNew = Model == null;
     if (!isNew) {
         theTitleString = Model.Title;
     };
 
     ViewData["title"] = theTitleString;
-    ViewData["menuId"] = "modules";
-
 }
-<form id="form" asp-action="SaveModule" asp-controller="Module" asp-action="post" asp-route-id=@Model.Id asp-route-courseId=@Model.CourseId>
+<form id="form" asp-action="createcourse" asp-controller="Course" asp-route-id=@Model.Id asp-action="post">
     <div class="columns ">
         <div class="column">
             <div class="field">
@@ -30,5 +29,16 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="button" form="form">Modul speichern</button>
+    <div class="columns ">
+        <div class="column">
+            <div class="field">
+                <label class="label">Jahr</label>
+                <div class="control">
+                    @Html.EditorFor(module => module.Year, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-controller="course" asp-action="deletecourse" asp-route-id=@Model.Id class="button is-danger">Kurs löschen</a>
+    <button type="submit" class="button is-success" form="form">Kurs speichern</button>
 </form>
