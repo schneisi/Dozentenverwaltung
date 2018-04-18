@@ -21,11 +21,21 @@
     
     @foreach (var eachLecturer in Model) { 
         <tr>
-            <td>@Html.DisplayFor(modelItem => eachLecturer.Id)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecturer.Firstname)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecturer.Lastname)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecturer.Mail)</td>
-            <td>@Html.DisplayFor(modelItem => eachLecturer.Notes)</td>
+            <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
+                @Html.DisplayFor(modelItem => eachLecturer.Id)
+            </td>
+            <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
+                @Html.DisplayFor(modelItem => eachLecturer.Firstname)
+            </td>
+            <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
+                @Html.DisplayFor(modelItem => eachLecturer.Lastname)
+            </td>
+            <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
+                @Html.DisplayFor(modelItem => eachLecturer.Mail)
+            </td>
+            <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
+                @Html.DisplayFor(modelItem => eachLecturer.Notes)
+            </td>
             <td><a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id=@eachLecturer.Id>Bearbeiten</a></td>
         </tr>
     }

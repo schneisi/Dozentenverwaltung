@@ -1,0 +1,18 @@
+﻿@model Dozentenplanung.Models.Lecturer;
+
+@{
+    ViewData["title"] = "Dozent " + Model.Lastname;
+    ViewData["menuId"] = "lecturers";
+}
+
+<table class="attributesTable">
+    <tr>
+        <td>Vorname:</td>
+        <td>@Model.Firstname</td>
+    </tr>
+    <tr>
+        <td>Nachname:</td>
+        <td>@Model.Lastname</td>
+    </tr>
+</table>
+<a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>

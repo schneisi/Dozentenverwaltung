@@ -33,6 +33,11 @@ namespace Dozentenplanung.Controllers
 
             return View(theLecturer);
         }
+
+        public IActionResult Lecturer(int id) {
+            Lecturer theLecturer = this.LecturerForId(id);
+            return View(theLecturer);
+        }
         public IActionResult Create() {
             return View();
         }
