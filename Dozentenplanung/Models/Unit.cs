@@ -6,9 +6,9 @@ namespace Dozentenplanung.Models
     public class Unit : BaseObject
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         public string Designation { get; set; }
 
@@ -23,5 +23,11 @@ namespace Dozentenplanung.Models
 
         public Module Module { get; set; }
         public virtual int ModuleId { get; set; }
+
+
+        public void DeleteFromContext(ApplicationDbContext aContext)
+        {
+            aContext.Units.Remove(this);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 @{
     ViewData["title"] = "Modul: " + Model.Designation;
-    ViewData["menuId"] = "modules";
+    ViewData["menuId"] = "courses";
 }
 
 <table class="attributesTable">
@@ -14,4 +14,32 @@
         <td>Titel:</td>
         <td>@Model.Title</td>
     </tr>
+</table>
+
+
+<a asp-controller="unit" asp-action="edit" asp-route-moduleId=@Model.Id class="button is-success">Unit erstellen</a>
+
+<table class="table is-hoverable is-fullwidth is-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Bezeichnung</th>
+            <th>Titel</th>
+            <th/>
+        </tr>
+    </thead>
+    @foreach(var eachUnit in Model.Units) {
+        <tr>
+            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+                @Html.DisplayFor(modelItem => eachUnit.Id)
+            </td>
+            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+                @Html.DisplayFor(modelItem => eachUnit.Designation)
+            </td>
+            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+                @Html.DisplayFor(modelItem => eachUnit.Title)
+            </td>
+            <td><a class="button" asp-controller="unit" asp-action="edit" asp-route-id=@eachUnit.Id>Bearbeiten</a></td>
+        </tr>
+    }
 </table>

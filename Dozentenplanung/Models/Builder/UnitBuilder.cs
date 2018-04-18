@@ -4,7 +4,7 @@ namespace Dozentenplanung.Models
     public class UnitBuilder : BaseBuilder
     {
         public string Designation { get; set; } 
-        public string Name { get; set; }
+        public string Title { get; set; }
         public DateTime BeginDate { get; set; } 
         public DateTime EndDate { get; set; }
         public Module Module { get; set; }
@@ -22,10 +22,12 @@ namespace Dozentenplanung.Models
             }
 
             theUnit.Designation = this.Designation;
-            theUnit.Name = this.Name;
+            theUnit.Title = this.Title;
             theUnit.BeginDate = this.BeginDate;
             theUnit.EndDate = this.EndDate;
-            theUnit.Module = this.Module;
+            if (this.Module != null) {
+                theUnit.Module = this.Module;
+            }
 
             if (this.isNew()) {
                 this.DatabaseContext.Units.Add(theUnit);

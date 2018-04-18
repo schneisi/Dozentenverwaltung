@@ -1,0 +1,29 @@
+﻿@model Dozentenplanung.Models.Unit
+
+@{
+    ViewData["title"] = Model.Title;
+    ViewData["menuId"] = "courses";
+
+}
+<form id="form" asp-action="save" asp-controller="Unit" asp-action="post" asp-route-id=@Model.Id>
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Bezeichnung</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.Designation, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Titel</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.Title, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-controller="unit" asp-action="delete" asp-route-id=@Model.Id class="button is-danger">Löschen</a>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
+</form>

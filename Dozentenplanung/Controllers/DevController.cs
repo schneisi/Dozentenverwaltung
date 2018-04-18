@@ -18,6 +18,7 @@ namespace Dozentenplanung.Controllers
 
 
         public IActionResult DropDatabase() {
+            this.DatabaseContext.Delete();
             return RedirectToAction("Index", "dev");
         }
     }
