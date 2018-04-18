@@ -19,7 +19,9 @@ namespace Dozentenplanung.Models
 
         public int semester;
 
-
         public int durationOfExams { get; set; }
+
+        public Module Module { get; set; }
+        public virtual int ModuleId { get; set; }
     }
 }

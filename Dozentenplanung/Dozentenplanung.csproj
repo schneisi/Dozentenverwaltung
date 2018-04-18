@@ -29,6 +29,7 @@
     <Folder Include="Data\" />
     <Folder Include="IoC\" />
     <Folder Include="Views\Dev\" />
+    <Folder Include="Views\Unit\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Database.db" />

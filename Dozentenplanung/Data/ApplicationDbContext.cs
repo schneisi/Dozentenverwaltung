@@ -10,9 +10,10 @@ namespace Dozentenplanung
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; } 
-        public DbSet<Lecturer> Lecturers { get; set; }
+        public DbSet<Unit> Units { get; set; }
        
         //Database representation model
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
