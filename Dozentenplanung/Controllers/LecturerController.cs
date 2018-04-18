@@ -27,7 +27,7 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Firstname = "Vorname";
                 theBuilder.Mail = "mail@dhbw-loerrach.de";
                 theBuilder.Notes = "Notizen";
-                theBuilder.save();
+                theBuilder.Save();
                 theLecturer = theBuilder.Lecturer();
             }
 
@@ -57,7 +57,7 @@ namespace Dozentenplanung.Controllers
             theBuilder.Lastname = lastname;
             theBuilder.Mail = mail;
             theBuilder.Notes = notes;
-            theBuilder.save();
+            theBuilder.Save();
             return RedirectToAction("Index", "Lecturer");
         }
 

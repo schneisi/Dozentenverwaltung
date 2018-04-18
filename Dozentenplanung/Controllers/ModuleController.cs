@@ -30,7 +30,7 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Course = this.CourseForId(courseId.Value);
                 theBuilder.Designation = "Modulbezeichnung";
                 theBuilder.Title = "Modultitel";
-                theBuilder.save();
+                theBuilder.Save();
                 theModule = theBuilder.Module();
             }
 
@@ -52,7 +52,7 @@ namespace Dozentenplanung.Controllers
             ModuleBuilder theBuilder = new ModuleBuilder(this.DatabaseContext, theModule);
             theBuilder.Title = title;
             theBuilder.Designation = designation;
-            theBuilder.save();
+            theBuilder.Save();
             return RedirectToAction("course", "course", new { id = theModule.CourseId});
         }
 

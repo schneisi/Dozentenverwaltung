@@ -27,7 +27,7 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Title = "";
                 theBuilder.Designation = "Unitbezeichnung";
                 theBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
-                theBuilder.save();
+                theBuilder.Save();
                 theUnit = theBuilder.Unit();
             }
 
@@ -43,7 +43,7 @@ namespace Dozentenplanung.Controllers
             UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             theBuilder.Title = title;
             theBuilder.Designation = designation;
-            theBuilder.save();
+            theBuilder.Save();
             return RedirectToAction("unit", "unit", new {id = id});
         }
 

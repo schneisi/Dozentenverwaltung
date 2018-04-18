@@ -12,7 +12,7 @@ namespace Dozentenplanung.Models
         public UnitBuilder(ApplicationDbContext aContext) : base(aContext){}
         public UnitBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject){}
 
-		public override BaseObject saveChanges()
+        protected override BaseObject saveChanges()
 		{
             Unit theUnit;
             if (this.isNew()) {

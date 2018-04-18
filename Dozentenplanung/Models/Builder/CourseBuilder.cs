@@ -11,7 +11,7 @@ namespace Dozentenplanung.Models
         {
         }
 
-        public override BaseObject saveChanges()
+        protected override BaseObject saveChanges()
         {
             Course theCourse;
             if (this.isNew()) {

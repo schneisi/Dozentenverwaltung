@@ -10,7 +10,7 @@ namespace Dozentenplanung.Models
         public ModuleBuilder(ApplicationDbContext aContext) : base(aContext){}
         public ModuleBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject){}
 
-        public override BaseObject saveChanges() {
+        protected override BaseObject saveChanges() {
             Module theModule;
             if (this.isNew()) {
                 theModule = new Module();

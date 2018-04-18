@@ -31,7 +31,7 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Title = "Neuer Kurs";
                 theBuilder.Designation = "Bezeichnung";
                 theBuilder.Year = DateTime.Now.Year;
-                theBuilder.save();
+                theBuilder.Save();
                 theCourse = theBuilder.Course();
             }
             return View(theCourse);
@@ -61,7 +61,7 @@ namespace Dozentenplanung.Controllers
             theCourseBuilder.Title = title;
             theCourseBuilder.Designation = designation;
             theCourseBuilder.Year = year;
-            theCourseBuilder.save();
+            theCourseBuilder.Save();
             Course theCourse = theCourseBuilder.Course();
             return RedirectToAction("course", "course", new { id = theCourse.Id});
         }
