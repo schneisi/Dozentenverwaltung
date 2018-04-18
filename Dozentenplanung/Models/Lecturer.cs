@@ -16,7 +16,11 @@ namespace Dozentenplanung.Models
 
         public string Notes { get; set; }
 
-
+        public string Fullname {
+            get {
+                return this.Firstname + " " + this.Lastname;
+            }
+        }
         //API
         public bool deleteFromContext(ApplicationDbContext aContext)
         {

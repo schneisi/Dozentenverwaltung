@@ -4,6 +4,12 @@
     ViewData["title"] = "Dozent " + Model.Lastname;
     ViewData["menuId"] = "lecturers";
 }
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a asp-controller="lecturer" asp-action="index">Dozenten</a></li>
+    <li class="is-active"><a href="#" aria-current="page">@Model.Fullname</a></li>
+  </ul>
+</nav>
 
 <table class="attributesTable">
     <tr>
