@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
 using Dozentenplanung.Models;
 using Microsoft.Data.Sqlite;
 using System.Reflection.Emit;
+
 
 namespace Dozentenplanung
 {
@@ -32,5 +33,12 @@ namespace Dozentenplanung
 
             anOptionsBuilder.UseSqlite(theSqlLiteConnection);
         }*/
+
+
+        //API
+        public Course CourseForId(int id)
+        {
+            return this.Courses.Include("Modules").SingleOrDefault(course => course.Id == id);
+        }
     }
 }

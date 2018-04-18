@@ -18,17 +18,37 @@ namespace Dozentenplanung.Controllers
         }
         public IActionResult Module(int id)
         {
-            return View(this.moduleForId(id));
+            return View(this.ModuleForId(id));
         }
-        public IActionResult Edit (int id)
+        public IActionResult Edit (int? id, int? courseId)
         {
-            return View(DatabaseContext.Modules.Find(id));
+            Module theModule;
+            if (id.HasValue) {
+                theModule = DatabaseContext.Modules.Find(id);
+            } else {
+                ModuleBuilder theBuilder = new ModuleBuilder(this.DatabaseContext);
+                theBuilder.Course = this.CourseForId(courseId.Value);
+                theBuilder.Designation = "Modulbezeichnung";
+                theBuilder.Title = "Modultitel";
+                theBuilder.save();
+                theModule = theBuilder.Module();
+            }
+
+            return View(theModule);
+
+        }
+
+        public IActionResult Delete(int id) {
+            Module theModule = this.ModuleForId(id);
+            theModule.deleteFromContext(this.DatabaseContext);
+            this.SaveDatabaseContext();
+            return RedirectToAction("course", "course", new { id = theModule.CourseId });
         }
 
         [HttpPost]
         public IActionResult SaveModule(int id, int courseId, string title, string designation)
         {
-            Module theModule = this.moduleForId(id);
+            Module theModule = this.ModuleForId(id);
             ModuleBuilder theBuilder = new ModuleBuilder(this.DatabaseContext, theModule);
             theBuilder.Title = title;
             theBuilder.Designation = designation;
@@ -39,7 +59,7 @@ namespace Dozentenplanung.Controllers
 
 
 
-        private Module moduleForId(int anId) {
+        private Module ModuleForId(int anId) {
             return this.DatabaseContext.Modules.Find(anId);
         }
     }

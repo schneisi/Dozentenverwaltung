@@ -1,9 +1,6 @@
 ﻿@model Dozentenplanung.Models.Module
 
 @{
-   @model Dozentenplanung.Models.Module
-
-@{
     string theTitleString = "Neues Modul";
     bool isNew = Model == null;
     if (!isNew) {
@@ -33,5 +30,6 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="button" form="form">Modul speichern</button>
+    <a asp-controller="module" asp-action="delete" asp-route-id=@Model.Id class="button is-danger">Löschen</a>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>

@@ -15,7 +15,7 @@ namespace Dozentenplanung.Models
         public LecturerBuilder(ApplicationDbContext aContext, Lecturer anObject) : base(aContext, anObject)
         {}
 
-        public override void saveChanges()
+        public override BaseObject saveChanges()
         {
             Lecturer theLecturer;
             if (this.isNew())
@@ -36,7 +36,7 @@ namespace Dozentenplanung.Models
             {
                 this.DatabaseContext.Lecturers.Add(theLecturer);
             }
-            this.Object = theLecturer;
+            return theLecturer;
         }
 
         public Lecturer Lecturer()

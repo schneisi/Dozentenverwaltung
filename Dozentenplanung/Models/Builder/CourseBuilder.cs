@@ -11,7 +11,7 @@ namespace Dozentenplanung.Models
         {
         }
 
-        public override void saveChanges()
+        public override BaseObject saveChanges()
         {
             Course theCourse;
             if (this.isNew()) {
@@ -28,7 +28,7 @@ namespace Dozentenplanung.Models
             if (this.isNew()) {
                 this.DatabaseContext.Courses.Add(theCourse);
             }
-            this.Object = theCourse;
+            return theCourse;
         }
 
         public Course Course()

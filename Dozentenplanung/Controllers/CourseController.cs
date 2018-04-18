@@ -10,9 +10,7 @@ namespace Dozentenplanung.Controllers
 {
     public class CourseController : BaseController
     {
-        public CourseController(ApplicationDbContext aContext) : base(aContext)
-        {
-        }
+        public CourseController(ApplicationDbContext aContext) : base(aContext) {}
 
         #region Views
         public IActionResult Index()
@@ -64,17 +62,13 @@ namespace Dozentenplanung.Controllers
             theCourseBuilder.Designation = designation;
             theCourseBuilder.Year = year;
             theCourseBuilder.save();
-            return RedirectToAction("Index", "course");
+            Course theCourse = theCourseBuilder.Course();
+            return RedirectToAction("course", "course", new { id = theCourse.Id});
         }
 
         private List<Course> Courses()
         {
             return this.DatabaseContext.Courses.ToList();
-        }
-
-        private Course CourseForId(int id)
-        {
-            return DatabaseContext.Courses.Include("Modules").SingleOrDefault(course => course.Id == id);
         }
     }
 }

@@ -7,12 +7,10 @@ namespace Dozentenplanung.Models
         public string Designation { get; set; }
         public Course Course { get; set; }
 
-        public ModuleBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject)
-        {
-            
-        }
+        public ModuleBuilder(ApplicationDbContext aContext) : base(aContext){}
+        public ModuleBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject){}
 
-        public override void saveChanges() {
+        public override BaseObject saveChanges() {
             Module theModule;
             if (this.isNew()) {
                 theModule = new Module();
@@ -30,9 +28,10 @@ namespace Dozentenplanung.Models
             {
                 this.DatabaseContext.Modules.Add(theModule);
             }
+            return  theModule;
         }
 
-        private Module Module() {
+        public Module Module() {
             return (Module)this.Object;
         }
     }

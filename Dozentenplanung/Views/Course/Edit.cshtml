@@ -16,7 +16,7 @@
             <div class="field">
                 <label class="label">Bezeichnung</label>
                 <div class="control">
-                    @Html.EditorFor(module => module.Designation, new { htmlAttributes = new { @class = "input" } })
+                    @Html.EditorFor(course => course.Designation, new { htmlAttributes = new { @class = "input" } })
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="field">
                 <label class="label">Titel</label>
                 <div class="control">
-                    @Html.EditorFor(module => module.Title, new { htmlAttributes = new { @class = "input" } })
+                    @Html.EditorFor(course => course.Title, new { htmlAttributes = new { @class = "input" } })
                 </div>
             </div>
         </div>
@@ -34,11 +34,11 @@
             <div class="field">
                 <label class="label">Jahr</label>
                 <div class="control">
-                    @Html.EditorFor(module => module.Year, new { htmlAttributes = new { @class = "input" } })
+                    @Html.EditorFor(course => course.Year, new { htmlAttributes = new { @class = "input" } })
                 </div>
             </div>
         </div>
     </div>
-    <a asp-controller="course" asp-action="deletecourse" asp-route-id=@Model.Id class="button is-danger">Löschen</a>
+    <a asp-controller="course" asp-action="deletecourse" asp-route-id=@Model.Id class="button is-danger">Löschen (inkl. Module)</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>

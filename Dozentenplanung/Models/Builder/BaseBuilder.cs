@@ -24,10 +24,11 @@ namespace Dozentenplanung.Models
             return this.Errors.Count > 1;
         }
         public void save() {
-            this.saveChanges();
+            BaseObject theObject = this.saveChanges();
             this.DatabaseContext.SaveChanges();
+            this.Object = theObject;
         }
-        public abstract void saveChanges();
+        public abstract BaseObject saveChanges();
     }
 
 
