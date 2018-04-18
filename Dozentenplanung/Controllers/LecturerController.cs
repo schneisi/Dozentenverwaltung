@@ -20,7 +20,7 @@ namespace Dozentenplanung.Controllers
         {
             Lecturer theLecturer;
             if (id.HasValue) {
-                theLecturer = this.DatabaseContext.Lecturers.Find(id);
+                theLecturer = this.LecturerForId(id.Value);
             } else {
                 LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext);
                 theBuilder.Lastname = "Nachname";
@@ -35,6 +35,29 @@ namespace Dozentenplanung.Controllers
         }
         public IActionResult Create() {
             return View();
+        }
+
+        public IActionResult DeleteLecteurer(int id) {
+            Lecturer theLecturer = this.LecturerForId(id);
+            if (theLecturer.deleteFromContext(this.DatabaseContext)) {
+                this.SaveDatabaseContext();
+                return RedirectToAction("Index", "Lecturer");
+            }
+            return RedirectToAction("Edit", id);
+        }
+
+        public IActionResult SaveLecturer(int id, string firstname, string lastname, string mail, string notes) {
+            LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext, this.LecturerForId(id));
+            theBuilder.Firstname = firstname;
+            theBuilder.Lastname = lastname;
+            theBuilder.Mail = mail;
+            theBuilder.Notes = notes;
+            theBuilder.save();
+            return RedirectToAction("Index", "Lecturer");
+        }
+
+        private Lecturer LecturerForId(int id) {
+            return this.DatabaseContext.Lecturers.Find(id);
         }
 
         public List<Lecturer> Lecturers() {

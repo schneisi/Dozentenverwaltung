@@ -31,7 +31,7 @@
     <Folder Include="Views\Dev\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="wwwroot\js\app.js" />
     <None Remove="Database.db" />
+    <None Remove="wwwroot\js\app.js" />
   </ItemGroup>
 </Project>

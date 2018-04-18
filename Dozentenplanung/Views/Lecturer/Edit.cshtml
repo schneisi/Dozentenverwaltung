@@ -12,7 +12,7 @@
         ViewData["menuId"] = "lecturers";
 
     }
-    <form id="form" asp-action="" asp-controller="Lecturer" asp-action="post" asp-route-id=@Model.Id>
+    <form id="form" asp-action="SaveLecturer" asp-controller="Lecturer" asp-action="post" asp-route-id=@Model.Id>
         <div class="columns ">
             <div class="column">
                 <div class="field">
@@ -48,6 +48,6 @@
             </div>
         </div>
 
-        <a asp-controller="" asp-action="" asp-route-id=@Model.Id class="button is-danger">Dozent löschen (WIP)</a>
-        <button type="submit" class="button is-success" form="form">Dozent speichern (WIP)</button>
+        <a asp-controller="Lecturer" asp-action="DeleteLecteurer" asp-route-id=@Model.Id class="button is-danger">Löschen</a>
+        <button type="submit" class="button is-success" form="form">Speichern</button>
     </form>

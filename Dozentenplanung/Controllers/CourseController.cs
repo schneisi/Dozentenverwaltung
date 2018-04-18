@@ -49,8 +49,8 @@ namespace Dozentenplanung.Controllers
         public IActionResult DeleteCourse(int id)
         {
             this.CourseForId(id).deleteFromContext(this.DatabaseContext);
-            this.DatabaseContext.SaveChanges();
-            return View("index", this.Courses());
+            this.SaveDatabaseContext();
+            return RedirectToAction("index", "course");
         }
 
         [HttpPost]
@@ -64,7 +64,7 @@ namespace Dozentenplanung.Controllers
             theCourseBuilder.Designation = designation;
             theCourseBuilder.Year = year;
             theCourseBuilder.save();
-            return RedirectToAction("Index", this.Courses());
+            return RedirectToAction("Index", "course");
         }
 
         private List<Course> Courses()

@@ -16,5 +16,13 @@ namespace Dozentenplanung.Models
 
         public string Notes { get; set; }
 
+
+        //API
+        public bool deleteFromContext(ApplicationDbContext aContext)
+        {
+            aContext.Lecturers.Remove(this);
+            return true;
+        }
+
     }
 }

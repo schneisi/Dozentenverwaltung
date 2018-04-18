@@ -17,5 +17,10 @@ namespace Dozentenplanung.Controllers
 
             DatabaseContext.Database.EnsureCreated();
         }
+
+
+        protected void SaveDatabaseContext() {
+            this.DatabaseContext.SaveChanges();
+        }
     }
 }
