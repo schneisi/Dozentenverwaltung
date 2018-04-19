@@ -46,7 +46,7 @@ namespace Dozentenplanung
             return this.Modules.Include("Units").Include("Course").SingleOrDefault(module => module.Id == id);
         }
         public Unit UnitForId(int id) {
-            return this.Units.Find(id);
+            return this.Units.Include("Module").Include("Module.Course").SingleOrDefault(unit => unit.Id == id);
         }
 
         public void Delete() {

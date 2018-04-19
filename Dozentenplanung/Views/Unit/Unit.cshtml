@@ -4,7 +4,14 @@
     ViewData["title"] = "Unit " + Model.Designation;
     ViewData["menuId"] = "courses";
 }
-
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a asp-controller="course" asp-action="index">Kurse</a></li>
+    <li><a asp-controller="course" asp-action="course" asp-route-id="@Model.Module.CourseId">@Model.Module.Course.Title</a></li>
+    <li><a asp-controller="module" asp-action="module" asp-route-id="@Model.Module.Id">@Model.Module.Title</a></li>
+    <li class="is-active"><a href="#" aria-current="page">@Model.Title</a></li>
+  </ul>
+</nav>
 <table class="attributesTable">
     <tr>
         <td>Bezeichnung:</td>
