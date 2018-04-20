@@ -8,6 +8,8 @@ namespace Dozentenplanung.Models
         [Key]
         public int Id { get; set; }
 
+        //public string UnitCode { get; set; }
+
         public string Title { get; set; }
 
         public string Designation { get; set; }
@@ -20,6 +22,12 @@ namespace Dozentenplanung.Models
         public int semester;
 
         public int durationOfExams { get; set; }
+
+        //public string TypeOfExams { get; set; }
+        //public int TypeOfJoining { get; set; } --> wie wird verrechnet Note /Prozent ggf Dropdown?
+        //public int LiteratureBib { get; set; }
+        //public int LiteratureNotInBib { get; set; }
+        //public string NeededKnowledgle { get; set; }
 
         public Module Module { get; set; }
         public virtual int ModuleId { get; set; }

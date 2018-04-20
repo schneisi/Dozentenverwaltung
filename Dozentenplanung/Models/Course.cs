@@ -15,6 +15,9 @@ namespace Dozentenplanung.Models
         [MaxLength(256)]
         public string Title { get; set; }
 
+        //[MaxLength(50)]
+        //public int Students { get; set; } --> interessant falls Kurse zusammen gelegt werden sollen wegen der Grösse
+
         [Required]
         [MaxLength(128)]
         public string Designation { get; set; }

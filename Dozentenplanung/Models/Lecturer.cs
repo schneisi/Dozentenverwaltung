@@ -16,6 +16,10 @@ namespace Dozentenplanung.Models
 
         public string Notes { get; set; }
 
+       //public string Knowledge { get; set; } --> wegen der Gruppenzuteilen um automatisch Dozenten anzugeben
+
+       //public string Absences{ get; set; } ? --> hier könnten solche Sachen wie Urlaub oder nur Mittwochs da usw stehen
+
         public string Fullname {
             get {
                 return this.Firstname + " " + this.Lastname;

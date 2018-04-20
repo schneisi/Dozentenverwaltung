@@ -1,13 +1,13 @@
 ﻿@model Dozentenplanung.Models.Lecturer;
 
 @{
-    ViewData["title"] = "Dozent " + Model.Lastname;
+    ViewData["title"] = "Detailansicht: " + Model.Lastname +  ", " + Model.Firstname;
     ViewData["menuId"] = "lecturers";
 }
 <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
     <li><a asp-controller="lecturer" asp-action="index">Dozenten</a></li>
-    <li class="is-active"><a href="#" aria-current="page">@Model.Fullname</a></li>
+    <li class="is-active"><a href="#" aria-current="page">@Model.Lastname,  @Model.Firstname</a></li>
   </ul>
 </nav>
 
@@ -19,6 +19,16 @@
     <tr>
         <td>Nachname:</td>
         <td>@Model.Lastname</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>
+            <a href="mailto:@(Model.Mail)">@Model.Mail</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Notizen:</td>
+        <td>@Model.Notes</td>
     </tr>
 </table>
 <a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>
