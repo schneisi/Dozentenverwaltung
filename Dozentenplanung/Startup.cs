@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dozentenplanung.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Dozentenplanung
 {
@@ -25,6 +26,27 @@ namespace Dozentenplanung
         public void ConfigureServices(IServiceCollection aServiceCollection)
         {
             aServiceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            aServiceCollection.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            //Set password policy
+            aServiceCollection.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            });
+
+            /*aServiceCollection.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "login";
+            });*/
+
             aServiceCollection.AddMvc();
 
             //aServiceCollection.AddEntityFrameworkSqlite().AddDbContext<ApplicationDbContext>();
@@ -34,6 +56,9 @@ namespace Dozentenplanung
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider aServiceProvider)
         {
             IoCContainer.Provider = (ServiceProvider)aServiceProvider;
+
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

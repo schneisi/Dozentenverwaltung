@@ -30,6 +30,8 @@
     <Folder Include="IoC\" />
     <Folder Include="Views\Dev\" />
     <Folder Include="Views\Unit\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Database.db" />

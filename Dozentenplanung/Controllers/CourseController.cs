@@ -5,14 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dozentenplanung.Controllers
 {
+    [Authorize]
     public class CourseController : BaseController
     {
-        public CourseController(ApplicationDbContext aContext) : base(aContext) {}
-
+        public CourseController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager) : base(aContext, aUserManager, aSignInManager)
+        {
+        }
         #region Views
+        [Authorize]
         public IActionResult Index()
         {
             return View(this.Courses());
@@ -70,5 +75,7 @@ namespace Dozentenplanung.Controllers
         {
             return this.DatabaseContext.Courses.ToList();
         }
+
+
     }
 }

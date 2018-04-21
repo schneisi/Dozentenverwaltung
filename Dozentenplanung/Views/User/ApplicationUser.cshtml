@@ -1,0 +1,27 @@
+﻿@model Dozentenplanung.Models.ApplicationUser;
+
+@{
+    ViewData["title"] = "User " + Model.UserName;
+    ViewData["menuId"] = "users";
+}
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <ul>
+    <li><a asp-controller="user" asp-action="index">Benutzer</a></li>
+    <li class="is-active"><a href="#" aria-current="page">@Model.UserName</a></li>
+  </ul>
+</nav>
+<table class="attributesTable">
+    <tr>
+        <td>Id:</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>Benutzername:</td>
+        <td>@Model.UserName</td>
+    </tr>
+    <tr>
+        <td>E-Mail:</td>
+        <td>@Model.Email</td>
+    </tr>
+</table>
+<a class="button" asp-controller="user" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>

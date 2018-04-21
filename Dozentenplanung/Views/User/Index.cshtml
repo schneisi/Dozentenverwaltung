@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Dozentenplanung.Models.ApplicationUser>;
+@{
+    ViewData["title"] = "Benutzer";
+    ViewData["menuId"] = "users";
+}
+
+<table class="table is-fullwidth is-hoverable is-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th />
+        </tr>
+    </thead>
+    @foreach (var eachUser in Model) {
+        <tr>
+            <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
+                @Html.DisplayFor(modelItem => eachUser.Id)
+            </td>
+            <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
+                @Html.DisplayFor(modelItem => eachUser.UserName)
+            </td>
+            <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
+                @Html.DisplayFor(modelItem => eachUser.Email)
+            </td>
+            <td>
+                <a class="button" asp-controller="unit" asp-action="edit" asp-route-id=@eachUser.Id>Bearbeiten</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -4,14 +4,13 @@
 
 body {
     background-color: #F3F3F3;
-    padding: 30px;
+    padding: 17px;
     min-height: 100%;
 }
 
 .sidenav {
-    width: 190px;
+    width: 185px;
     position: fixed;
-    top: 30px;
     background-color: white;
     padding: 13px
 }
@@ -35,7 +34,7 @@ body {
 }
 
 .main {
-    margin-left: 220px; /* Same width as the sidebar + left position in px */
+    margin-left: 205px; /* Same width as the sidebar + left position in px */
     padding: 17px;
     background-color: white
 }

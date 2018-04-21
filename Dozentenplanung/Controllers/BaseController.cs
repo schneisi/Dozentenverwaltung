@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +14,16 @@ namespace Dozentenplanung.Controllers
     public abstract class BaseController : Controller
     {
         protected ApplicationDbContext DatabaseContext;
-        public BaseController(ApplicationDbContext aContext)
-        {
-            DatabaseContext = aContext;
+        protected UserManager<ApplicationUser> UserManager;
+        protected SignInManager<ApplicationUser> SignInManager;
 
-            DatabaseContext.Database.EnsureCreated();
+        public BaseController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager)
+        {
+            this.DatabaseContext = aContext;
+            this.UserManager = aUserManager;
+            this.SignInManager = aSignInManager;
+
+            this.DatabaseContext.Database.EnsureCreated();
         }
 
 

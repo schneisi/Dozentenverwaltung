@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Dozentenplanung.Models;
 using Microsoft.Data.Sqlite;
 using System.Reflection.Emit;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Dozentenplanung
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -23,7 +23,7 @@ namespace Dozentenplanung
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            base.OnModelCreating(modelBuilder);
         }
 
         /*protected override void OnConfiguring(DbContextOptionsBuilder anOptionsBuilder)

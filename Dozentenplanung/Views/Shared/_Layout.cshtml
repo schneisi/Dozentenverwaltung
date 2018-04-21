@@ -32,12 +32,13 @@
                     </li>
                 </ul>
                 <p class="menu-label">
-                    Entwicklung
+                    Admin
                 </p>
                 <ul class="menu-list">
+                    <li><a id="users" asp-controller="user" asp-action="index">Benutzer</a></li>
                     <li><a id="dev" asp-controller="dev" asp-action="index">Entwicklung</a></li>
                 </ul>
-
+                <a asp-controller="account" asp-action="logout">Logout</a>
             </aside>
         </div>
 
@@ -48,7 +49,7 @@
             </div>
         </div>
         <script>
-            $(@ViewData["menuId"]).addClass("is-active");
+            $("#" + "@ViewData["menuId"]").addClass("is-active");
         </script>
         @RenderSection("script", false)
     </body>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["title"] = "Login - Dozentenplanung";
+}
+
+
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-6 is-offset-3">
+          <h3 class="title has-text-grey">Login</h3>
+          <div class="box">
+            <figure class="avatar">
+              <img src="https://placehold.it/128x128">
+            </figure>
+            <form asp-controller="account" asp-action="loginUser" asp-route-returnurl="@ViewBag.redirectUrl">
+              <div class="field">
+                <div class="control">
+                  <input class="input" name="username" type="text" placeholder="Benutzername" value="dev" autofocus="">
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <input class="input" name="password" type="password" placeholder="Passwort" value="password">
+                </div>
+              </div>
+              <button type="submit" class="button is-block is-info is-fullwidth">Login</button>
+            </form>
+          </div>
+            <a asp-controller="account" asp-action="createDevAccount">Dev-Account erstellen</a> &nbsp;·&nbsp;
+            <a asp-controller="dev" asp-action="index">Dev-Seite</a>
+        </div>
+      </div>
+    </div>

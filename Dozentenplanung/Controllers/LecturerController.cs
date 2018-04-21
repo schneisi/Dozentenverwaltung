@@ -5,13 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using Dozentenplanung.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dozentenplanung.Controllers
 {
+    [Authorize]
     public class LecturerController : BaseController
     {
-        public LecturerController(ApplicationDbContext aContext) : base(aContext){}
-        
+        public LecturerController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager) : base(aContext, aUserManager, aSignInManager)
+        {
+        }
+
         public IActionResult Index()
         {
             return View(this.Lecturers());

@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace Dozentenplanung.Controllers
 {
     public class DevController : BaseController
     {
-        public DevController(ApplicationDbContext aContext) : base (aContext) {}
+        public DevController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager) : base(aContext, aUserManager, aSignInManager)
+        {
+        }
 
         public IActionResult Index()
         {

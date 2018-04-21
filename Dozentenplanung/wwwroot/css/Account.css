@@ -1,0 +1,9 @@
+﻿body {
+    padding: 20px;
+}
+
+#loginCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
