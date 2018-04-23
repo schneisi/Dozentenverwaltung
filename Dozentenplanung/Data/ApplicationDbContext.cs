@@ -18,7 +18,7 @@ namespace Dozentenplanung
         //Database representation model
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+            this.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -49,6 +49,11 @@ namespace Dozentenplanung
             return this.Units.Include("Module").Include("Module.Course").SingleOrDefault(unit => unit.Id == id);
         }
 
+
+
+        public void EnsureCreated() {
+            this.Database.EnsureCreated();
+        }
         public void Delete() {
             this.Database.EnsureDeleted();
         }

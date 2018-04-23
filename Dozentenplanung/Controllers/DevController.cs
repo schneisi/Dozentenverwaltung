@@ -27,11 +27,20 @@ namespace Dozentenplanung.Controllers
             theLecturerBuilder.Notes = "Sehr guter Informatiker";
             theLecturerBuilder.Save();
 
-            return RedirectToAction("Index", "dev");
+            return Redirect();
         }
 
         public IActionResult DropDatabase() {
             this.DatabaseContext.Delete();
+            return this.Redirect();
+        }
+
+        public IActionResult CreateDatabase() {
+            this.DatabaseContext.EnsureCreated();
+            return this.Redirect();
+        }
+
+        private IActionResult Redirect() {
             return RedirectToAction("Index", "dev");
         }
     }

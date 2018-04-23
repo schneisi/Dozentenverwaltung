@@ -76,6 +76,8 @@ namespace Dozentenplanung
                     name: "default",
                     template: "{controller=Course}/{action=Index}/{id?}");
             });
+
+            RolesData.SeedRoles(aServiceProvider).Wait();
         }
     }
 }

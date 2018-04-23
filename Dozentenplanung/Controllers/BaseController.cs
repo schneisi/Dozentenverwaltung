@@ -22,8 +22,6 @@ namespace Dozentenplanung.Controllers
             this.DatabaseContext = aContext;
             this.UserManager = aUserManager;
             this.SignInManager = aSignInManager;
-
-            this.DatabaseContext.Database.EnsureCreated();
         }
 
 
