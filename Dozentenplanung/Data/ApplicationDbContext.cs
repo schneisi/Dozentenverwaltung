@@ -14,6 +14,8 @@ namespace Dozentenplanung
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; } 
         public DbSet<Unit> Units { get; set; }
+
+        public DbSet<Setting> Settings { get; set; }
        
         //Database representation model
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -56,6 +58,11 @@ namespace Dozentenplanung
         }
         public void Delete() {
             this.Database.EnsureDeleted();
+        }
+
+
+        public Setting settingForName(string aName) {
+            return this.Settings.Single(setting => setting.Name == aName);
         }
     }
 }

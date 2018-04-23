@@ -33,5 +33,9 @@ namespace Dozentenplanung.Controllers
         {
             return this.DatabaseContext.CourseForId(anIdInt);
         }
+
+        protected async Task<ApplicationUser> GetUserForId(string id) {
+            return await this.UserManager.FindByIdAsync(id);
+        }
     }
 }

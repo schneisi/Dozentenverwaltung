@@ -61,5 +61,37 @@ namespace Dozentenplanung.Controllers
                 return RedirectToAction("login", "account");
             }
         }
+
+        public IActionResult ResetPassword() {
+            return View();
+        }
+
+
+        [Route("account/CreatePasswordToken")]
+        public async Task<IActionResult> CreatePasswordToken(string email) {
+            var theUser = await this.UserManager.FindByEmailAsync(email);
+            if (theUser != null) {
+                string theToken = await this.UserManager.GeneratePasswordResetTokenAsync(theUser);
+                return Content("ResetToken: userId="  + theUser.Id + "&passwordToken="+ System.Web.HttpUtility.UrlEncode(theToken));
+            } else {
+                return Content("Fehler aufgetreten");
+            }
+        }
+
+        public IActionResult SetNewPassword(string userId, string passwordToken) {
+            ViewBag.passwordToken = passwordToken;
+            ViewBag.userId = userId;
+            return View();
+        }
+
+        public async Task<IActionResult> setNewPasswordWithToken (string userId, string password, string passwordToken) {
+            ApplicationUser theUser = await this.GetUserForId(userId);
+            var result = await this.UserManager.ResetPasswordAsync(theUser, passwordToken, password);
+            if (result.Succeeded) {
+                return RedirectToAction("index", "course");
+            } else {
+                return Content(result.Errors.ToString());
+            }
+        }
     }
 }

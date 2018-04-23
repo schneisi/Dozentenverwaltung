@@ -78,6 +78,8 @@ namespace Dozentenplanung
             });
 
             RolesData.SeedRoles(aServiceProvider).Wait();
+            MailHelper.Initialize(aServiceProvider);
+            //MailHelper.SendTestMail();
         }
     }
 }
