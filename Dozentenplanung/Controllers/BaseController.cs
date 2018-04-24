@@ -37,5 +37,16 @@ namespace Dozentenplanung.Controllers
         protected async Task<ApplicationUser> GetUserForId(string id) {
             return await this.UserManager.FindByIdAsync(id);
         }
+
+        protected void SendMail(bool useHtml, string receiver, string subject, string content) {
+            MailHelper theMailHelper = new MailHelper
+            {
+                Subject = subject,
+                Content = content,
+                RecipientAddress = receiver,
+                isHtmlMail = useHtml
+            };
+            theMailHelper.Send();
+        }
     }
 }

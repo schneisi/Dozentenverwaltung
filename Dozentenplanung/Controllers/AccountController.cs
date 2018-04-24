@@ -71,8 +71,20 @@ namespace Dozentenplanung.Controllers
         public async Task<IActionResult> CreatePasswordToken(string email) {
             var theUser = await this.UserManager.FindByEmailAsync(email);
             if (theUser != null) {
+                string theLink = "";
                 string theToken = await this.UserManager.GeneratePasswordResetTokenAsync(theUser);
-                return Content("ResetToken: userId="  + theUser.Id + "&passwordToken="+ System.Web.HttpUtility.UrlEncode(theToken));
+                string theHostString = HttpContext.Request.Host.Host;
+                theLink += theHostString;
+                int? thePort = HttpContext.Request.Host.Port;
+                if (thePort.HasValue) {
+                    theLink = theLink + ":" + thePort.Value;
+                }
+                theLink = theLink + "/account/" + "SetNewPassword";
+
+                theLink = theLink + "?userId=" + theUser.Id + "&passwordToken=" + System.Web.HttpUtility.UrlEncode(theToken);
+                this.SendMail(true, theUser.Email, "Passwort zurücksetzen - Dozentenverwaltung", "<a href='" + theLink + "'>Passwort zurücksetzen");
+
+                return Content("ResetLink: " + theLink);
             } else {
                 return Content("Fehler aufgetreten");
             }

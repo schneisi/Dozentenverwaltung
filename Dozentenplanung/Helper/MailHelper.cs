@@ -29,7 +29,7 @@ namespace Dozentenplanung
                 MailHelper.Password = "";
                 MailHelper.Port = 2500;
                 MailHelper.EnableSsl = false;
-                MailHelper.Sender = "test";
+                MailHelper.Sender = "test@test.de";
             }
         }
 
@@ -52,19 +52,23 @@ namespace Dozentenplanung
         public string SenderAddress { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }
+        public bool isHtmlMail { get; set; } 
 
         public MailHelper() {
             this.RecipientAddress = "";
             this.Content = "";
+            this.SenderAddress = MailHelper.Sender;
+            this.isHtmlMail = false;
         }
 
-        public MailHelper(string recipient, string subject, string content) {
+        public MailHelper(string recipient, string subject, string content) : this() {
             this.RecipientAddress = recipient;
             this.Content = content;
             this.Subject = subject;
-            this.SenderAddress = MailHelper.Sender;
         }
 
+
+        //API
         public void Send() {
             SmtpClient theSmtpClient = new SmtpClient();
 
@@ -79,6 +83,7 @@ namespace Dozentenplanung
             theMailMessage.BodyEncoding = Encoding.UTF8;
             theMailMessage.Subject = this.Subject;
             theMailMessage.Body = this.Content;
+			theMailMessage.IsBodyHtml = this.isHtmlMail;
 
             theSmtpClient.Send(theMailMessage);
         }
