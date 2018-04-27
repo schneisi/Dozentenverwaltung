@@ -41,6 +41,10 @@ namespace Dozentenplanung.Models
             return DatabaseContext.Lecturers.Where(Lecturer => true).ToList();
         }
 
+        public string LecturerName {
+            get { return this.Lecturer.Fullname; }
+        }
+
         public void DeleteFromContext(ApplicationDbContext aContext)
         {
             aContext.Units.Remove(this);

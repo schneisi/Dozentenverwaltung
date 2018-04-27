@@ -42,14 +42,24 @@ namespace Dozentenplanung
         //API
         public Course CourseForId(int id)
         {
-            return this.Courses.Include("Modules").SingleOrDefault(course => course.Id == id);
+            return this.Courses
+                       .Include("Modules")
+                       .SingleOrDefault(course => course.Id == id);
         }
         public Module ModuleForId(int id)
         {
-            return this.Modules.Include("Units").Include("Course").SingleOrDefault(module => module.Id == id);
+            return this.Modules
+                       .Include("Units")
+                       .Include("Course")
+                       .Include("Units.Lecturer")
+                       .SingleOrDefault(module => module.Id == id);
         }
         public Unit UnitForId(int id) {
-            return this.Units.Include("Module").Include("Module.Course").Include("Lecturer").SingleOrDefault(unit => unit.Id == id);
+            return this.Units
+                       .Include("Module")
+                       .Include("Module.Course")
+                       .Include("Lecturer")
+                       .SingleOrDefault(unit => unit.Id == id);
         }
         public Lecturer LecturerForId(int id) {
             return this.Lecturers.Find(id);

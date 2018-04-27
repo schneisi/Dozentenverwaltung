@@ -5,7 +5,7 @@
     ViewData["menuId"] = "courses";
 
 }
-<form id="form" asp-action="save" asp-controller="Unit" asp-action="post" asp-route-id="@Model.Id">
+<form id="form" asp-action="save" asp-controller="Unit" asp-route-id="@Model.Id">
     <div class="columns">
         <div class="column">
             <div class="field">
@@ -32,6 +32,6 @@
             </div>
         </div>
     </div>
-    <a asp-controller="unit" asp-action="delete" asp-route-id=@Model.Id class="button is-danger">Löschen</a>
+    <a asp-controller="unit" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>

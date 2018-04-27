@@ -10,7 +10,7 @@
 
     ViewData["title"] = theTitleString;
 }
-<form id="form" asp-action="createcourse" asp-controller="Course" asp-route-id=@Model.Id asp-action="post">
+<form id="form" asp-action="createcourse" asp-controller="Course" asp-route-id="@Model.Id">
     <div class="columns ">
         <div class="column">
             <div class="field">
@@ -39,6 +39,6 @@
             </div>
         </div>
     </div>
-    <a asp-controller="course" asp-action="deletecourse" asp-route-id=@Model.Id class="button is-danger">Löschen (inkl. Module)</a>
+    <a asp-controller="course" asp-action="deletecourse" asp-route-id="@Model.Id" class="button is-danger">Löschen (inkl. Module)</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>

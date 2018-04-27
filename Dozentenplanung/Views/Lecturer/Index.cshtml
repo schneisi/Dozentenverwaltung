@@ -36,7 +36,7 @@
             <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
                 @Html.DisplayFor(modelItem => eachLecturer.Notes)
             </td>
-            <td><a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id=@eachLecturer.Id>Bearbeiten</a></td>
+            <td><a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id="@eachLecturer.Id">Bearbeiten</a></td>
         </tr>
     }
 </table>

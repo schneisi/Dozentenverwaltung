@@ -8,7 +8,7 @@
 <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
     <li><a asp-controller="course" asp-action="index">Kurse</a></li>
-    <li><a asp-controller="course" asp-action="course" asp-route-id=@Model.CourseId>@Model.Course.Title</a></li>
+    <li><a asp-controller="course" asp-action="course" asp-route-id="@Model.CourseId">@Model.Course.Title</a></li>
     <li class="is-active"><a href="#" aria-current="page">@Model.Title</a></li>
   </ul>
 </nav>
@@ -25,7 +25,7 @@
 </table>
 
 
-<a asp-controller="unit" asp-action="edit" asp-route-moduleId=@Model.Id class="button is-success">Unit erstellen</a>
+<a asp-controller="unit" asp-action="edit" asp-route-moduleId="@Model.Id" class="button is-success">Unit erstellen</a>
 
 <table class="table is-hoverable is-fullwidth is-striped">
     <thead>
@@ -33,6 +33,7 @@
             <th>Id</th>
             <th>Bezeichnung</th>
             <th>Titel</th>
+            <th>Dozent</th>
             <th/>
         </tr>
     </thead>
@@ -47,7 +48,14 @@
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
                 @Html.DisplayFor(modelItem => eachUnit.Title)
             </td>
-            <td><a class="button" asp-controller="unit" asp-action="edit" asp-route-id=@eachUnit.Id>Bearbeiten</a></td>
+            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+                @Html.DisplayFor(modelItem => eachUnit.LecturerName)
+            </td>
+            <td>
+                <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">
+                    Bearbeiten
+                </a>
+            </td>
         </tr>
     }
 </table>
