@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,6 +36,12 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Save();
                 theUnit = theBuilder.Unit();
             }
+            ViewBag.SuitableLecturers = theUnit.GetSuitableLecturersForContext(this.DatabaseContext).Select(lecturer => new SelectListItem
+            {
+                Text = lecturer.Fullname,
+                Value = lecturer.Id.ToString(),
+                Selected = lecturer.Id == theUnit.LecturerId
+            });
 
             return View(theUnit);
         }
@@ -44,10 +51,11 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation) {
+        public IActionResult Save(int id, string title, string designation, int lecturer) {
             UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             theBuilder.Title = title;
             theBuilder.Designation = designation;
+            theBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
             theBuilder.Save();
             return RedirectToAction("unit", "unit", new {id = id});
         }
@@ -55,6 +63,7 @@ namespace Dozentenplanung.Controllers
         public IActionResult Delete(int id) {
             Unit theUnit = this.DatabaseContext.UnitForId(id);
             theUnit.DeleteFromContext(this.DatabaseContext);
+            this.SaveDatabaseContext();
             return RedirectToAction("module", "module", new { id = theUnit.ModuleId });
         }
     }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Dozentenplanung.Models
 {
@@ -21,17 +23,23 @@ namespace Dozentenplanung.Models
 
         public int semester;
 
-        public int durationOfExams { get; set; }
+        public int durationOfExam { get; set; }
 
-        //public string TypeOfExams { get; set; }
-        //public int TypeOfJoining { get; set; } --> wie wird verrechnet Note /Prozent ggf Dropdown?
-        //public int LiteratureBib { get; set; }
-        //public int LiteratureNotInBib { get; set; }
-        //public string NeededKnowledgle { get; set; }
+        public virtual Module Module { get; set; }
+        public int ModuleId { get; set; }
 
-        public Module Module { get; set; }
-        public virtual int ModuleId { get; set; }
+        public virtual Lecturer Lecturer { get; set; }
+        public int? LecturerId { get; set; }
 
+        //public virtual List<Lecturer> SuitableLecturers { get; set; }
+
+
+        public bool HasLecturer() {
+            return this.Lecturer != null;
+        }
+        public List<Lecturer> GetSuitableLecturersForContext(ApplicationDbContext DatabaseContext) {
+            return DatabaseContext.Lecturers.Where(Lecturer => true).ToList();
+        }
 
         public void DeleteFromContext(ApplicationDbContext aContext)
         {

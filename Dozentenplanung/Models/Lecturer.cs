@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dozentenplanung.Models
@@ -16,14 +17,35 @@ namespace Dozentenplanung.Models
 
         public string Notes { get; set; }
 
+        public bool IsDummy { get; set; }
+
+        public List<Unit> Units;
+
         public string Fullname {
             get {
                 return this.Firstname + " " + this.Lastname;
             }
         }
 
+        public Lecturer() {
+            Firstname = "";
+            Lastname = "";
+            Mail = "";
+            Notes = "";
+            IsDummy = false;
+            Units = new List<Unit>();
+        }
+
 
         //API
+        public static void CreateDummyInContext(ApplicationDbContext aContext)
+        {
+            Lecturer theDummy = new Lecturer();
+            theDummy.IsDummy = true;
+            theDummy.Lastname = "Keiner";
+            aContext.Lecturers.Add(theDummy);
+            aContext.SaveChanges();
+        }
         public bool deleteFromContext(ApplicationDbContext aContext)
         {
             aContext.Lecturers.Remove(this);

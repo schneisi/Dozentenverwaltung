@@ -8,6 +8,7 @@ namespace Dozentenplanung.Models
         public DateTime BeginDate { get; set; } 
         public DateTime EndDate { get; set; }
         public Module Module { get; set; }
+        public Lecturer Lecturer { get; set; }
 
         public UnitBuilder(ApplicationDbContext aContext) : base(aContext){}
         public UnitBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject){}
@@ -27,6 +28,9 @@ namespace Dozentenplanung.Models
             theUnit.EndDate = this.EndDate;
             if (this.Module != null) {
                 theUnit.Module = this.Module;
+            }
+            if(this.Lecturer != null) {
+                theUnit.Lecturer = this.Lecturer;
             }
 
             if (this.isNew()) {

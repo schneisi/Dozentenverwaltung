@@ -5,6 +5,7 @@ using Dozentenplanung.Models;
 using Microsoft.Data.Sqlite;
 using System.Reflection.Emit;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Dozentenplanung
 {
@@ -20,7 +21,7 @@ namespace Dozentenplanung
         //Database representation model
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            this.EnsureCreated();
+            //this.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,13 +49,28 @@ namespace Dozentenplanung
             return this.Modules.Include("Units").Include("Course").SingleOrDefault(module => module.Id == id);
         }
         public Unit UnitForId(int id) {
-            return this.Units.Include("Module").Include("Module.Course").SingleOrDefault(unit => unit.Id == id);
+            return this.Units.Include("Module").Include("Module.Course").Include("Lecturer").SingleOrDefault(unit => unit.Id == id);
         }
-
+        public Lecturer LecturerForId(int id) {
+            return this.Lecturers.Find(id);
+        }
+        public Lecturer DummyLecturer() 
+        {
+            var theDummies = this.Lecturers.Where(lecturer => lecturer.IsDummy);
+            if (theDummies.Any()) {
+                return theDummies.First();
+            } else {
+                return null;
+            }
+        }
 
 
         public void EnsureCreated() {
             this.Database.EnsureCreated();
+            if (this.DummyLecturer() == null)
+            {
+                Lecturer.CreateDummyInContext(this);
+            }
         }
         public void Delete() {
             this.Database.EnsureDeleted();

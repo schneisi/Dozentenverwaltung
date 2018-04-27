@@ -21,5 +21,9 @@
         <td>Titel:</td>
         <td>@Model.Title</td>
     </tr>
+    <tr>
+        <td>Dozent:</td>
+        <td>@Model.Lecturer.Fullname</td>
+    </tr>
 </table>
 <a class="button" asp-controller="unit" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>

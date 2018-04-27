@@ -5,7 +5,7 @@
     ViewData["menuId"] = "courses";
 
 }
-<form id="form" asp-action="save" asp-controller="Unit" asp-action="post" asp-route-id=@Model.Id>
+<form id="form" asp-action="save" asp-controller="Unit" asp-action="post" asp-route-id="@Model.Id">
     <div class="columns">
         <div class="column">
             <div class="field">
@@ -21,6 +21,14 @@
                 <div class="control">
                     @Html.EditorFor(unit => unit.Title, new { htmlAttributes = new { @class = "input" } })
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <label class="label">Dozent</label>
+            <div class="select">
+                <select name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
             </div>
         </div>
     </div>
