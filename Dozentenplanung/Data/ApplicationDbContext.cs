@@ -21,7 +21,7 @@ namespace Dozentenplanung
         //Database representation model
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            //this.EnsureCreated();
+            this.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
