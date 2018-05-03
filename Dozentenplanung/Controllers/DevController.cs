@@ -27,8 +27,16 @@ namespace Dozentenplanung.Controllers
             theLecturerBuilder.Notes = "Sehr guter Informatiker";
             theLecturerBuilder.Save();
 
+            CourseBuilder theCourseBuilder = new CourseBuilder(this.DatabaseContext);
+            theCourseBuilder.Title = "Wirtschaftsinformatik";
+            theCourseBuilder.Designation = "WWWI15B-SE";
+            theCourseBuilder.Year = 2015;
+            
+            theCourseBuilder.Save();
+
             return Redirect();
         }
+     
 
         public IActionResult DropDatabase() {
             this.DatabaseContext.Delete();
