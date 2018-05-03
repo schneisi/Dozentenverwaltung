@@ -15,6 +15,7 @@ namespace Dozentenplanung
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; } 
         public DbSet<Unit> Units { get; set; }
+        public DbSet<Skill> Skills { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
        
@@ -72,6 +73,9 @@ namespace Dozentenplanung
             } else {
                 return null;
             }
+        }
+        public Skill SkillForId(int id) {
+            return this.Skills.Find(id);
         }
 
 

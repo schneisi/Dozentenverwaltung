@@ -1,0 +1,29 @@
+﻿@model Dozentenplanung.Models.Skill
+
+@{
+    ViewData["title"] = Model.Title;
+    ViewData["menuId"] = "skills";
+
+}
+<form id="form" asp-action="save" asp-controller="Skill" asp-route-id="@Model.Id">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Bezeichnung</label>
+                <div class="control">
+                    @Html.EditorFor(skill => skill.Title, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                    @Html.EditorFor(skill => skill.Description, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-controller="Skill" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
+</form>

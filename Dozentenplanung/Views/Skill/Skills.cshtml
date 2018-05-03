@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Dozentenplanung.Models.Skill>;
+@{
+    ViewData["title"] = "Skills";
+    ViewData["menuId"] = "skills";
+}
+
+<a asp-controller="skill" asp-action="edit" class="button is-success">Skill erstellen</a>
+
+<table class="table is-fullwidth is-hoverable is-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th />
+        </tr>
+    </thead>
+    @foreach (var eachSkill in Model) {
+        <tr>
+            <td onclick="location.href = '@(Url.Action("skill", "skill", new { id = eachSkill.Id }))'">
+                @Html.DisplayFor(modelItem => eachSkill.Id)
+            </td>
+            <td onclick="location.href = '@(Url.Action("skill", "skill", new { id = eachSkill.Id }))'">
+                @Html.DisplayFor(modelItem => eachSkill.Title)
+            </td>
+            <td>
+                <a class="button" asp-controller="skill" asp-action="edit" asp-route-id="@eachSkill.Id">Bearbeiten</a>
+            </td>
+        </tr>
+    }
+</table>

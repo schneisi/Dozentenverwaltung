@@ -44,7 +44,7 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Delete(int id) {
             Module theModule = this.ModuleForId(id);
-            theModule.deleteFromContext(this.DatabaseContext);
+            theModule.DeleteFromContext(this.DatabaseContext);
             this.SaveDatabaseContext();
             return RedirectToAction("course", "course", new { id = theModule.CourseId });
         }

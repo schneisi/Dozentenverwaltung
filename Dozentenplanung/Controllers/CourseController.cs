@@ -51,7 +51,7 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult DeleteCourse(int id)
         {
-            this.CourseForId(id).deleteFromContext(this.DatabaseContext);
+            this.CourseForId(id).DeleteFromContext(this.DatabaseContext);
             this.SaveDatabaseContext();
             return RedirectToAction("index", "course");
         }

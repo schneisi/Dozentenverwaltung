@@ -20,7 +20,7 @@ namespace Dozentenplanung.Models
         public List<Unit> Units { get; set; }
 
 
-        public void deleteFromContext(ApplicationDbContext aContext)
+        public void DeleteFromContext(ApplicationDbContext aContext)
         {
             aContext.Modules.Remove(this);
         }

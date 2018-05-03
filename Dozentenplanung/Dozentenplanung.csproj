@@ -33,6 +33,7 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\User\" />
     <Folder Include="Helper\" />
+    <Folder Include="Views\Skill\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Database.db" />
