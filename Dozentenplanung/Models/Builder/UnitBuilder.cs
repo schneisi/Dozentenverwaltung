@@ -31,6 +31,8 @@ namespace Dozentenplanung.Models
             }
             if(this.Lecturer != null) {
                 theUnit.Lecturer = this.Lecturer;
+            } else if(theUnit.Lecturer == null) {
+                theUnit.Lecturer = this.DatabaseContext.DummyLecturer();
             }
 
             if (this.isNew()) {
