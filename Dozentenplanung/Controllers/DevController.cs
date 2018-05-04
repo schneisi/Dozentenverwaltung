@@ -25,14 +25,28 @@ namespace Dozentenplanung.Controllers
             theLecturerBuilder.Lastname = "Muster";
             theLecturerBuilder.Mail = "muster@dhbw-loerrach.de";
             theLecturerBuilder.Notes = "Sehr guter Informatiker";
-            theLecturerBuilder.Save();
+            theLecturerBuilder.Save(false);
 
             CourseBuilder theCourseBuilder = new CourseBuilder(this.DatabaseContext);
             theCourseBuilder.Title = "Wirtschaftsinformatik";
             theCourseBuilder.Designation = "WWWI15B-SE";
             theCourseBuilder.Year = 2015;
-            
-            theCourseBuilder.Save();
+            theCourseBuilder.Save(false);
+            Course theCourse = theCourseBuilder.Course();
+
+            ModuleBuilder theModuleBuilder = new ModuleBuilder(this.DatabaseContext);
+            theModuleBuilder.Course = theCourse;
+            theModuleBuilder.Designation = "WWISE_106";
+            theModuleBuilder.Title = "Neue Konzepte";
+            theModuleBuilder.Save(false);
+            Module theModule = theModuleBuilder.Module();
+
+            UnitBuilder theUnitBuilder = new UnitBuilder(this.DatabaseContext);
+            theUnitBuilder.Designation = "WWISE_106.1";
+            theUnitBuilder.Title = "Robotik";
+            theUnitBuilder.Module = theModule;
+            theUnitBuilder.Save();
+
 
             return Redirect();
         }
