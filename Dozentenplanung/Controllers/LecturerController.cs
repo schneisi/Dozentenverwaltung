@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dozentenplanung.Controllers
 {
@@ -35,6 +36,15 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Save();
                 theLecturer = theBuilder.Lecturer();
             }
+            List<SelectListItem> theSkills = new List<SelectListItem>();
+            foreach (Skill eachSkill in this.DatabaseContext.Skills) {
+                SelectListItem theItem = new SelectListItem();
+                theItem.Text = eachSkill.Title;
+                theItem.Value = eachSkill.Id.ToString();
+                theItem.Selected = theLecturer.HasSkill(eachSkill);
+                theSkills.Add(theItem);
+            }
+            ViewBag.Skills = theSkills;
 
             return View(theLecturer);
         }
@@ -56,18 +66,23 @@ namespace Dozentenplanung.Controllers
             return RedirectToAction("Edit", id);
         }
 
-        public IActionResult SaveLecturer(int id, string firstname, string lastname, string mail, string notes) {
+        public IActionResult SaveLecturer(int id, string firstname, string lastname, string mail, string notes, List<int> SkillIds) {
             LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext, this.LecturerForId(id));
             theBuilder.Firstname = firstname;
             theBuilder.Lastname = lastname;
             theBuilder.Mail = mail;
             theBuilder.Notes = notes;
+            List<Skill> theSkillList = new List<Skill>();
+            foreach (int eachId in SkillIds) {
+                theSkillList.Add(this.DatabaseContext.SkillForId(eachId));
+            }
+            theBuilder.Skills = theSkillList;
             theBuilder.Save();
             return RedirectToAction("Index", "Lecturer");
         }
 
         private Lecturer LecturerForId(int id) {
-            return this.DatabaseContext.Lecturers.Find(id);
+            return this.DatabaseContext.LecturerForId(id);
         }
 
         public List<Lecturer> Lecturers() {

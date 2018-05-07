@@ -21,6 +21,9 @@ namespace Dozentenplanung.Models
 
         public List<Unit> Units;
 
+        public List<LecturerSkill> LecturerSkills { get; set; }
+
+
         public string Fullname {
             get {
                 return this.Firstname + " " + this.Lastname;
@@ -50,6 +53,25 @@ namespace Dozentenplanung.Models
         {
             aContext.Lecturers.Remove(this);
             return true;
+        }
+
+        public bool HasSkill(Skill aSkill) {
+            foreach (LecturerSkill eachLecturerSkill in this.LecturerSkills) {
+                if (eachLecturerSkill.Skill == aSkill) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public virtual List<Skill> Skills()
+        {
+            List<Skill> theSkills = new List<Skill>();
+            foreach (LecturerSkill eachLecturerSkill in this.LecturerSkills)
+            {
+                theSkills.Add(eachLecturerSkill.Skill);
+            }
+            return theSkills;
         }
 
     }

@@ -16,6 +16,7 @@ namespace Dozentenplanung
         public DbSet<Module> Modules { get; set; } 
         public DbSet<Unit> Units { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<LecturerSkill> LecturerSkills { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
        
@@ -27,6 +28,9 @@ namespace Dozentenplanung
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*modelBuilder.Entity<LecturerSkill>().HasKey(lecturerSkill => new {
+                lecturerSkill.LecturerId, lecturerSkill.SkillId
+            });*/
             base.OnModelCreating(modelBuilder);
         }
 
@@ -63,7 +67,10 @@ namespace Dozentenplanung
                        .SingleOrDefault(unit => unit.Id == id);
         }
         public Lecturer LecturerForId(int id) {
-            return this.Lecturers.Find(id);
+            return this.Lecturers
+                       .Include("LecturerSkills")
+                       .Include("LecturerSkills.Skill")
+                       .SingleOrDefault(lecturer => lecturer.Id == id);
         }
         public Lecturer DummyLecturer() 
         {

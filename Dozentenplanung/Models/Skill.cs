@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dozentenplanung.Models
@@ -11,7 +12,6 @@ namespace Dozentenplanung.Models
         public string Title { get; set; }
 
         public string Description { get; set; }
-
 
         public bool DeleteFromContext(ApplicationDbContext aContext)
         {

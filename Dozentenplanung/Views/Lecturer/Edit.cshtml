@@ -1,55 +1,65 @@
 ﻿@model Dozentenplanung.Models.Lecturer
 
-    @{
-        string theTitleString = "Neuer Dozent";
-        bool isNew = Model == null;
-        if (!isNew)
-        {
-            theTitleString = Model.Lastname;
-        };
+@{
+    string theTitleString = "Neuer Dozent";
+    bool isNew = Model == null;
+    if (!isNew)
+    {
+        theTitleString = Model.Lastname;
+    };
 
-        ViewData["title"] = theTitleString;
-        ViewData["menuId"] = "lecturers";
+    ViewData["title"] = theTitleString;
+    ViewData["menuId"] = "lecturers";
 
-    }
-    <form id="form" asp-action="SaveLecturer" asp-controller="Lecturer" asp-route-id="@Model.Id">
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label">Nachname</label>
-                    <div class="control">
-                        @Html.EditorFor(lecturer => lecturer.Lastname, new { htmlAttributes = new { @class = "input" } })
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="field">
-                    <label class="label">Vorname</label>
-                    <div class="control">
-                        @Html.EditorFor(lecturer => lecturer.Firstname, new { htmlAttributes = new { @class = "input" } })
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="field">
-                    <label class="label">E-Mail</label>
-                    <div class="control">
-                        @Html.EditorFor(lecturer => lecturer.Mail, new { htmlAttributes = new { @class = "input" } })
-                    </div>
+}
+<form id="form" asp-action="SaveLecturer" asp-controller="Lecturer" asp-route-id="@Model.Id">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Nachname</label>
+                <div class="control">
+                    @Html.EditorFor(lecturer => lecturer.Lastname, new { htmlAttributes = new { @class = "input" } })
                 </div>
             </div>
         </div>
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label">Notizen</label>
-                    <div class="control">
-                        @Html.EditorFor(lecturer => lecturer.Notes, new { htmlAttributes = new { @class = "input" } })
-                    </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Vorname</label>
+                <div class="control">
+                    @Html.EditorFor(lecturer => lecturer.Firstname, new { htmlAttributes = new { @class = "input" } })
                 </div>
             </div>
         </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">E-Mail</label>
+                <div class="control">
+                    @Html.EditorFor(lecturer => lecturer.Mail, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Notizen</label>
+                <div class="control">
+                    @Html.EditorFor(lecturer => lecturer.Notes, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="select is-multiple">
+                <label class="label">Skills</label>
+                <div class="select is-multiple">
+                    <select multiple="true" name="skillIds" asp-items="@ViewBag.Skills"></select>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <a asp-controller="Lecturer" asp-action="DeleteLecteurer" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
-        <button type="submit" class="button is-success" form="form">Speichern</button>
-    </form>
+    <a asp-controller="Lecturer" asp-action="DeleteLecteurer" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
+</form>
