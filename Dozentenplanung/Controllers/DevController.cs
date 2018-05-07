@@ -20,11 +20,17 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult CreateTestData() {
+            SkillBuilder theSkillBuilder = new SkillBuilder(this.DatabaseContext);
+            theSkillBuilder.Title = "Java Programmierung";
+            theSkillBuilder.Description = "Programmierung in Java";
+            theSkillBuilder.Save(false);
+
             LecturerBuilder theLecturerBuilder = new LecturerBuilder(this.DatabaseContext);
             theLecturerBuilder.Firstname = "Max";
             theLecturerBuilder.Lastname = "Muster";
             theLecturerBuilder.Mail = "muster@dhbw-loerrach.de";
             theLecturerBuilder.Notes = "Sehr guter Informatiker";
+            theLecturerBuilder.AddSkill(theSkillBuilder.Skill());
             theLecturerBuilder.Save(false);
 
             CourseBuilder theCourseBuilder = new CourseBuilder(this.DatabaseContext);
@@ -45,9 +51,11 @@ namespace Dozentenplanung.Controllers
             theUnitBuilder.Designation = "WWISE_106.1";
             theUnitBuilder.Title = "Robotik";
             theUnitBuilder.Module = theModule;
-            theUnitBuilder.Save();
+            theUnitBuilder.Save(false);
 
 
+
+            this.DatabaseContext.SaveChanges();
             return Redirect();
         }
      

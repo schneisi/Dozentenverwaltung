@@ -54,6 +54,10 @@ namespace Dozentenplanung.Models
             return theLecturer;
         }
 
+        public void AddSkill(Skill aSkill) {
+            this.Skills.Add(aSkill);
+        }
+
         public Lecturer Lecturer()
         {
             return (Lecturer)this.Object;
