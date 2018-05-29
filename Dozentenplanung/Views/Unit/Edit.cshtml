@@ -32,6 +32,16 @@
             </div>
         </div>
     </div>
+    <div class="columns">
+        <div class="column">
+            <div class="select is-multiple">
+                <label class="label">Skills</label>
+                <div class="select is-multiple">
+                    <select multiple="true" name="skillIds" asp-items="@ViewBag.Skills"></select>
+                </div>
+            </div>
+        </div>
+    </div>
     <a asp-controller="unit" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>

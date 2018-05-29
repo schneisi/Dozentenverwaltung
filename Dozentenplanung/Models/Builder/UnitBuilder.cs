@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Dozentenplanung.Models
 {
     public class UnitBuilder : BaseBuilder
@@ -9,9 +11,16 @@ namespace Dozentenplanung.Models
         public DateTime EndDate { get; set; }
         public Module Module { get; set; }
         public Lecturer Lecturer { get; set; }
+        public List<Skill> Skills { get; set; }
 
-        public UnitBuilder(ApplicationDbContext aContext) : base(aContext){}
-        public UnitBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject){}
+        public UnitBuilder(ApplicationDbContext aContext) : base(aContext)
+        {
+            this.Skills = new List<Skill>();
+        }
+        public UnitBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject)
+        {
+            this.Skills = new List<Skill>();
+        }
 
         protected override BaseObject saveChanges()
 		{
@@ -34,13 +43,25 @@ namespace Dozentenplanung.Models
             } else if(theUnit.Lecturer == null) {
                 theUnit.Lecturer = this.DatabaseContext.DummyLecturer();
             }
+            List<UnitSkill> theUnitSkills = new List<UnitSkill>();
+            foreach (Skill eachSkill in this.Skills){
+                UnitSkill theUnitSkill = new UnitSkill();
+                theUnitSkill.Unit = theUnit;
+                theUnitSkill.Skill = eachSkill;
+                this.DatabaseContext.UnitSkills.Add(theUnitSkill);
+                theUnitSkills.Add(theUnitSkill);
+            }
+            theUnit.UnitSkills = theUnitSkills;
 
             if (this.isNew()) {
                 this.DatabaseContext.Units.Add(theUnit);
             }
             return theUnit;
 		}
-
+        public void AddSkill(Skill aSkill)
+        {
+            this.Skills.Add(aSkill);
+        }
 
         public Unit Unit() {
             return (Unit)this.Object;

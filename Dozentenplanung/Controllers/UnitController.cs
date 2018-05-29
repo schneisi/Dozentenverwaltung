@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,19 @@ namespace Dozentenplanung.Controllers
                 theBuilder.Save();
                 theUnit = theBuilder.Unit();
             }
+            List<SelectListItem> theSkills = new List<SelectListItem>();
+            foreach (Skill eachSkill in this.DatabaseContext.Skills)
+            {
+                SelectListItem theItem = new SelectListItem();
+                theItem.Text = eachSkill.Title;
+                theItem.Value = eachSkill.Id.ToString();
+                theItem.Selected = theUnit.HasSkill(eachSkill);
+                theSkills.Add(theItem);
+            }
+            ViewBag.Skills = theSkills;
+
+            return View(theUnit);
+
             ViewBag.SuitableLecturers = theUnit.GetSuitableLecturersForContext(this.DatabaseContext).Select(lecturer => new SelectListItem
             {
                 Text = lecturer.Fullname,
@@ -56,6 +70,12 @@ namespace Dozentenplanung.Controllers
             theBuilder.Title = title;
             theBuilder.Designation = designation;
             theBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
+            List<Skill> theSkillList = new List<Skill>();
+            foreach (int eachId in SkillIds)
+            {
+                theSkillList.Add(this.DatabaseContext.SkillForId(eachId));
+            }
+            theBuilder.Skills = theSkillList;
             theBuilder.Save();
             return RedirectToAction("unit", "unit", new {id = id});
         }

@@ -25,11 +25,14 @@ namespace Dozentenplanung.Models
 
         public int durationOfExam { get; set; }
 
+        public List<UnitSkill> UnitSkills { get; set; }
+
         public virtual Module Module { get; set; }
         public int ModuleId { get; set; }
 
         public virtual Lecturer Lecturer { get; set; }
         public int? LecturerId { get; set; }
+
 
         //public virtual List<Lecturer> SuitableLecturers { get; set; }
 
@@ -48,6 +51,28 @@ namespace Dozentenplanung.Models
         public void DeleteFromContext(ApplicationDbContext aContext)
         {
             aContext.Units.Remove(this);
+        }
+
+        public bool HasSkill(Skill aSkill)
+        {
+            foreach (UnitSkill eachUnitSkill in this.UnitSkills)
+            {
+                if (eachUnitSkill.Skill == aSkill)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public virtual List<Skill> Skills()
+        {
+            List<Skill> theSkills = new List<Skill>();
+            foreach (UnitSkill eachUnitSkill in this.UnitSkills)
+            {
+                theSkills.Add(eachUnitSkill.Skill);
+            }
+            return theSkills;
         }
     }
 }
