@@ -25,5 +25,13 @@
         <td>Dozent:</td>
         <td>@Model.Lecturer.Fullname</td>
     </tr>
+    <tr>
+        <td>Prüfungsart:</td>
+        <td>@Model.ExamType</td>
+    </tr>
+    <tr>
+        <td>Prüfungsdauer:</td>
+        <td>@Model.DurationOfExam</td>
+    </tr>
 </table>
 <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@Model.Id">Bearbeiten</a>

@@ -24,6 +24,7 @@ namespace Dozentenplanung.Models
         public int Semester;
 
         public int DurationOfExam { get; set; }
+        public string ExamType { get; set; }
 
         public List<UnitSkill> UnitSkills { get; set; }
 
@@ -43,6 +44,7 @@ namespace Dozentenplanung.Models
             Hours = 10;
             Semester = 1;
             DurationOfExam = 60;
+            ExamType = "Klausur";
             UnitSkills = new List<UnitSkill>();
         }
 

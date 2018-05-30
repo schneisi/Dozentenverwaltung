@@ -4,31 +4,37 @@
     ViewData["menuId"] = "units";
 }
 
-<a asp-controller="unit" asp-action="edit" class="button is-success">Kurs erstellen</a>
-
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
             <th>Id</th>
             <th>Bezeichnung</th>
             <th>Name</th>
+            <th>Prüfungsart</th>
+            <th>Prüfungsdauer</th>
             <th />
         </tr>
     </thead>
     @foreach (var eachUnit in Model) {
-        <tr>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Id)
-            </td>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Designation)
-            </td>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Title)
-            </td>
-            <td>
-                <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">Bearbeiten</a>
-            </td>
-        </tr>
+    <tr>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Id)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Designation)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Title)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.ExamType)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.DurationOfExam)
+        </td>
+        <td>
+            <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">Bearbeiten</a>
+        </td>
+    </tr>
     }
 </table>

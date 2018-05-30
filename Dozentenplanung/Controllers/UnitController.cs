@@ -33,6 +33,8 @@ namespace Dozentenplanung.Controllers
                 UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext);
                 theBuilder.Title = "";
                 theBuilder.Designation = "Unitbezeichnung";
+                theBuilder.DurationOfExam = 0 ;
+                theBuilder.ExamType = "";
                 theBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
                 theBuilder.Save();
                 theUnit = theBuilder.Unit();
@@ -62,11 +64,13 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds) {
+        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int DurationOfExam, string ExamType) {
             UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             theBuilder.Title = title;
             theBuilder.Designation = designation;
             theBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
+            theBuilder.ExamType = ExamType;
+            theBuilder.DurationOfExam = DurationOfExam;
             List<Skill> theSkillList = new List<Skill>();
             foreach (int eachId in SkillIds)
             {
