@@ -17,6 +17,7 @@ namespace Dozentenplanung
         public DbSet<Unit> Units { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<LecturerSkill> LecturerSkills { get; set; }
+        public DbSet<UnitSkill> UnitSkills { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
        
@@ -63,7 +64,8 @@ namespace Dozentenplanung
             return this.Units
                        .Include("Module")
                        .Include("Module.Course")
-                       .Include("Lecturer")
+                       .Include("UnitSkills")
+                       .Include("UnitSkills.Skill")
                        .SingleOrDefault(unit => unit.Id == id);
         }
         public Lecturer LecturerForId(int id) {

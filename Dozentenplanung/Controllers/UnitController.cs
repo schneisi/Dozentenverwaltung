@@ -47,9 +47,6 @@ namespace Dozentenplanung.Controllers
                 theSkills.Add(theItem);
             }
             ViewBag.Skills = theSkills;
-
-            return View(theUnit);
-
             ViewBag.SuitableLecturers = theUnit.GetSuitableLecturersForContext(this.DatabaseContext).Select(lecturer => new SelectListItem
             {
                 Text = lecturer.Fullname,
@@ -65,7 +62,7 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation, int lecturer) {
+        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds) {
             UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             theBuilder.Title = title;
             theBuilder.Designation = designation;

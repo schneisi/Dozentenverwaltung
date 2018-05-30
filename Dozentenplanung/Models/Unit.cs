@@ -19,11 +19,11 @@ namespace Dozentenplanung.Models
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int hours;
+        public int Hours;
 
-        public int semester;
+        public int Semester;
 
-        public int durationOfExam { get; set; }
+        public int DurationOfExam { get; set; }
 
         public List<UnitSkill> UnitSkills { get; set; }
 
@@ -35,6 +35,16 @@ namespace Dozentenplanung.Models
 
 
         //public virtual List<Lecturer> SuitableLecturers { get; set; }
+        public Unit() {
+            Title = "Titel";
+            Designation = "Code";
+            BeginDate = DateTime.Now;
+            EndDate = DateTime.Now;
+            Hours = 10;
+            Semester = 1;
+            DurationOfExam = 60;
+            UnitSkills = new List<UnitSkill>();
+        }
 
 
         public bool HasLecturer() {
