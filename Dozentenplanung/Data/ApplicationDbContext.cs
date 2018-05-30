@@ -66,6 +66,7 @@ namespace Dozentenplanung
                        .Include("Module.Course")
                        .Include("UnitSkills")
                        .Include("UnitSkills.Skill")
+                       .Include("Lecturer")
                        .SingleOrDefault(unit => unit.Id == id);
         }
         public Lecturer LecturerForId(int id) {
