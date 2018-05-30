@@ -23,5 +23,11 @@ namespace Dozentenplanung.Controllers
             ApplicationUser theUser = this.GetCurrentUser().Result;
             return View(theUser);
         }
+
+        public async Task<IActionResult> ChangePassword(string oldPassword, string newPassword) {
+            ApplicationUser user = this.GetCurrentUser().Result;
+            var result = await this.UserManager.ChangePasswordAsync(user, oldPassword, newPassword);
+            return RedirectToAction("index");
+        }
     }
 }

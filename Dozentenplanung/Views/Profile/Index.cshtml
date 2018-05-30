@@ -11,3 +11,25 @@
         <td>@Model.Email</td>
     </tr>
 </table>
+
+<form asp-controller="profile" asp-action="changePassword">
+    <div class="columns ">
+        <div class="column">
+            <div class="field">
+                <label class="label">Bestehendes Passwort</label>
+                <div class="control">
+                    <input class="input" name="oldPassword" type="password" placeholder="Benutzername" value="" autofocus="">
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Neues Passwort</label>
+                <div class="control">
+                    <input class="input" name="newPassword" type="password" placeholder="Passwort" value="password">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="button is-block is-info is-fullwidth">Passwort ändern</button><br />
+</form>
