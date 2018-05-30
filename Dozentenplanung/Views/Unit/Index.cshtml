@@ -7,6 +7,7 @@
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
+            <th>Status</th>
             <th>Id</th>
             <th>Bezeichnung</th>
             <th>Name</th>
@@ -18,6 +19,14 @@
     </thead>
     @foreach (var eachUnit in Model) {
     <tr>
+        <td>
+            @if (eachUnit.Lecturer.IsDummy) {
+            <img src="~/img/red_dot.png" />
+            }
+            else { 
+            <img src="~/img/green_dot.png"/>
+            }
+        </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.Id)
         </td>

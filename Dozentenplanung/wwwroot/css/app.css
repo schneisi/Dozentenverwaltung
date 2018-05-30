@@ -45,3 +45,8 @@ body {
 .attributesTable td:first-child {
     font-weight: bold
 }
+
+td img {
+    height: 24px;
+    width: 24px;
+}

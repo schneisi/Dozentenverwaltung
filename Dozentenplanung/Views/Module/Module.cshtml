@@ -30,32 +30,51 @@
 <table class="table is-hoverable is-fullwidth is-striped">
     <thead>
         <tr>
+            <th>Status</th>
             <th>Id</th>
             <th>Bezeichnung</th>
             <th>Titel</th>
+            <th>Prüfungsart</th>
+            <th>Prüfungsdauer</th>
             <th>Dozent</th>
             <th/>
         </tr>
     </thead>
     @foreach(var eachUnit in Model.Units) {
-        <tr>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Id)
-            </td>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Designation)
-            </td>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Title)
-            </td>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.LecturerName)
-            </td>
-            <td>
-                <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">
-                    Bearbeiten
-                </a>
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @if (eachUnit.Lecturer.IsDummy)
+            {
+                <img src="~/img/red_dot.png" />
+            }
+            else
+            {
+                <img src="~/img/green_dot.png" />
+            }
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Id)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Designation)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Title)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.ExamType)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.DurationOfExam)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.LecturerName)
+        </td>
+        <td>
+            <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">
+                Bearbeiten
+            </a>
+        </td>
+    </tr>
     }
 </table>
