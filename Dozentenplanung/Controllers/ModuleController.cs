@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Dozentenplanung.Controllers
 {
     [Authorize]
     public class ModuleController : BaseController
     {
-        public ModuleController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager) : base(aContext, aUserManager, aSignInManager)
+        public ModuleController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager, IHttpContextAccessor httpContextAccessor) : base(aContext, aUserManager, aSignInManager, httpContextAccessor)
         {
         }
 

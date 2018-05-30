@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace Dozentenplanung
 {
@@ -30,6 +31,8 @@ namespace Dozentenplanung
             aServiceCollection.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            aServiceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
             //Set password policy
