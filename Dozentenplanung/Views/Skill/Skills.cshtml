@@ -16,10 +16,10 @@
     </thead>
     @foreach (var eachSkill in Model) {
         <tr>
-            <td onclick="location.href = '@(Url.Action("skill", "skill", new { id = eachSkill.Id }))'">
+            <td>
                 @Html.DisplayFor(modelItem => eachSkill.Id)
             </td>
-            <td onclick="location.href = '@(Url.Action("skill", "skill", new { id = eachSkill.Id }))'">
+            <td>
                 @Html.DisplayFor(modelItem => eachSkill.Title)
             </td>
             <td>
