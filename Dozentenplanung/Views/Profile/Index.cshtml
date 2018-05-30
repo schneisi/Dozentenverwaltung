@@ -1,0 +1,13 @@
+﻿@model Dozentenplanung.Models.ApplicationUser;
+
+@{
+    ViewData["title"] = "Profil";
+    ViewData["menuId"] = "profile";
+}
+
+<table class="attributesTable">
+    <tr>
+        <td>E-Mail:</td>
+        <td>@Model.Email</td>
+    </tr>
+</table>

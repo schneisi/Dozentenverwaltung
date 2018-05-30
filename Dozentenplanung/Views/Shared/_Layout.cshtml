@@ -39,7 +39,13 @@
                     <li><a id="users" asp-controller="user" asp-action="index">Benutzer</a></li>
                     <li><a id="dev" asp-controller="dev" asp-action="index">Entwicklung</a></li>
                 </ul>
-                <a asp-controller="account" asp-action="logout">Logout</a>
+                <p class="menu-label">
+                    Profil
+                </p>
+                <ul class="menu-list">
+                    <li><a id="profile" asp-controller="profile" asp-action="index">Profil</a></li>
+                    <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                </ul>
             </aside>
         </div>
 

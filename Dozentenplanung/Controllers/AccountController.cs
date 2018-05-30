@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace Dozentenplanung.Controllers
 {
     public class AccountController : BaseController
     {
-        public AccountController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager) : base(aContext, aUserManager, aSignInManager)
+        public AccountController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager, IHttpContextAccessor httpContextAccessor) : base(aContext, aUserManager, aSignInManager, httpContextAccessor)
         { }
 
 
@@ -49,9 +50,13 @@ namespace Dozentenplanung.Controllers
 
         [Route("account/loginUser")]
         public async Task<IActionResult> LoginUser(string ReturnUrl, string username, string password) {
+            bool theSuccessBoolean = false;
             ApplicationUser theUser = await this.UserManager.FindByNameAsync(username);
-            var result = await this.SignInManager.PasswordSignInAsync(theUser, password, true, false);
-            if (result.Succeeded) {
+            if (theUser != null) {
+                var result = await this.SignInManager.PasswordSignInAsync(theUser, password, true, false);
+                theSuccessBoolean = result.Succeeded;
+            }
+            if (theSuccessBoolean) {
                 if (string.IsNullOrEmpty(ReturnUrl)) {
                     return RedirectToAction("Index", "Course");
                 } else {

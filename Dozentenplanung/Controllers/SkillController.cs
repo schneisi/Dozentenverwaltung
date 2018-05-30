@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dozentenplanung.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace Dozentenplanung.Controllers
     [Authorize]
     public class SkillController : BaseController
     {
-        public SkillController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager) : base(aContext, aUserManager, aSignInManager)
+        public SkillController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager, IHttpContextAccessor httpContextAccessor) : base(aContext, aUserManager, aSignInManager, httpContextAccessor)
         {}
 
         public IActionResult Index()
