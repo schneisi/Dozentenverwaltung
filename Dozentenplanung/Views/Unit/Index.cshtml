@@ -12,6 +12,7 @@
             <th>Name</th>
             <th>Prüfungsart</th>
             <th>Prüfungsdauer</th>
+            <th>Dozent</th>
             <th />
         </tr>
     </thead>
@@ -31,6 +32,9 @@
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.DurationOfExam)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Lecturer.Fullname)
         </td>
         <td>
             <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">Bearbeiten</a>
