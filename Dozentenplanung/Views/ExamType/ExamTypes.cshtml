@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Dozentenplanung.Models.ExamType>
+@{
+    ViewData["title"] = "Prüfungsarten";
+    ViewData["menuId"] = "examTypes";
+}
+
+<a asp-controller="ExamType" asp-action="edit" class="button is-success">Prüfungsart erstellen</a>
+<table class="table is-fullwidth is-hoverable is-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th />
+        </tr>
+    </thead>
+    @foreach (var eachType in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => eachType.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => eachType.Title)
+            </td>
+            <td>
+                <a class="button" asp-controller="ExamType" asp-action="edit" asp-route-id="@eachType.Id">Bearbeiten</a>
+            </td>
+        </tr>
+    }
+</table>

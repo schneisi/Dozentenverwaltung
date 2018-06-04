@@ -35,6 +35,7 @@
     <Folder Include="Helper\" />
     <Folder Include="Views\Skill\" />
     <Folder Include="Views\Profile\" />
+    <Folder Include="Views\ExamType\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Database.db" />

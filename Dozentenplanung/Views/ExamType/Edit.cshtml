@@ -1,0 +1,20 @@
+﻿@model Dozentenplanung.Models.ExamType
+@{
+    ViewData["title"] = "Prüfungsarten";
+    ViewData["menuId"] = "examTypes";
+}
+
+<form id="form" asp-action="save" asp-controller="ExamType" asp-route-id="@Model.Id">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Bezeichnung</label>
+                <div class="control">
+                    @Html.EditorFor(examType => examType.Title, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-controller="ExamType" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
+</form>

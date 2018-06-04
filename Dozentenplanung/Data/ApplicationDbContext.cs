@@ -15,6 +15,7 @@ namespace Dozentenplanung
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; } 
         public DbSet<Unit> Units { get; set; }
+        public DbSet<ExamType> ExamTypes { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<LecturerSkill> LecturerSkills { get; set; }
         public DbSet<UnitSkill> UnitSkills { get; set; }
@@ -86,6 +87,9 @@ namespace Dozentenplanung
         }
         public Skill SkillForId(int id) {
             return this.Skills.Find(id);
+        }
+        public ExamType ExamTypeForId(int id) {
+            return this.ExamTypes.Find(id);
         }
 
 

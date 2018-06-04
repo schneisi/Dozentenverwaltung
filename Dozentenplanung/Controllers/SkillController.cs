@@ -22,7 +22,7 @@ namespace Dozentenplanung.Controllers
             return View("Skills", this.DatabaseContext.Skills);
         }
 
-        public IActionResult Edit(int? id, int? moduleId)
+        public IActionResult Edit(int? id)
         {
             Skill theSkill;
             if (id.HasValue)
