@@ -24,8 +24,50 @@ namespace Dozentenplanung.Controllers
         }
 
         public async Task<IActionResult> applicationUser(string id) {
-            ApplicationUser theUser = await this.UserManager.FindByIdAsync(id);
-            return View(theUser);
+            ApplicationUser user = await this.UserManager.FindByIdAsync(id);
+            return View(user);
+        }
+
+        public IActionResult CreateUserView() {
+            return View("Create");
+        }
+
+        public async Task<IActionResult> Create(string mail, string password) {
+            var result = await this.UserManager.CreateAsync(new ApplicationUser
+            {
+                UserName = mail,
+                Email = mail
+            }, password);
+            if (result.Succeeded)
+            {
+                return this.RedirectToUsers();
+            }
+            else
+            {
+                return Content("Creation failed:" + result.ToString(), "text/html");
+            }
+        }
+
+        public async Task<IActionResult> Edit(string id) {
+            ApplicationUser user = await this.GetUserForId(id);
+            return View(user);
+        }
+
+        public async Task<IActionResult> Save(string id, string password) {
+            ApplicationUser user = await this.GetUserForId(id);
+            string token = await this.UserManager.GeneratePasswordResetTokenAsync(user);
+            await this.UserManager.ResetPasswordAsync(user, token, password);
+            return this.RedirectToUsers();
+        }
+
+        public async Task<IActionResult> Delete(string id) {
+            ApplicationUser user = await this.GetUserForId(id);
+            await this.UserManager.DeleteAsync(user);
+            return RedirectToUsers();
+        }
+
+        public IActionResult RedirectToUsers() {
+            return RedirectToAction("Index");
         }
     }
 }

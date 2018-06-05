@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["title"] = "Benutzer";
+    ViewData["menuId"] = "users";
+}
+<form id="form" asp-action="Create" asp-controller="User">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">E-Mail</label>
+                <div class="control">
+                    <input name="mail" class="input" type="email">
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    <input name="password" class="input" type="password">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
+</form>

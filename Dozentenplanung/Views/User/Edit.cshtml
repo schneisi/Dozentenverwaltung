@@ -1,0 +1,29 @@
+﻿@model Dozentenplanung.Models.ApplicationUser
+
+@{
+    ViewData["title"] = Model.Email;
+    ViewData["menuId"] = "users";
+
+}
+<form id="form" asp-action="save" asp-controller="User" asp-route-id="@Model.Id">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">E-Mail</label>
+                <div class="control">
+                    @Html.EditorFor(user => user.Email, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Passwort</label>
+                <div class="control">
+                    <input class="input" name="password" type="password" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-controller="user" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
+    <button type="submit" class="button is-success" form="form">Speichern</button>
+</form>
