@@ -23,6 +23,8 @@ namespace Dozentenplanung.Models
 
         public int Semester;
 
+        public string Remark { get; set; }
+
         public int DurationOfExam { get; set; }
         public string ExamType { get; set; }
 
@@ -85,6 +87,19 @@ namespace Dozentenplanung.Models
                 theSkills.Add(eachUnitSkill.Skill);
             }
             return theSkills;
+        }
+
+
+        public void CopyToModule(Module aModule, ApplicationDbContext dbContext) {
+            UnitBuilder unitBuilder = new UnitBuilder(dbContext);
+            unitBuilder.Title = this.Title;
+            unitBuilder.Module = aModule;
+            unitBuilder.BeginDate = this.BeginDate;
+            unitBuilder.EndDate = this.EndDate;
+            unitBuilder.ExamType = this.ExamType;
+            unitBuilder.Skills = this.Skills();
+            unitBuilder.DurationOfExam = this.DurationOfExam;
+            unitBuilder.Save();
         }
     }
 }

@@ -77,6 +77,12 @@ namespace Dozentenplanung.Controllers
             return this.DatabaseContext.Courses.ToList();
         }
 
+        public IActionResult CopyCourse(int id) {
+            Course course = this.CourseForId(id);
+            Course newCourse = course.CopyCourse(this.DatabaseContext);
+            return RedirectToAction("course", "course", new { id = newCourse.Id });
+        }
+
 
     }
 }

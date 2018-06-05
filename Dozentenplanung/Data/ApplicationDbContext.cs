@@ -51,6 +51,9 @@ namespace Dozentenplanung
         {
             return this.Courses
                        .Include("Modules")
+                       .Include("Modules.Units")
+                       .Include("Modules.Units.UnitSkills")
+                       .Include("Modules.Units.UnitSkills.Skill")
                        .SingleOrDefault(course => course.Id == id);
         }
         public Module ModuleForId(int id)
@@ -100,6 +103,7 @@ namespace Dozentenplanung
                 Lecturer.CreateDummyInContext(this);
             }
         }
+
         public void Delete() {
             this.Database.EnsureDeleted();
         }

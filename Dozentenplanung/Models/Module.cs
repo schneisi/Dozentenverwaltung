@@ -24,5 +24,17 @@ namespace Dozentenplanung.Models
         {
             aContext.Modules.Remove(this);
         }
+
+
+        public void CopyToCourse(Course aCourse, ApplicationDbContext dbContext) {
+            ModuleBuilder moduleBuilder = new ModuleBuilder(dbContext);
+            moduleBuilder.Title = this.Title;
+            moduleBuilder.Course = aCourse;
+            moduleBuilder.Save();
+            Module module = moduleBuilder.Module();
+            foreach (Unit eachUnit in this.Units) {
+                eachUnit.CopyToModule(module, dbContext);
+            }
+        }
     }
 }

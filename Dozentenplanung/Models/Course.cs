@@ -35,5 +35,21 @@ namespace Dozentenplanung.Models
             aContext.Courses.Remove(this);
             return true;
         }
+
+
+        public Course CopyCourse(ApplicationDbContext dbContext) {
+            CourseBuilder courseBuilder = new CourseBuilder(dbContext);
+            courseBuilder.Title = this.Title;
+            courseBuilder.Year = this.Year;
+            courseBuilder.Designation = this.Designation;
+            courseBuilder.Save();
+            Course course = courseBuilder.Course();
+
+            foreach(Module eachModule in this.Modules) {
+                eachModule.CopyToCourse(course, dbContext);
+            }
+
+            return course;
+        }
     }
 }
