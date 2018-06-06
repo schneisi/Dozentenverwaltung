@@ -54,9 +54,6 @@ namespace Dozentenplanung.Models
         public bool HasLecturer() {
             return this.Lecturer != null;
         }
-        public List<Lecturer> GetSuitableLecturersForContext(ApplicationDbContext DatabaseContext) {
-            return DatabaseContext.Lecturers.Where(Lecturer => true).ToList();
-        }
 
         public string LecturerName {
             get { return this.Lecturer.Fullname; }
@@ -79,14 +76,14 @@ namespace Dozentenplanung.Models
             return false;
         }
 
-        public virtual List<Skill> Skills()
+        public virtual HashSet<Skill> Skills()
         {
-            List<Skill> theSkills = new List<Skill>();
+            HashSet<Skill> skillsSet = new HashSet<Skill>();
             foreach (UnitSkill eachUnitSkill in this.UnitSkills)
             {
-                theSkills.Add(eachUnitSkill.Skill);
+                skillsSet.Add(eachUnitSkill.Skill);
             }
-            return theSkills;
+            return skillsSet;
         }
 
 
@@ -97,7 +94,7 @@ namespace Dozentenplanung.Models
             unitBuilder.BeginDate = this.BeginDate;
             unitBuilder.EndDate = this.EndDate;
             unitBuilder.ExamType = this.ExamType;
-            unitBuilder.Skills = this.Skills();
+            unitBuilder.Skills = this.Skills().ToList();
             unitBuilder.DurationOfExam = this.DurationOfExam;
             unitBuilder.Save();
         }

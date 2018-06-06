@@ -43,10 +43,10 @@ namespace Dozentenplanung.Models
         //API
         public static void CreateDummyInContext(ApplicationDbContext aContext)
         {
-            Lecturer theDummy = new Lecturer();
-            theDummy.IsDummy = true;
-            theDummy.Lastname = "Keiner";
-            aContext.Lecturers.Add(theDummy);
+            Lecturer dummyLecturer = new Lecturer();
+            dummyLecturer.IsDummy = true;
+            dummyLecturer.Lastname = "Keiner";
+            aContext.Lecturers.Add(dummyLecturer);
             aContext.SaveChanges();
         }
         public bool deleteFromContext(ApplicationDbContext aContext)
@@ -64,14 +64,22 @@ namespace Dozentenplanung.Models
             return false;
         }
 
-        public virtual List<Skill> Skills()
+        public virtual HashSet<Skill> Skills()
         {
-            List<Skill> theSkills = new List<Skill>();
+            HashSet<Skill> skillsList = new HashSet<Skill>();
             foreach (LecturerSkill eachLecturerSkill in this.LecturerSkills)
             {
-                theSkills.Add(eachLecturerSkill.Skill);
+                skillsList.Add(eachLecturerSkill.Skill);
             }
-            return theSkills;
+            return skillsList;
+        }
+
+        public String StringForUnit(Unit aUnit) {
+            string returnString = this.Fullname;
+            if (aUnit.Skills().IsSubsetOf(this.Skills())) {
+                returnString += " (Empfohlen)";
+            }
+            return returnString;
         }
 
     }

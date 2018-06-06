@@ -36,37 +36,37 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult Edit(int? id, int? moduleId) {
-            Unit theUnit;
+            Unit unit;
             if (id.HasValue) {
-                theUnit = this.DatabaseContext.UnitForId(id.Value);
+                unit = this.DatabaseContext.UnitForId(id.Value);
             } else {
-                UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext);
-                theBuilder.Title = "";
-                theBuilder.Designation = "Unitbezeichnung";
-                theBuilder.DurationOfExam = 0 ;
-                theBuilder.ExamType = "";
-                theBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
-                theBuilder.Save();
-                theUnit = theBuilder.Unit();
+                UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext);
+                unitBuilder.Title = "";
+                unitBuilder.Designation = "Unitbezeichnung";
+                unitBuilder.DurationOfExam = 0 ;
+                unitBuilder.ExamType = "";
+                unitBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
+                unitBuilder.Save();
+                unit = unitBuilder.Unit();
             }
             List<SelectListItem> theSkills = new List<SelectListItem>();
             foreach (Skill eachSkill in this.DatabaseContext.Skills)
             {
-                SelectListItem theItem = new SelectListItem();
-                theItem.Text = eachSkill.Title;
-                theItem.Value = eachSkill.Id.ToString();
-                theItem.Selected = theUnit.HasSkill(eachSkill);
-                theSkills.Add(theItem);
+                SelectListItem listItem = new SelectListItem();
+                listItem.Text = eachSkill.Title;
+                listItem.Value = eachSkill.Id.ToString();
+                listItem.Selected = unit.HasSkill(eachSkill);
+                theSkills.Add(listItem);
             }
             ViewBag.Skills = theSkills;
-            ViewBag.SuitableLecturers = theUnit.GetSuitableLecturersForContext(this.DatabaseContext).Select(lecturer => new SelectListItem
+            ViewBag.SuitableLecturers = this.DatabaseContext.LecturersWithSkills().Select(lecturer => new SelectListItem
             {
-                Text = lecturer.Fullname,
+                Text = lecturer.StringForUnit(unit),
                 Value = lecturer.Id.ToString(),
-                Selected = lecturer.Id == theUnit.LecturerId
+                Selected = lecturer.Id == unit.LecturerId
             });
 
-            return View(theUnit);
+            return View(unit);
         }
 
         public IActionResult Unit(int id) {
@@ -75,27 +75,27 @@ namespace Dozentenplanung.Controllers
 
         [HttpPost]
         public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int DurationOfExam, string ExamType) {
-            UnitBuilder theBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
-            theBuilder.Title = title;
-            theBuilder.Designation = designation;
-            theBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
-            theBuilder.ExamType = ExamType;
-            theBuilder.DurationOfExam = DurationOfExam;
-            List<Skill> theSkillList = new List<Skill>();
+            UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
+            unitBuilder.Title = title;
+            unitBuilder.Designation = designation;
+            unitBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
+            unitBuilder.ExamType = ExamType;
+            unitBuilder.DurationOfExam = DurationOfExam;
+            List<Skill> skillList = new List<Skill>();
             foreach (int eachId in SkillIds)
             {
-                theSkillList.Add(this.DatabaseContext.SkillForId(eachId));
+                skillList.Add(this.DatabaseContext.SkillForId(eachId));
             }
-            theBuilder.Skills = theSkillList;
-            theBuilder.Save();
+            unitBuilder.Skills = skillList;
+            unitBuilder.Save();
             return RedirectToAction("unit", "unit", new {id = id});
         }
 
         public IActionResult Delete(int id) {
-            Unit theUnit = this.DatabaseContext.UnitForId(id);
-            theUnit.DeleteFromContext(this.DatabaseContext);
+            Unit unit = this.DatabaseContext.UnitForId(id);
+            unit.DeleteFromContext(this.DatabaseContext);
             this.SaveDatabaseContext();
-            return RedirectToAction("module", "module", new { id = theUnit.ModuleId });
+            return RedirectToAction("module", "module", new { id = unit.ModuleId });
         }
     }
 }

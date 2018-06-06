@@ -47,6 +47,7 @@ namespace Dozentenplanung
 
 
         //API
+        //Course
         public Course CourseForId(int id)
         {
             return this.Courses
@@ -56,6 +57,8 @@ namespace Dozentenplanung
                        .Include("Modules.Units.UnitSkills.Skill")
                        .SingleOrDefault(course => course.Id == id);
         }
+
+        //Module
         public Module ModuleForId(int id)
         {
             return this.Modules
@@ -64,23 +67,24 @@ namespace Dozentenplanung
                        .Include("Units.Lecturer")
                        .SingleOrDefault(module => module.Id == id);
         }
+
+        //Unit
         public Unit UnitForId(int id) {
             return this.AllUnits()
                        .Include("UnitSkills")
                        .Include("UnitSkills.Skill")
                        .SingleOrDefault(unit => unit.Id == id);
         }
-
         public IQueryable<Unit> AllUnits() {
             return this.Units
                        .Include("Module")
                        .Include("Module.Course")
                        .Include("Lecturer");
         }
+
+        //Lecturer
         public Lecturer LecturerForId(int id) {
-            return this.Lecturers
-                       .Include("LecturerSkills")
-                       .Include("LecturerSkills.Skill")
+            return this.LecturersWithSkills()
                        .SingleOrDefault(lecturer => lecturer.Id == id);
         }
         public Lecturer DummyLecturer() 
@@ -92,12 +96,25 @@ namespace Dozentenplanung
                 return null;
             }
         }
+        public IQueryable<Lecturer> LecturersWithSkills() {
+            return this.Lecturers
+                       .Include("LecturerSkills")
+                       .Include("LecturerSkills.Skill");
+        }
+
+        //Skill
         public Skill SkillForId(int id) {
             return this.Skills.Find(id);
         }
+
+        //ExamType
         public ExamType ExamTypeForId(int id) {
             return this.ExamTypes.Find(id);
         }
+
+
+
+
 
 
         public void EnsureCreated() {
@@ -111,7 +128,6 @@ namespace Dozentenplanung
         public void Delete() {
             this.Database.EnsureDeleted();
         }
-
 
         public Setting settingForName(string aName) {
             return this.Settings.Single(setting => setting.Name == aName);
