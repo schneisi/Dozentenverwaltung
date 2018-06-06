@@ -3,6 +3,27 @@
     ViewData["title"] = "Unit";
     ViewData["menuId"] = "units";
 }
+<form id="form" asp-action="index" asp-controller="Unit" method="get">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Bezeichnung</label>
+                <div class="control">
+                    <input name="designation" class="input" type="text" placeholder="Unit Code" value=@ViewBag.Designation>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Titel</label>
+                <div class="control">
+                    <input name="title" class="input" type="text" placeholder="Titel der Unit" value=@ViewBag.UnitTitle>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="button" form="form">Suchen</button>
+</form>
 
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>

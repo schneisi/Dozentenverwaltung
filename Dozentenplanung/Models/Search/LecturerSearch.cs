@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Dozentenplanung.Models
 {
-    public class LecturerSearch
+    public class LecturerSearch : BaseSearch
     {
         public String Firstname { get; set; }
         public String Lastname { get; set; }
@@ -12,10 +12,7 @@ namespace Dozentenplanung.Models
 
         public List<Lecturer> Result { get; set; }
 
-        private ApplicationDbContext DbContext { get; set; }
-
-        public LecturerSearch(ApplicationDbContext dbContext) {
-            this.DbContext = dbContext;
+        public LecturerSearch(ApplicationDbContext dbContext) : base(dbContext) {
             this.ShowDummy = false;
         }
 
@@ -34,9 +31,7 @@ namespace Dozentenplanung.Models
             return Result;
         }
 
-        private bool HasValue(string aString) {
-            return !string.IsNullOrEmpty(aString);
-        }
+
 
     }
 }

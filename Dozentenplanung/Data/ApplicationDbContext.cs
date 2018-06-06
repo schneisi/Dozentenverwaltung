@@ -65,13 +65,17 @@ namespace Dozentenplanung
                        .SingleOrDefault(module => module.Id == id);
         }
         public Unit UnitForId(int id) {
+            return this.AllUnits()
+                       .Include("UnitSkills")
+                       .Include("UnitSkills.Skill")
+                       .SingleOrDefault(unit => unit.Id == id);
+        }
+
+        public IQueryable<Unit> AllUnits() {
             return this.Units
                        .Include("Module")
                        .Include("Module.Course")
-                       .Include("UnitSkills")
-                       .Include("UnitSkills.Skill")
-                       .Include("Lecturer")
-                       .SingleOrDefault(unit => unit.Id == id);
+                       .Include("Lecturer");
         }
         public Lecturer LecturerForId(int id) {
             return this.Lecturers

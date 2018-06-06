@@ -23,9 +23,16 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string designation, string title, int? lecturerId)
         {
-            return View(DatabaseContext.Units.Include("Lecturer").ToList());
+            UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
+            unitSearch.Designation = designation;
+            unitSearch.Title = title;
+            unitSearch.LecturerId = lecturerId;
+
+            ViewBag.UnitTitle = title;
+            ViewBag.Designation = designation;
+            return View(unitSearch.Search());
         }
 
         public IActionResult Edit(int? id, int? moduleId) {
