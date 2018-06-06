@@ -36,6 +36,7 @@
     <Folder Include="Views\Skill\" />
     <Folder Include="Views\Profile\" />
     <Folder Include="Views\ExamType\" />
+    <Folder Include="Models\Search\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Database.db" />

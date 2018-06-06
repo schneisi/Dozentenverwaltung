@@ -5,7 +5,30 @@
     ViewData["menuId"] = "lecturers";
 }
 
-<a asp-controller="lecturer" asp-action="edit" class="button is-success">Dozent erstellen</a>
+<form id="form" asp-action="index" asp-controller="Lecturer" method="get">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Vorname</label>
+                <div class="control">
+                    <input name="firstname" class="input" type="text" placeholder="Vorname" value=@ViewBag.Firstname>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Nachname</label>
+                <div class="control">
+                    <input name="lastname" class="input" type="text" placeholder="Nachname" value=@ViewBag.Lastname>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="button" form="form">Suchen</button>
+    <a asp-controller="lecturer" asp-action="edit" class="button is-success">Dozent erstellen</a>
+   
+</form>
+
 
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>

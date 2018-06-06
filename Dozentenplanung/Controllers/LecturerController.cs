@@ -20,9 +20,14 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string firstname, string lastname)
         {
-            return View(this.Lecturers());
+            LecturerSearch search = new LecturerSearch(this.DatabaseContext);
+            search.Firstname = firstname;
+            search.Lastname = lastname;
+            ViewBag.Firstname = firstname;
+            ViewBag.Lastname = lastname;
+            return View(search.Search());
         }
         public IActionResult Edit(int? id)
         {
