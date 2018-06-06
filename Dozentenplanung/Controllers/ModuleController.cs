@@ -31,12 +31,12 @@ namespace Dozentenplanung.Controllers
             if (id.HasValue) {
                 theModule = DatabaseContext.Modules.Find(id);
             } else {
-                ModuleBuilder theBuilder = new ModuleBuilder(this.DatabaseContext);
-                theBuilder.Course = this.CourseForId(courseId.Value);
-                theBuilder.Designation = "Modulbezeichnung";
-                theBuilder.Title = "Modultitel";
-                theBuilder.Save();
-                theModule = theBuilder.Module();
+                ModuleBuilder builder = new ModuleBuilder(this.DatabaseContext);
+                builder.Course = this.CourseForId(courseId.Value);
+                builder.Designation = "Modulbezeichnung";
+                builder.Title = "Modultitel";
+                builder.Save();
+                theModule = builder.Module();
             }
 
             return View(theModule);
@@ -44,24 +44,22 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult Delete(int id) {
-            Module theModule = this.ModuleForId(id);
-            theModule.DeleteFromContext(this.DatabaseContext);
+            Module module = this.ModuleForId(id);
+            module.DeleteFromContext(this.DatabaseContext);
             this.SaveDatabaseContext();
-            return RedirectToAction("course", "course", new { id = theModule.CourseId });
+            return RedirectToAction("course", "course", new { id = module.CourseId });
         }
 
         [HttpPost]
         public IActionResult SaveModule(int id, int courseId, string title, string designation)
         {
-            Module theModule = this.ModuleForId(id);
-            ModuleBuilder theBuilder = new ModuleBuilder(this.DatabaseContext, theModule);
-            theBuilder.Title = title;
-            theBuilder.Designation = designation;
-            theBuilder.Save();
-            return RedirectToAction("course", "course", new { id = theModule.CourseId});
+            Module module = this.ModuleForId(id);
+            ModuleBuilder moduleBuilder = new ModuleBuilder(this.DatabaseContext, module);
+            moduleBuilder.Title = title;
+            moduleBuilder.Designation = designation;
+            moduleBuilder.Save();
+            return RedirectToAction("course", "course", new { id = module.CourseId});
         }
-
-
 
 
         private Module ModuleForId(int anId) {

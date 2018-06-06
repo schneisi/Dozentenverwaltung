@@ -24,36 +24,36 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Edit(int? id)
         {
-            Skill theSkill;
+            Skill skill;
             if (id.HasValue)
             {
-                theSkill = this.DatabaseContext.SkillForId(id.Value);
+                skill = this.DatabaseContext.SkillForId(id.Value);
             }
             else
             {
-                SkillBuilder theBuilder = new SkillBuilder(this.DatabaseContext);
-                theBuilder.Title = "Skill";
-                theBuilder.Description = "Bescheibung";
-                theBuilder.Save();
-                theSkill = theBuilder.Skill();
+                SkillBuilder skillBuilder = new SkillBuilder(this.DatabaseContext);
+                skillBuilder.Title = "Skill";
+                skillBuilder.Description = "Bescheibung";
+                skillBuilder.Save();
+                skill = skillBuilder.Skill();
             }
 
-            return View(theSkill);
+            return View(skill);
         }
 
         public IActionResult Save(int id, string title, string description)
         {
-            SkillBuilder theBuilder = new SkillBuilder(this.DatabaseContext, this.DatabaseContext.SkillForId(id));
-            theBuilder.Title = title;
-            theBuilder.Description = description;
-            theBuilder.Save();
+            SkillBuilder skillBuilder = new SkillBuilder(this.DatabaseContext, this.DatabaseContext.SkillForId(id));
+            skillBuilder.Title = title;
+            skillBuilder.Description = description;
+            skillBuilder.Save();
             return RedirectToAction("index", "skill");
         }
 
         public IActionResult Delete(int id)
         {
-            Skill theSkill = this.DatabaseContext.SkillForId(id);
-            theSkill.DeleteFromContext(this.DatabaseContext);
+            Skill skill = this.DatabaseContext.SkillForId(id);
+            skill.DeleteFromContext(this.DatabaseContext);
             this.SaveDatabaseContext();
             return RedirectToAction("index", "skill");
         }

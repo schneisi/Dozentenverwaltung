@@ -20,8 +20,8 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Index()
         {
-            ApplicationUser theUser = this.GetCurrentUser().Result;
-            return View(theUser);
+            ApplicationUser user = this.GetCurrentUser().Result;
+            return View(user);
         }
 
         public async Task<IActionResult> ChangePassword(string oldPassword, string newPassword) {

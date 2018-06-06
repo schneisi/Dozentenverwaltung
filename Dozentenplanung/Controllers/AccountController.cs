@@ -51,9 +51,9 @@ namespace Dozentenplanung.Controllers
         [Route("account/loginUser")]
         public async Task<IActionResult> LoginUser(string ReturnUrl, string username, string password) {
             bool theSuccessBoolean = false;
-            ApplicationUser theUser = await this.UserManager.FindByNameAsync(username);
-            if (theUser != null) {
-                var result = await this.SignInManager.PasswordSignInAsync(theUser, password, true, false);
+            ApplicationUser user = await this.UserManager.FindByNameAsync(username);
+            if (user != null) {
+                var result = await this.SignInManager.PasswordSignInAsync(user, password, true, false);
                 theSuccessBoolean = result.Succeeded;
             }
             if (theSuccessBoolean) {
@@ -74,10 +74,10 @@ namespace Dozentenplanung.Controllers
 
         [Route("account/CreatePasswordToken")]
         public async Task<IActionResult> CreatePasswordToken(string email) {
-            var theUser = await this.UserManager.FindByEmailAsync(email);
-            if (theUser != null) {
+            var user = await this.UserManager.FindByEmailAsync(email);
+            if (user != null) {
                 string theLink = "";
-                string theToken = await this.UserManager.GeneratePasswordResetTokenAsync(theUser);
+                string theToken = await this.UserManager.GeneratePasswordResetTokenAsync(user);
                 string theHostString = HttpContext.Request.Host.Host;
                 theLink += theHostString;
                 int? thePort = HttpContext.Request.Host.Port;
@@ -86,8 +86,8 @@ namespace Dozentenplanung.Controllers
                 }
                 theLink = theLink + "/account/" + "SetNewPassword";
 
-                theLink = theLink + "?userId=" + theUser.Id + "&passwordToken=" + System.Web.HttpUtility.UrlEncode(theToken);
-                this.SendMail(true, theUser.Email, "Passwort zurücksetzen - Dozentenverwaltung", "<a href='" + theLink + "'>Passwort zurücksetzen");
+                theLink = theLink + "?userId=" + user.Id + "&passwordToken=" + System.Web.HttpUtility.UrlEncode(theToken);
+                this.SendMail(true, user.Email, "Passwort zurücksetzen - Dozentenverwaltung", "<a href='" + theLink + "'>Passwort zurücksetzen");
 
                 return Content("ResetLink: " + theLink);
             } else {
@@ -102,8 +102,8 @@ namespace Dozentenplanung.Controllers
         }
 
         public async Task<IActionResult> setNewPasswordWithToken (string userId, string password, string passwordToken) {
-            ApplicationUser theUser = await this.GetUserForId(userId);
-            var result = await this.UserManager.ResetPasswordAsync(theUser, passwordToken, password);
+            ApplicationUser user = await this.GetUserForId(userId);
+            var result = await this.UserManager.ResetPasswordAsync(user, passwordToken, password);
             if (result.Succeeded) {
                 return RedirectToAction("index", "course");
             } else {

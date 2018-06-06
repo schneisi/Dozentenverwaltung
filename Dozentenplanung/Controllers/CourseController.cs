@@ -26,27 +26,26 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Edit(int? id)
         {
-            Course theCourse;
+            Course course;
             if (id.HasValue)
             {
-                theCourse = this.CourseForId(id.Value);
+                course = this.CourseForId(id.Value);
             }
             else
             {
-                CourseBuilder theBuilder = new CourseBuilder(this.DatabaseContext);
-                theBuilder.Title = "Neuer Kurs";
-                theBuilder.Designation = "Bezeichnung";
-                theBuilder.Year = DateTime.Now.Year;
-                theBuilder.Save();
-                theCourse = theBuilder.Course();
+                CourseBuilder courseBuilder = new CourseBuilder(this.DatabaseContext);
+                courseBuilder.Title = "Neuer Kurs";
+                courseBuilder.Designation = "Bezeichnung";
+                courseBuilder.Year = DateTime.Now.Year;
+                courseBuilder.Save();
+                course = courseBuilder.Course();
             }
-            return View(theCourse);
+            return View(course);
         }
 
         public IActionResult Course(int id)
         {
-            Course theCourse = this.CourseForId(id);
-            return View(theCourse);
+            return View(this.CourseForId(id));
         }
         #endregion
 
@@ -60,16 +59,15 @@ namespace Dozentenplanung.Controllers
         [HttpPost]
         public IActionResult CreateCourse(string title, string designation, int year, int? id)
         {
-            CourseBuilder theCourseBuilder = new CourseBuilder(this.DatabaseContext);
+            CourseBuilder courseBuilder = new CourseBuilder(this.DatabaseContext);
             if (id.HasValue) {
-                theCourseBuilder.Object = this.CourseForId(id.Value);
+                courseBuilder.Object = this.CourseForId(id.Value);
             }
-            theCourseBuilder.Title = title;
-            theCourseBuilder.Designation = designation;
-            theCourseBuilder.Year = year;
-            theCourseBuilder.Save();
-            Course theCourse = theCourseBuilder.Course();
-            return RedirectToAction("course", "course", new { id = theCourse.Id});
+            courseBuilder.Title = title;
+            courseBuilder.Designation = designation;
+            courseBuilder.Year = year;
+            courseBuilder.Save();
+            return RedirectToAction("course", "course", new { id = courseBuilder.Course()});
         }
 
         private List<Course> Courses()

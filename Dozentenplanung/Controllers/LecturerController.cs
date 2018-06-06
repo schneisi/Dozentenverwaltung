@@ -35,21 +35,21 @@ namespace Dozentenplanung.Controllers
             if (id.HasValue) {
                 theLecturer = this.LecturerForId(id.Value);
             } else {
-                LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext);
-                theBuilder.Lastname = "Nachname";
-                theBuilder.Firstname = "Vorname";
-                theBuilder.Mail = "mail@dhbw-loerrach.de";
-                theBuilder.Notes = "Notizen";
-                theBuilder.Save();
-                theLecturer = theBuilder.Lecturer();
+                LecturerBuilder lecturerBuilder = new LecturerBuilder(this.DatabaseContext);
+                lecturerBuilder.Lastname = "Nachname";
+                lecturerBuilder.Firstname = "Vorname";
+                lecturerBuilder.Mail = "mail@dhbw-loerrach.de";
+                lecturerBuilder.Notes = "Notizen";
+                lecturerBuilder.Save();
+                theLecturer = lecturerBuilder.Lecturer();
             }
             List<SelectListItem> theSkills = new List<SelectListItem>();
             foreach (Skill eachSkill in this.DatabaseContext.Skills) {
-                SelectListItem theItem = new SelectListItem();
-                theItem.Text = eachSkill.Title;
-                theItem.Value = eachSkill.Id.ToString();
-                theItem.Selected = theLecturer.HasSkill(eachSkill);
-                theSkills.Add(theItem);
+                SelectListItem listItem = new SelectListItem();
+                listItem.Text = eachSkill.Title;
+                listItem.Value = eachSkill.Id.ToString();
+                listItem.Selected = theLecturer.HasSkill(eachSkill);
+                theSkills.Add(listItem);
             }
             ViewBag.Skills = theSkills;
 
@@ -57,16 +57,15 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult Lecturer(int id) {
-            Lecturer theLecturer = this.LecturerForId(id);
-            return View(theLecturer);
+            return View(this.LecturerForId(id));
         }
         public IActionResult Create() {
             return View();
         }
 
         public IActionResult DeleteLecteurer(int id) {
-            Lecturer theLecturer = this.LecturerForId(id);
-            if (theLecturer.deleteFromContext(this.DatabaseContext)) {
+            Lecturer lecturer = this.LecturerForId(id);
+            if (lecturer.deleteFromContext(this.DatabaseContext)) {
                 this.SaveDatabaseContext();
                 return RedirectToAction("Index", "Lecturer");
             }
@@ -74,17 +73,17 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult SaveLecturer(int id, string firstname, string lastname, string mail, string notes, List<int> SkillIds) {
-            LecturerBuilder theBuilder = new LecturerBuilder(this.DatabaseContext, this.LecturerForId(id));
-            theBuilder.Firstname = firstname;
-            theBuilder.Lastname = lastname;
-            theBuilder.Mail = mail;
-            theBuilder.Notes = notes;
-            List<Skill> theSkillList = new List<Skill>();
+            LecturerBuilder builder = new LecturerBuilder(this.DatabaseContext, this.LecturerForId(id));
+            builder.Firstname = firstname;
+            builder.Lastname = lastname;
+            builder.Mail = mail;
+            builder.Notes = notes;
+            List<Skill> skillList = new List<Skill>();
             foreach (int eachId in SkillIds) {
-                theSkillList.Add(this.DatabaseContext.SkillForId(eachId));
+                skillList.Add(this.DatabaseContext.SkillForId(eachId));
             }
-            theBuilder.Skills = theSkillList;
-            theBuilder.Save();
+            builder.Skills = skillList;
+            builder.Save();
             return RedirectToAction("Index", "Lecturer");
         }
 
