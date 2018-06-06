@@ -63,3 +63,9 @@
     <a asp-controller="Lecturer" asp-action="DeleteLecteurer" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>
+
+<script>
+    $(function() {
+        $('select').selectize();
+    });
+</script>
