@@ -5,6 +5,10 @@
     ViewData["menuId"] = "courses";
 
 }
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.min.css'>
+
 <form id="form" asp-action="save" asp-controller="Unit" asp-route-id="@Model.Id">
     <div class="columns">
         <div class="column">
@@ -52,19 +56,20 @@
     </div>
     <div class="columns">
         <div class="column">
-            <label class="label">Dozent</label>
-            <div class="select">
-                <select name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
+            <div class="container">
+                <label class="label">Dozent</label>
+                <p class="control">
+                    <select style="width:25%;"  name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
             </div>
         </div>
     </div>
+    </div>
     <div class="columns">
         <div class="column">
-            <div class="select is-multiple">
+            <div class="container">
                 <label class="label">Skills</label>
-                <div class="select is-multiple">
-                    <select multiple="true" name="skillIds" asp-items="@ViewBag.Skills"></select>
-                </div>
+                <p class="control">
+                    <select style="width:25%;" multiple name="skillIds" asp-items="@ViewBag.Skills"></select>
             </div>
         </div>
     </div>
@@ -89,3 +94,14 @@
     <a asp-controller="unit" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>
+
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js'></script>
+
+<script src="js/index.js"></script>
+
+<script>
+    $(function () {
+        $('select').selectize();
+    });
+</script>
