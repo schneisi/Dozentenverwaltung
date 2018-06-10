@@ -23,11 +23,14 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public IActionResult Index(string designation, string title, int? lecturerId)
+        public IActionResult Index(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
             unitSearch.Title = title;
+            unitSearch.Semester = semester;
+            unitSearch.Year = year;
+            unitSearch.Quarter = quarter;
             unitSearch.LecturerId = lecturerId;
 
             ViewBag.UnitTitle = title;
@@ -43,6 +46,9 @@ namespace Dozentenplanung.Controllers
                 UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext);
                 unitBuilder.Title = "";
                 unitBuilder.Designation = "Unitbezeichnung";
+                unitBuilder.Semester = 0;
+                unitBuilder.Year = 0;
+                unitBuilder.Quarter = 0;
                 unitBuilder.DurationOfExam = 0 ;
                 unitBuilder.ExamType = "";
                 unitBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
@@ -74,11 +80,14 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int DurationOfExam, string ExamType) {
+        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, string ExamType) {
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;
             unitBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
+            unitBuilder.Semester = Semester;
+            unitBuilder.Year = Year;
+            unitBuilder.Quarter = Quarter;
             unitBuilder.ExamType = ExamType;
             unitBuilder.DurationOfExam = DurationOfExam;
             List<Skill> skillList = new List<Skill>();

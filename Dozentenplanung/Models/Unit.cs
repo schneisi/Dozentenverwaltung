@@ -16,8 +16,8 @@ namespace Dozentenplanung.Models
 
         public string Designation { get; set; }
 
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public int Year { get; set; }
+        public int Quarter { get; set; }
 
         public int Hours;
 
@@ -41,8 +41,8 @@ namespace Dozentenplanung.Models
         public Unit() {
             Title = "Titel";
             Designation = "Code";
-            BeginDate = DateTime.Now;
-            EndDate = DateTime.Now;
+            Year= 2018;
+            Quarter = 2;
             Hours = 10;
             Semester = 1;
             DurationOfExam = 60;
@@ -91,8 +91,9 @@ namespace Dozentenplanung.Models
             UnitBuilder unitBuilder = new UnitBuilder(dbContext);
             unitBuilder.Title = this.Title;
             unitBuilder.Module = aModule;
-            unitBuilder.BeginDate = this.BeginDate;
-            unitBuilder.EndDate = this.EndDate;
+            unitBuilder.Semester = this.Semester;
+            unitBuilder.Year = this.Year;
+            unitBuilder.Quarter = this.Quarter;
             unitBuilder.ExamType = this.ExamType;
             unitBuilder.Skills = this.Skills().ToList();
             unitBuilder.DurationOfExam = this.DurationOfExam;

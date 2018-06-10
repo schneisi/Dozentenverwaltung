@@ -26,6 +26,32 @@
     </div>
     <div class="columns">
         <div class="column">
+            <div class="field">
+                <label class="label">Semester</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.Semester, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Jahr</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.Year, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Quartal</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.Quarter, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
             <label class="label">Dozent</label>
             <div class="select">
                 <select name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
@@ -43,22 +69,22 @@
         </div>
     </div>
     <div class=" = columns">
-    <div class="column">
-        <div class="field">
-            <label class="label">Prüfungsart:</label>
-            <div class="control">
-                @Html.EditorFor(unit => unit.ExamType, new { htmlAttributes = new { @class = "input" } })
+        <div class="column">
+            <div class="field">
+                <label class="label">Prüfungsart:</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.ExamType, new { htmlAttributes = new { @class = "input" } })
+                </div>
             </div>
         </div>
-    </div>
-    <div class="column">
-        <div class="field">
-            <label class="label">Prüfungsdauer</label>
-            <div class="control">
-                @Html.EditorFor(unit => unit.DurationOfExam, new { htmlAttributes = new { @class = "input" } })
+        <div class="column">
+            <div class="field">
+                <label class="label">Prüfungsdauer</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.DurationOfExam, new { htmlAttributes = new { @class = "input" } })
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <a asp-controller="unit" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>

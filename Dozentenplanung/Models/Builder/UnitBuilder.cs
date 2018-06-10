@@ -7,8 +7,9 @@ namespace Dozentenplanung.Models
     {
         public string Designation { get; set; } 
         public string Title { get; set; }
-        public DateTime BeginDate { get; set; } 
-        public DateTime EndDate { get; set; }
+        public int Semester { get; set; }
+        public int Year { get; set; } 
+        public int Quarter { get; set; }
         public Module Module { get; set; }
         public Lecturer Lecturer { get; set; }
         public List<Skill> Skills { get; set; }
@@ -36,8 +37,9 @@ namespace Dozentenplanung.Models
 
             theUnit.Designation = this.Designation;
             theUnit.Title = this.Title;
-            theUnit.BeginDate = this.BeginDate;
-            theUnit.EndDate = this.EndDate;
+            theUnit.Semester= this.Semester;
+            theUnit.Year = this.Year;
+            theUnit.Quarter = this.Quarter;
             theUnit.DurationOfExam = this.DurationOfExam;
             theUnit.ExamType = this.ExamType;
             theUnit.Remark = this.Remark;

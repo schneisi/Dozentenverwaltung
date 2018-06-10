@@ -22,6 +22,32 @@
             </div>
         </div>
     </div>
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Semester</label>
+                <div class="control">
+                    <input name="semester" class="input" type="text" placeholder="Semester" value=@ViewBag.Semester>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Jahr</label>
+                <div class="control">
+                    <input name="year" class="input" type="text" placeholder="Jahr der Unit" value=@ViewBag.Year>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Quartal</label>
+                <div class="control">
+                    <input name="quarter" class="input" type="text" placeholder="Quartal der Unit" value=@ViewBag.Quarter>
+                </div>
+            </div>
+        </div>
+    </div>
     <button type="submit" class="button" form="form">Suchen</button>
 </form>
 
@@ -32,6 +58,9 @@
             <th>Id</th>
             <th>Bezeichnung</th>
             <th>Name</th>
+            <th>Semester</th>
+            <th>Jahr</th>
+            <th>Quartal</th>
             <th>Prüfungsart</th>
             <th>Prüfungsdauer</th>
             <th>Dozent</th>
@@ -41,12 +70,14 @@
     @foreach (var eachUnit in Model) {
     <tr>
         <td>
-            @if (eachUnit.Lecturer.IsDummy) {
+            @if (eachUnit.Lecturer.IsDummy)
+        {
             <img src="~/img/red_dot.png" />
-            }
-            else { 
-            <img src="~/img/green_dot.png"/>
-            }
+    }
+    else
+    {
+        <img src="~/img/green_dot.png" />
+}
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.Id)
@@ -56,6 +87,15 @@
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.Title)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Semester)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Year)
+        </td>
+        <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
+            @Html.DisplayFor(modelItem => eachUnit.Quarter)
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.ExamType)
