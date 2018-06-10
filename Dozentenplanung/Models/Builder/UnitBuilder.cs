@@ -7,19 +7,24 @@ namespace Dozentenplanung.Models
     {
         public string Designation { get; set; } 
         public string Title { get; set; }
-        public int Semester { get; set; }
-        public int Year { get; set; } 
-        public int Quarter { get; set; }
+        public int? Semester { get; set; }
+        public int? Year { get; set; } 
+        public int? Quarter { get; set; }
         public Module Module { get; set; }
         public Lecturer Lecturer { get; set; }
         public List<Skill> Skills { get; set; }
         public string ExamType { get; set; }
-        public int DurationOfExam { get; set; }
+        public int? DurationOfExam { get; set; }
         public string Remark { get; set; }
 
         public UnitBuilder(ApplicationDbContext aContext) : base(aContext)
         {
             this.Skills = new List<Skill>();
+            this.Semester = 1;
+            this.Year = DateTime.Now.Year;
+            this.Quarter = 1;
+            this.DurationOfExam = 60;
+
         }
         public UnitBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject)
         {
@@ -37,10 +42,10 @@ namespace Dozentenplanung.Models
 
             theUnit.Designation = this.Designation;
             theUnit.Title = this.Title;
-            theUnit.Semester= this.Semester;
-            theUnit.Year = this.Year;
-            theUnit.Quarter = this.Quarter;
-            theUnit.DurationOfExam = this.DurationOfExam;
+            if (this.Semester.HasValue) theUnit.Semester = this.Semester.Value;
+            if (this.Year.HasValue) theUnit.Year = this.Year.Value;
+            if (this.Quarter.HasValue) theUnit.Quarter = this.Quarter.Value;
+            if (this.DurationOfExam.HasValue )theUnit.DurationOfExam = this.DurationOfExam.Value;
             theUnit.ExamType = this.ExamType;
             theUnit.Remark = this.Remark;
             if (this.Module != null) {

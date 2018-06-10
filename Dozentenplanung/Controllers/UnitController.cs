@@ -46,10 +46,6 @@ namespace Dozentenplanung.Controllers
                 UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext);
                 unitBuilder.Title = "";
                 unitBuilder.Designation = "Unitbezeichnung";
-                unitBuilder.Semester = 0;
-                unitBuilder.Year = 0;
-                unitBuilder.Quarter = 0;
-                unitBuilder.DurationOfExam = 0 ;
                 unitBuilder.ExamType = "";
                 unitBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
                 unitBuilder.Save();

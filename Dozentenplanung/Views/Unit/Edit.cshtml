@@ -6,9 +6,6 @@
 
 }
 
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.min.css'>
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.min.css'>
-
 <form id="form" asp-action="save" asp-controller="Unit" asp-route-id="@Model.Id">
     <div class="columns">
         <div class="column">
@@ -59,7 +56,7 @@
             <div class="container">
                 <label class="label">Dozent</label>
                 <p class="control">
-                    <select style="width:25%;"  name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
+                    <select style="width:25%;" name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
             </div>
         </div>
     </div>
