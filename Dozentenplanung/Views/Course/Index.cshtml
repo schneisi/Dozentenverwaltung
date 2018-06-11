@@ -9,7 +9,6 @@
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Bezeichnung</th>
             <th>Jahr</th>
             <th>Name</th>
@@ -18,9 +17,6 @@
     </thead>
     @foreach (var eachCourse in Model) {
         <tr>
-            <td onclick="location.href = '@(Url.Action("course", "course", new { id = eachCourse.Id }))'">
-                @Html.DisplayFor(modelItem => eachCourse.Id)
-            </td>
             <td onclick="location.href = '@(Url.Action("course", "course", new { id = eachCourse.Id }))'">
                 @Html.DisplayFor(modelItem => eachCourse.Designation)
             </td>

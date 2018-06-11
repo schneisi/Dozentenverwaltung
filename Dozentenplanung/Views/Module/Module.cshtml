@@ -15,13 +15,18 @@
 
 <table class="attributesTable">
     <tr>
-        <td>Bezeichnung:</td>
-        <td>@Model.Designation</td>
+        <td>Kurs:</td>
+        <td>@Model.Course.Designation</td>
+    </tr>
+    <tr>
+        <td>Modulcode:</td>
+    <td>@Model.Designation</td>
     </tr>
     <tr>
         <td>Titel:</td>
         <td>@Model.Title</td>
     </tr>
+
 </table>
 
 
@@ -31,8 +36,8 @@
     <thead>
         <tr>
             <th>Status</th>
-            <th>Id</th>
-            <th>Bezeichnung</th>
+            <th>Kurs</th>
+            <th>Unitcode</th>
             <th>Titel</th>
             <th>Prüfungsart</th>
             <th>Prüfungsdauer</th>
@@ -44,16 +49,16 @@
     <tr>
         <td>
             @if (eachUnit.Lecturer.IsDummy)
-            {
-                <img src="~/img/red_dot.png" />
-            }
-            else
-            {
-                <img src="~/img/green_dot.png" />
-            }
+        {
+            <img src="~/img/red_dot.png" />
+    }
+    else
+    {
+        <img src="~/img/green_dot.png" />
+}
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-            @Html.DisplayFor(modelItem => eachUnit.Id)
+            @Html.DisplayFor(modelItem => eachUnit.Module.Course.Designation)
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.Designation)
