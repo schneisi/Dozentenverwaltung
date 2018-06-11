@@ -12,11 +12,19 @@ namespace Dozentenplanung.Models
         public int? Year { get; set; }
         public int? Quarter { get; set; }
         public int? LecturerId { get; set; }
+        public int Status { get; set; }
 
         public List<Unit> Result { get; set; }
 
         public UnitSearch(ApplicationDbContext dbContext) : base(dbContext)
         {
+            this.Status = -1; //Means do not search
+        }
+
+        public void SetStatus(string status) {
+            if (!String.IsNullOrEmpty(status)) {
+                this.Status = Convert.ToInt32(status);
+            }
         }
 
         public List<Unit> Search() {
@@ -47,9 +55,13 @@ namespace Dozentenplanung.Models
             {
                 query = query.Where(eachUnit => eachUnit.Quarter == this.Quarter);
             }
-
+            //Search Lecturer
             if (this.LecturerId.HasValue) {
                 query = query.Where(eachUnit => eachUnit.LecturerId == this.LecturerId);
+            }
+            //Search status
+            if (this.Status >= 0) {
+                query = query.Where(eachUunit => eachUunit.Status == this.Status);
             }
             this.Result = query.ToList();
             return this.Result;

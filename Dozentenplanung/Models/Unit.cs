@@ -19,9 +19,11 @@ namespace Dozentenplanung.Models
         public int Year { get; set; }
         public int Quarter { get; set; }
 
-        public int Hours;
+        public int Hours { get; set; }
 
-        public int Semester;
+        public int Semester { get; set; }
+
+        public int Status { get; set; } //0: none; 1: requested, 2: confirmed
 
         public string Remark { get; set; }
 
@@ -38,10 +40,11 @@ namespace Dozentenplanung.Models
 
 
         //public virtual List<Lecturer> SuitableLecturers { get; set; }
-        public Unit() {
+        public Unit()
+        {
             Title = "Titel";
             Designation = "Code";
-            Year= 2018;
+            Year = 2018;
             Quarter = 2;
             Hours = 10;
             Semester = 1;
@@ -51,12 +54,26 @@ namespace Dozentenplanung.Models
         }
 
 
-        public bool HasLecturer() {
-            return this.Lecturer != null;
+        public bool HasLecturer()
+        {
+            return !this.Lecturer.IsDummy;
         }
 
-        public string LecturerName {
+        public string LecturerName
+        {
             get { return this.Lecturer.Fullname; }
+        }
+        public bool IsStatusOpen
+        {
+            get { return this.Status == 0; }
+        }
+        public bool IsStatusRequested
+        {
+            get { return this.Status == 1; }
+        }
+        public bool IsStatusConfirmed
+        {
+            get { return this.Status == 2; }
         }
 
         public void DeleteFromContext(ApplicationDbContext aContext)
@@ -86,6 +103,18 @@ namespace Dozentenplanung.Models
             return skillsSet;
         }
 
+        public string StatusIconString()
+        {
+            string iconName = "";
+            if (this.HasLecturer()) {
+                if (this.IsStatusConfirmed) iconName = "green_dot";
+                if (this.IsStatusRequested) iconName = "yellow_dot";
+                if (this.IsStatusOpen) iconName = "grey_dot";
+            } else {
+                iconName = "red_dot";
+            }
+            return "/img/" + iconName + ".png";
+        }
 
         public void CopyToModule(Module aModule, ApplicationDbContext dbContext) {
             UnitBuilder unitBuilder = new UnitBuilder(dbContext);

@@ -15,6 +15,7 @@ namespace Dozentenplanung.Models
         public List<Skill> Skills { get; set; }
         public string ExamType { get; set; }
         public int? DurationOfExam { get; set; }
+        public int? Status { get; set; }
         public string Remark { get; set; }
 
         public UnitBuilder(ApplicationDbContext aContext) : base(aContext)
@@ -46,6 +47,7 @@ namespace Dozentenplanung.Models
             if (this.Year.HasValue) theUnit.Year = this.Year.Value;
             if (this.Quarter.HasValue) theUnit.Quarter = this.Quarter.Value;
             if (this.DurationOfExam.HasValue )theUnit.DurationOfExam = this.DurationOfExam.Value;
+            if (this.Status.HasValue) theUnit.Status = this.Status.Value;
             theUnit.ExamType = this.ExamType;
             theUnit.Remark = this.Remark;
             if (this.Module != null) {

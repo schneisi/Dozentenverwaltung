@@ -23,7 +23,7 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public IActionResult Index(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId)
+        public IActionResult Index(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
@@ -32,9 +32,15 @@ namespace Dozentenplanung.Controllers
             unitSearch.Year = year;
             unitSearch.Quarter = quarter;
             unitSearch.LecturerId = lecturerId;
+            unitSearch.SetStatus(status);
 
             ViewBag.UnitTitle = title;
             ViewBag.Designation = designation;
+            ViewBag.Semester = semester;
+            ViewBag.Year = year;
+            ViewBag.Quarter = quarter;
+            ViewBag.Status = status;
+
             return View(unitSearch.Search());
         }
 
@@ -76,7 +82,7 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, string ExamType) {
+        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, string ExamType, int status) {
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;
@@ -86,6 +92,7 @@ namespace Dozentenplanung.Controllers
             unitBuilder.Quarter = Quarter;
             unitBuilder.ExamType = ExamType;
             unitBuilder.DurationOfExam = DurationOfExam;
+            unitBuilder.Status = status;
             List<Skill> skillList = new List<Skill>();
             foreach (int eachId in SkillIds)
             {

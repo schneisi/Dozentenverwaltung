@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Dozentenplanung.Models.Unit>;
 @{
-    ViewData["title"] = "Unit";
+    ViewData["title"] = "Units";
     ViewData["menuId"] = "units";
 }
 <form id="form" asp-action="index" asp-controller="Unit" method="get">
@@ -21,16 +21,16 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="columns">
         <div class="column">
             <div class="field">
                 <label class="label">Semester</label>
                 <div class="control">
-                    <input name="semester" class="input" type="text" placeholder="Semester" value=@ViewBag.Semester>
+                    <input name="semester" class="input" type="number" placeholder="Semester" value=@ViewBag.Semester>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="columns">
         <div class="column">
             <div class="field">
                 <label class="label">Jahr</label>
@@ -43,7 +43,22 @@
             <div class="field">
                 <label class="label">Quartal</label>
                 <div class="control">
-                    <input name="quarter" class="input" type="text" placeholder="Quartal der Unit" value=@ViewBag.Quarter>
+                    <input name="quarter" class="input" type="number" placeholder="Quartal der Unit" value=@ViewBag.Quarter>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label" style="width: 100%">Status</label>
+                <div class="control">
+                    <div class="select">
+                        <select name="status">
+                            <option value="-1" >Alle</option>
+                            <option value="0">Offen</option>
+                            <option value="1">Angefragt</option>
+                            <option value="2">Bestätigt</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,14 +85,7 @@
     @foreach (var eachUnit in Model) {
     <tr>
         <td>
-            @if (eachUnit.Lecturer.IsDummy)
-        {
-            <img src="~/img/red_dot.png" />
-    }
-    else
-    {
-        <img src="~/img/green_dot.png" />
-}
+            <img src=@eachUnit.StatusIconString() />
         </td>
         <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
             @Html.DisplayFor(modelItem => eachUnit.Id)

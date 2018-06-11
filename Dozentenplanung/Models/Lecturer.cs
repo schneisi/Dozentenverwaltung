@@ -76,7 +76,7 @@ namespace Dozentenplanung.Models
 
         public String StringForUnit(Unit aUnit) {
             string returnString = this.Fullname;
-            if (aUnit.Skills().IsSubsetOf(this.Skills())) {
+            if (!this.IsDummy && aUnit.Skills().IsSubsetOf(this.Skills())) {
                 returnString += " (Empfohlen)";
             }
             return returnString;
