@@ -83,6 +83,7 @@
             <th>Status</th>
             <th>Bezeichnung</th>
             <th>Name</th>
+            <th>Kurs</th>
             <th>Semester</th>
             <th>Jahr</th>
             <th>Quartal</th>
@@ -102,6 +103,9 @@
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
                 @Html.DisplayFor(modelItem => eachUnit.Title)
+            </td>
+            <td onclick="location.href = '@(Url.Action(" unit", "unit" , new { id=eachUnit.Id }))'">
+                @Html.DisplayFor(modelItem => eachUnit.CourseDesignation)
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
                 @Html.DisplayFor(modelItem => eachUnit.Semester)

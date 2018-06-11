@@ -19,7 +19,8 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Index()
         {
-            return View(DatabaseContext.Modules.ToList());
+            ModuleSearch moduleSearch = new ModuleSearch(this.DatabaseContext); 
+            return View(moduleSearch.Search());
         }
         public IActionResult Module(int id)
         {

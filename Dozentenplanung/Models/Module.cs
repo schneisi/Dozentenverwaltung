@@ -19,6 +19,10 @@ namespace Dozentenplanung.Models
 
         public List<Unit> Units { get; set; }
 
+        public string CourseDesignation
+        {
+            get { return this.Course.Designation; }
+        }
 
         public void DeleteFromContext(ApplicationDbContext aContext)
         {

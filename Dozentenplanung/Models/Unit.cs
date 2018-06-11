@@ -63,6 +63,9 @@ namespace Dozentenplanung.Models
         {
             get { return this.Lecturer.Fullname; }
         }
+        public string CourseDesignation {
+            get { return this.Module.Course.Designation; }
+        }
         public bool IsStatusOpen
         {
             get { return this.Status == 0; }
