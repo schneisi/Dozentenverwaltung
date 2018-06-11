@@ -48,7 +48,7 @@
     @foreach(var eachUnit in Model.Units) {
     <tr>
         <td>
-            @if (eachUnit.Lecturer.IsDummy)
+            @if (eachUnit.Lecturer.IsDummyNone)
         {
             <img src="~/img/red_dot.png" />
     }

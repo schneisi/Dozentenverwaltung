@@ -13,7 +13,7 @@ namespace Dozentenplanung.Models
         public int? Quarter { get; set; }
         public int? LecturerId { get; set; }
         public int Status { get; set; }
-
+        public string CourseDesignation { get; set; }
         public List<Unit> Result { get; set; }
 
         public UnitSearch(ApplicationDbContext dbContext) : base(dbContext)
@@ -62,6 +62,11 @@ namespace Dozentenplanung.Models
             //Search status
             if (this.Status >= 0) {
                 query = query.Where(eachUunit => eachUunit.Status == this.Status);
+            }
+            //Search CourseDesignation
+            if (this.HasValue(this.CourseDesignation))
+            {
+                query = query.Where(eachUnit => eachUnit.Module.Course.Designation.Contains(this.CourseDesignation));
             }
             this.Result = query.ToList();
             return this.Result;

@@ -23,7 +23,7 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public IActionResult Index(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status)
+        public IActionResult Index(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status, string courseDesignation)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
@@ -33,6 +33,7 @@ namespace Dozentenplanung.Controllers
             unitSearch.Quarter = quarter;
             unitSearch.LecturerId = lecturerId;
             unitSearch.SetStatus(status);
+            unitSearch.CourseDesignation = courseDesignation;
             LecturerSearch lecturerSearch = new LecturerSearch(this.DatabaseContext);
             lecturerSearch.ShowDummyAll = true;
             lecturerSearch.ShowDummyNone = true;
@@ -49,7 +50,7 @@ namespace Dozentenplanung.Controllers
             ViewBag.Year = year;
             ViewBag.Quarter = quarter;
             ViewBag.Status = status;
-
+            ViewBag.CourseDesignation = courseDesignation;
             return View(unitSearch.Search());
         }
 
