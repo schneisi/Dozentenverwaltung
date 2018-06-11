@@ -87,9 +87,9 @@ namespace Dozentenplanung
             return this.LecturersWithSkills()
                        .SingleOrDefault(lecturer => lecturer.Id == id);
         }
-        public Lecturer DummyLecturer() 
+        public Lecturer DummyNoneLecturer() 
         {
-            var theDummies = this.Lecturers.Where(lecturer => lecturer.IsDummy);
+            var theDummies = this.Lecturers.Where(lecturer => lecturer.IsDummyNone);
             if (theDummies.Any()) {
                 return theDummies.First();
             } else {
@@ -119,7 +119,7 @@ namespace Dozentenplanung
 
         public void EnsureCreated() {
             this.Database.EnsureCreated();
-            if (this.DummyLecturer() == null)
+            if (this.DummyNoneLecturer() == null)
             {
                 Lecturer.CreateDummyInContext(this);
             }

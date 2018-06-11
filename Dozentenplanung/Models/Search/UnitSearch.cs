@@ -56,7 +56,7 @@ namespace Dozentenplanung.Models
                 query = query.Where(eachUnit => eachUnit.Quarter == this.Quarter);
             }
             //Search Lecturer
-            if (this.LecturerId.HasValue) {
+            if (this.LecturerId.HasValue && !(this.DbContext.LecturerForId(this.LecturerId.Value).IsDummyAll)){
                 query = query.Where(eachUnit => eachUnit.LecturerId == this.LecturerId);
             }
             //Search status

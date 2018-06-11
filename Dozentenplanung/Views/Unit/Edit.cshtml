@@ -55,11 +55,11 @@
         <div class="column">
             <div class="container">
                 <label class="label">Dozent</label>
-                <p class="control">
+                <div class="control">
                     <select style="width:25%;" name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="columns">
         <div class="column">
@@ -101,7 +101,7 @@
                     </label>
                     <label class="radio">
                         <input type="radio" name="status" value="2" checked=@Model.IsStatusConfirmed>
-                        Angefragt
+                        Bestätigt
                     </label>
                 </div>
             </div>

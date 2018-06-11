@@ -41,8 +41,8 @@ namespace Dozentenplanung.Models
                 theUnit = this.Unit();
             }
 
-            theUnit.Designation = this.Designation;
-            theUnit.Title = this.Title;
+            if (!String.IsNullOrEmpty(this.Designation)) theUnit.Designation = this.Designation;
+            if (!String.IsNullOrEmpty(this.Title)) theUnit.Title = this.Title;
             if (this.Semester.HasValue) theUnit.Semester = this.Semester.Value;
             if (this.Year.HasValue) theUnit.Year = this.Year.Value;
             if (this.Quarter.HasValue) theUnit.Quarter = this.Quarter.Value;
@@ -56,7 +56,7 @@ namespace Dozentenplanung.Models
             if(this.Lecturer != null) {
                 theUnit.Lecturer = this.Lecturer;
             } else if(theUnit.Lecturer == null) {
-                theUnit.Lecturer = this.DatabaseContext.DummyLecturer();
+                theUnit.Lecturer = this.DatabaseContext.DummyNoneLecturer();
             }
             List<UnitSkill> theUnitSkills = new List<UnitSkill>();
             foreach (Skill eachSkill in this.Skills){
