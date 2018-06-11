@@ -81,6 +81,7 @@ namespace Dozentenplanung
             return this.Units
                        .Include("Module")
                        .Include("Module.Course")
+                       .Include("ExamType")
                        .Include("Lecturer");
         }
 

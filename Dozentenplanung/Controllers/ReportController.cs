@@ -21,8 +21,7 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        [Produces("text/html")]
-        public string UnitReport(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status)
+        public ActionResult UnitReport(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
@@ -35,7 +34,7 @@ namespace Dozentenplanung.Controllers
 
             UnitReport report = new UnitReport();
             report.Search = unitSearch;
-            return report.CreateReport();
+            return Content(report.CreateReport(), "text/html");
         }
 
 

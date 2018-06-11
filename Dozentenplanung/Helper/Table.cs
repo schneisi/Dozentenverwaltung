@@ -7,11 +7,17 @@ namespace Dozentenplanung.Helper
     {
         public int NumberOfColumns { get; set; }
         public List<List<string>> Rows { get; set;}
+        public List<string> headings { get; set; }
 
         public Table(int numberOfColumns)
         {
             this.NumberOfColumns = numberOfColumns;
             this.Rows = new List<List<string>>();
+            this.headings = new List<string>();
+        }
+
+        public void AddHeading(string aString) {
+            this.headings.Add(aString);
         }
 
         public void AddRow(List<string> row) {
@@ -19,7 +25,12 @@ namespace Dozentenplanung.Helper
         }
 
         public string CreateHtml() {
-            string resultString = "<table>";
+            string resultString = "<table class='reportTable'>";
+
+            foreach (string eachHeading in headings) {
+                resultString += "<th>" + eachHeading + "</th>";
+            }
+
             foreach (List<string> eachRow in this.Rows) {
                 resultString += "<tr>";
                 foreach (string eachColumn in eachRow) {
