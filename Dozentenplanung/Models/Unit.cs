@@ -56,7 +56,7 @@ namespace Dozentenplanung.Models
 
         public bool HasLecturer()
         {
-            return !this.Lecturer.IsDummy;
+            return !this.Lecturer.IsDummyNone;
         }
 
         public string LecturerName

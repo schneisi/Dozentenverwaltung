@@ -8,12 +8,14 @@ namespace Dozentenplanung.Models
     {
         public String Firstname { get; set; }
         public String Lastname { get; set; }
-        public bool ShowDummy { get; set; }
+        public bool ShowDummyNone { get; set; }
+        public bool ShowDummyAll { get; set; }
 
         public List<Lecturer> Result { get; set; }
 
         public LecturerSearch(ApplicationDbContext dbContext) : base(dbContext) {
-            this.ShowDummy = false;
+            this.ShowDummyNone = false;
+            this.ShowDummyAll = false;
         }
 
         public List<Lecturer> Search() {
@@ -24,8 +26,12 @@ namespace Dozentenplanung.Models
             if (this.HasValue(this.Lastname)) {
                 query = query.Where(eachLecturer => eachLecturer.Lastname.Contains(this.Lastname));
             }
-            if (!this.ShowDummy) {
-                query = query.Where(eachLecturer => !eachLecturer.IsDummy);
+            if (!this.ShowDummyNone) {
+                query = query.Where(eachLecturer => !eachLecturer.IsDummyNone);
+            }
+            if (!this.ShowDummyNone)
+            {
+                query = query.Where(eachLecturer => !eachLecturer.IsDummyAll);
             }
             this.Result = query.ToList();
             return Result;

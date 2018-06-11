@@ -33,6 +33,15 @@ namespace Dozentenplanung.Controllers
             unitSearch.Quarter = quarter;
             unitSearch.LecturerId = lecturerId;
             unitSearch.SetStatus(status);
+            LecturerSearch lecturerSearch = new LecturerSearch(this.DatabaseContext);
+            lecturerSearch.ShowDummyAll = true;
+            lecturerSearch.ShowDummyNone = true;
+            ViewBag.Lecturers = lecturerSearch.Search().Select(eachLecturer => new SelectListItem
+            {
+                Text = eachLecturer.Fullname,
+                Value = eachLecturer.Id.ToString(),
+                Selected = (lecturerId.HasValue && eachLecturer.Id == lecturerId.Value) || (!lecturerId.HasValue && eachLecturer.IsDummyAll)
+            });
 
             ViewBag.UnitTitle = title;
             ViewBag.Designation = designation;

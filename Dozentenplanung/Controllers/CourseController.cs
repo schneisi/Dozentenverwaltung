@@ -67,7 +67,7 @@ namespace Dozentenplanung.Controllers
             courseBuilder.Designation = designation;
             courseBuilder.Year = year;
             courseBuilder.Save();
-            return RedirectToAction("course", "course", new { id = courseBuilder.Course()});
+            return RedirectToAction("course", "course", new { id = courseBuilder.Course().Id});
         }
 
         private List<Course> Courses()

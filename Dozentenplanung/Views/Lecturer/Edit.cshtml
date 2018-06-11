@@ -11,9 +11,6 @@
     ViewData["menuId"] = "lecturers";
 
 }
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.28/css/bulma.min.css'>
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.min.css'>
-
 <form id="form" asp-action="SaveLecturer" asp-controller="Lecturer" asp-route-id="@Model.Id">
     <div class="columns">
         <div class="column">
@@ -55,11 +52,11 @@
         <div class="column">
             <div class="container">
                 <label class="label">Skills</label>
-                <p class="control">
+                <div class="control">
                     <select style="width:25%;" multiple name="skillIds" asp-items="@ViewBag.Skills" ></select>
+                 </div>
             </div>
         </div>
-    </div>
     </div>
     <a asp-controller="Lecturer" asp-action="DeleteLecteurer" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>

@@ -17,7 +17,9 @@ namespace Dozentenplanung.Models
 
         public string Notes { get; set; }
 
-        public bool IsDummy { get; set; }
+        public bool IsDummyNone { get; set; }
+
+        public bool IsDummyAll { get; set; }
 
         public List<Unit> Units;
 
@@ -31,26 +33,39 @@ namespace Dozentenplanung.Models
         }
 
         public Lecturer() {
-            Firstname = "";
-            Lastname = "";
-            Mail = "";
-            Notes = "";
-            IsDummy = false;
-            Units = new List<Unit>();
+            this.Firstname = "";
+            this.Lastname = "";
+            this.Mail = "";
+            this.Notes = "";
+            this.IsDummyNone = false;
+            this.IsDummyAll = false;
+            this.Units = new List<Unit>();
         }
 
 
         //API
         public static void CreateDummyInContext(ApplicationDbContext aContext)
         {
-            Lecturer dummyLecturer = new Lecturer();
-            dummyLecturer.IsDummy = true;
-            dummyLecturer.Lastname = "Keiner";
-            aContext.Lecturers.Add(dummyLecturer);
+            Lecturer dummyNoneLecturer = new Lecturer();
+            dummyNoneLecturer.IsDummyNone = true;
+            dummyNoneLecturer.Lastname = "Keiner";
+            aContext.Lecturers.Add(dummyNoneLecturer);
+            Lecturer dummyAllLecturer = new Lecturer();
+            dummyAllLecturer.IsDummyAll = true;
+            dummyAllLecturer.Lastname = "Alle";
+            aContext.Lecturers.Add(dummyAllLecturer);
             aContext.SaveChanges();
         }
         public bool deleteFromContext(ApplicationDbContext aContext)
         {
+            UnitSearch search = new UnitSearch(aContext);
+            search.LecturerId = this.Id;
+            Lecturer dummyLecturer = aContext.DummyNoneLecturer();
+            foreach (Unit eachUnit in search.Search()) {
+                UnitBuilder unitBuilder = new UnitBuilder(aContext, eachUnit);
+                unitBuilder.Lecturer = dummyLecturer;
+                unitBuilder.Save(false);
+            }
             aContext.Lecturers.Remove(this);
             return true;
         }
@@ -76,7 +91,7 @@ namespace Dozentenplanung.Models
 
         public String StringForUnit(Unit aUnit) {
             string returnString = this.Fullname;
-            if (!this.IsDummy && aUnit.Skills().IsSubsetOf(this.Skills())) {
+            if (!this.IsDummyNone && aUnit.Skills().IsSubsetOf(this.Skills())) {
                 returnString += " (Empfohlen)";
             }
             return returnString;
