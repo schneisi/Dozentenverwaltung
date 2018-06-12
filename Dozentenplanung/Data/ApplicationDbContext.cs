@@ -61,11 +61,13 @@ namespace Dozentenplanung
         //Module
         public Module ModuleForId(int id)
         {
+            return this.AllModules().SingleOrDefault(module => module.Id == id);
+        }
+        public IQueryable<Module> AllModules() {
             return this.Modules
                        .Include("Units")
                        .Include("Course")
-                       .Include("Units.Lecturer")
-                       .SingleOrDefault(module => module.Id == id);
+                       .Include("Units.Lecturer");
         }
 
         //Unit
@@ -79,6 +81,7 @@ namespace Dozentenplanung
             return this.Units
                        .Include("Module")
                        .Include("Module.Course")
+                       .Include("ExamType")
                        .Include("Lecturer");
         }
 

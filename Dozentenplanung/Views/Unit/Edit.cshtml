@@ -42,6 +42,20 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Dozent</label>
+                <div class="control">
+                    <div class="select">
+                        <select name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="column">
             <div class="field">
                 <label class="label">Quartal</label>
@@ -50,40 +64,14 @@
                 </div>
             </div>
         </div>
+
     </div>
     <div class="columns">
-        <div class="column">
-            <div class="container">
-                <label class="label">Dozent</label>
-                <div class="control">
-                    <select style="width:25%;" name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
+        <div class="column"  >
             <div class="container">
                 <label class="label">Skills</label>
-                <p class="control">
-                    <select style="width:25%;" multiple name="skillIds" asp-items="@ViewBag.Skills"></select>
-            </div>
-        </div>
-    </div>
-    <div class=" = columns">
-        <div class="column">
-            <div class="field">
-                <label class="label">Prüfungsart:</label>
                 <div class="control">
-                    @Html.EditorFor(unit => unit.ExamType, new { htmlAttributes = new { @class = "input" } })
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field">
-                <label class="label">Prüfungsdauer</label>
-                <div class="control">
-                    @Html.EditorFor(unit => unit.DurationOfExam, new { htmlAttributes = new { @class = "input" } })
+                    <select class="selectize"  multiple name="skillIds" asp-items="@ViewBag.Skills"></select>
                 </div>
             </div>
         </div>
@@ -108,6 +96,28 @@
         </div>
 
     </div>
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Prüfungsart</label>
+                <div class="control">
+                    <div class="select">
+                        <select name="examType" asp-items="@ViewBag.ExamTypes"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Prüfungsdauer</label>
+                <div class="control">
+                    @Html.EditorFor(unit => unit.DurationOfExam, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            </div>
+        </div>
+
+
+    </div>
     <a asp-controller="unit" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>
@@ -119,6 +129,6 @@
 
 <script>
     $(function () {
-        $('select').selectize();
+        $('.selectize').selectize();
     });
 </script>

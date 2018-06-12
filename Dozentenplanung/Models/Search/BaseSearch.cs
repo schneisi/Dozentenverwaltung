@@ -11,7 +11,7 @@ namespace Dozentenplanung.Models
 
         protected bool HasValue(string aString)
         {
-            return !string.IsNullOrEmpty(aString);
+            return !String.IsNullOrEmpty(aString);
         }
     }
 }

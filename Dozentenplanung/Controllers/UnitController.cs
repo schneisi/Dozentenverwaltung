@@ -62,7 +62,6 @@ namespace Dozentenplanung.Controllers
                 UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext);
                 unitBuilder.Title = "";
                 unitBuilder.Designation = "Unitbezeichnung";
-                unitBuilder.ExamType = "";
                 unitBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
                 unitBuilder.Save();
                 unit = unitBuilder.Unit();
@@ -77,12 +76,19 @@ namespace Dozentenplanung.Controllers
                 theSkills.Add(listItem);
             }
             ViewBag.Skills = theSkills;
-            ViewBag.SuitableLecturers = this.DatabaseContext.LecturersWithSkills().Select(lecturer => new SelectListItem
+            ViewBag.SuitableLecturers = this.DatabaseContext.LecturersWithSkills().Select(eachLecturer => new SelectListItem
             {
-                Text = lecturer.StringForUnit(unit),
-                Value = lecturer.Id.ToString(),
-                Selected = lecturer.Id == unit.LecturerId
+                Text = eachLecturer.StringForUnit(unit),
+                Value = eachLecturer.Id.ToString(),
+                Selected = eachLecturer.Id == unit.LecturerId
             });
+            ViewBag.ExamTypes = this.DatabaseContext.ExamTypes.Select(eachExamType => new SelectListItem
+            {
+                Text = eachExamType.Title,
+                Value = eachExamType.Id.ToString(),
+                Selected = eachExamType.Id == unit.ExamTypeId
+            });
+
 
             return View(unit);
         }
@@ -92,7 +98,7 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, string ExamType, int status) {
+        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;
@@ -100,7 +106,7 @@ namespace Dozentenplanung.Controllers
             unitBuilder.Semester = Semester;
             unitBuilder.Year = Year;
             unitBuilder.Quarter = Quarter;
-            unitBuilder.ExamType = ExamType;
+            unitBuilder.SetExamType(ExamType);
             unitBuilder.DurationOfExam = DurationOfExam;
             unitBuilder.Status = status;
             List<Skill> skillList = new List<Skill>();

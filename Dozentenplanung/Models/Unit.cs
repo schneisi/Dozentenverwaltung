@@ -28,7 +28,6 @@ namespace Dozentenplanung.Models
         public string Remark { get; set; }
 
         public int DurationOfExam { get; set; }
-        public string ExamType { get; set; }
 
         public List<UnitSkill> UnitSkills { get; set; }
 
@@ -37,6 +36,9 @@ namespace Dozentenplanung.Models
 
         public virtual Lecturer Lecturer { get; set; }
         public int? LecturerId { get; set; }
+
+        public virtual ExamType ExamType { get; set; }
+        public int? ExamTypeId { get; set; }
 
 
         //public virtual List<Lecturer> SuitableLecturers { get; set; }
@@ -49,7 +51,6 @@ namespace Dozentenplanung.Models
             Hours = 10;
             Semester = 1;
             DurationOfExam = 60;
-            ExamType = "Klausur";
             UnitSkills = new List<UnitSkill>();
         }
 
@@ -62,6 +63,9 @@ namespace Dozentenplanung.Models
         public string LecturerName
         {
             get { return this.Lecturer.Fullname; }
+        }
+        public string CourseDesignation {
+            get { return this.Module.Course.Designation; }
         }
         public bool IsStatusOpen
         {

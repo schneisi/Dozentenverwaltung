@@ -12,8 +12,8 @@ namespace Dozentenplanung.Models
         public int? Quarter { get; set; }
         public Module Module { get; set; }
         public Lecturer Lecturer { get; set; }
+        public ExamType ExamType { get; set; }
         public List<Skill> Skills { get; set; }
-        public string ExamType { get; set; }
         public int? DurationOfExam { get; set; }
         public int? Status { get; set; }
         public string Remark { get; set; }
@@ -34,48 +34,52 @@ namespace Dozentenplanung.Models
 
         protected override BaseObject saveChanges()
 		{
-            Unit theUnit;
+            Unit unit;
             if (this.isNew()) {
-                theUnit = new Unit();
+                unit = new Unit();
             } else {
-                theUnit = this.Unit();
+                unit = this.Unit();
             }
 
-            if (!String.IsNullOrEmpty(this.Designation)) theUnit.Designation = this.Designation;
-            if (!String.IsNullOrEmpty(this.Title)) theUnit.Title = this.Title;
-            if (this.Semester.HasValue) theUnit.Semester = this.Semester.Value;
-            if (this.Year.HasValue) theUnit.Year = this.Year.Value;
-            if (this.Quarter.HasValue) theUnit.Quarter = this.Quarter.Value;
-            if (this.DurationOfExam.HasValue )theUnit.DurationOfExam = this.DurationOfExam.Value;
-            if (this.Status.HasValue) theUnit.Status = this.Status.Value;
-            theUnit.ExamType = this.ExamType;
-            theUnit.Remark = this.Remark;
+            if (!String.IsNullOrEmpty(this.Designation)) unit.Designation = this.Designation;
+            if (!String.IsNullOrEmpty(this.Title)) unit.Title = this.Title;
+            if (this.Semester.HasValue) unit.Semester = this.Semester.Value;
+            if (this.Year.HasValue) unit.Year = this.Year.Value;
+            if (this.Quarter.HasValue) unit.Quarter = this.Quarter.Value;
+            if (this.DurationOfExam.HasValue )unit.DurationOfExam = this.DurationOfExam.Value;
+            if (this.Status.HasValue) unit.Status = this.Status.Value;
+            if (this.ExamType != null) unit.ExamType = this.ExamType;
+            unit.Remark = this.Remark;
             if (this.Module != null) {
-                theUnit.Module = this.Module;
+                unit.Module = this.Module;
             }
             if(this.Lecturer != null) {
-                theUnit.Lecturer = this.Lecturer;
-            } else if(theUnit.Lecturer == null) {
-                theUnit.Lecturer = this.DatabaseContext.DummyNoneLecturer();
+                unit.Lecturer = this.Lecturer;
+            } else if(unit.Lecturer == null) {
+                unit.Lecturer = this.DatabaseContext.DummyNoneLecturer();
             }
             List<UnitSkill> theUnitSkills = new List<UnitSkill>();
             foreach (Skill eachSkill in this.Skills){
-                UnitSkill theUnitSkill = new UnitSkill();
-                theUnitSkill.Unit = theUnit;
-                theUnitSkill.Skill = eachSkill;
-                this.DatabaseContext.UnitSkills.Add(theUnitSkill);
-                theUnitSkills.Add(theUnitSkill);
+                UnitSkill unitSkill = new UnitSkill();
+                unitSkill.Unit = unit;
+                unitSkill.Skill = eachSkill;
+                this.DatabaseContext.UnitSkills.Add(unitSkill);
+                theUnitSkills.Add(unitSkill);
             }
-            theUnit.UnitSkills = theUnitSkills;
+            unit.UnitSkills = theUnitSkills;
 
             if (this.isNew()) {
-                this.DatabaseContext.Units.Add(theUnit);
+                this.DatabaseContext.Units.Add(unit);
             }
-            return theUnit;
+            return unit;
 		}
         public void AddSkill(Skill aSkill)
         {
             this.Skills.Add(aSkill);
+        }
+
+        public void SetExamType(int anId) {
+            this.ExamType = this.DatabaseContext.ExamTypeForId(anId);
         }
 
         public Unit Unit() {
