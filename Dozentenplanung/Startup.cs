@@ -26,7 +26,8 @@ namespace Dozentenplanung
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection aServiceCollection)
         {
-            aServiceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //aServiceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            aServiceCollection.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("SqlConnection")));
 
             aServiceCollection.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -59,7 +60,7 @@ namespace Dozentenplanung
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider aServiceProvider)
         {
-            IoCContainer.Provider = (ServiceProvider)aServiceProvider;
+            //IoCContainer.Provider = (ServiceProvider)aServiceProvider;
 
             app.UseAuthentication();
 
@@ -81,7 +82,7 @@ namespace Dozentenplanung
                     template: "{controller=Course}/{action=Index}/{id?}");
             });
 
-            RolesData.SeedRoles(aServiceProvider).Wait();
+            //RolesData.SeedRoles(aServiceProvider).Wait();
             MailHelper.Initialize(aServiceProvider);
             //MailHelper.SendTestMail();
         }

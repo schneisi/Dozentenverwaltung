@@ -19,9 +19,7 @@ namespace Dozentenplanung
         public DbSet<Skill> Skills { get; set; }
         public DbSet<LecturerSkill> LecturerSkills { get; set; }
         public DbSet<UnitSkill> UnitSkills { get; set; }
-
-        public DbSet<Setting> Settings { get; set; }
-       
+               
         //Database representation model
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -115,11 +113,6 @@ namespace Dozentenplanung
             return this.ExamTypes.Find(id);
         }
 
-
-
-
-
-
         public void EnsureCreated() {
             this.Database.EnsureCreated();
             if (this.DummyNoneLecturer() == null)
@@ -130,10 +123,6 @@ namespace Dozentenplanung
 
         public void Delete() {
             this.Database.EnsureDeleted();
-        }
-
-        public Setting settingForName(string aName) {
-            return this.Settings.Single(setting => setting.Name == aName);
         }
     }
 }
