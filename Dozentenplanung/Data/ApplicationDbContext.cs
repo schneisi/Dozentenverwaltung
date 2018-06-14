@@ -118,9 +118,11 @@ namespace Dozentenplanung
             {
                 Lecturer.CreateDummyInContext(this);
             }
-            if (this.ExamTypes.Count() == 0) {
+            if (this.ExamTypes.Count() == 0)
+            {
                 ExamType.CreateDummyInContext(this);
             }
+
         }
 
         public void Delete() {

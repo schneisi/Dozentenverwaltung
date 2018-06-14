@@ -133,9 +133,11 @@
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
                 @Html.DisplayFor(modelItem => eachUnit.Lecturer.Fullname)
             </td>
-            <td>
-                <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">Bearbeiten</a>
-            </td>
+            @if (ViewBag.CanWrite) {
+                <td>
+                    <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@eachUnit.Id">Bearbeiten</a>
+                </td>
+            }
         </tr>
     }
 </table>

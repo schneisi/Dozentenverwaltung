@@ -60,5 +60,34 @@ namespace Dozentenplanung.Controllers
             };
             theMailHelper.Send();
         }
+
+        protected void PutRolesInViewBag() {
+            ViewBag.CanWrite = this.CurrentUserCanWrite();
+            ViewBag.IsAdministrator = this.CurrentUserIsAdministrator();
+        }
+
+
+        protected bool CurrentUserCanWrite()
+        {
+            ApplicationUser user = this.GetCurrentUser().Result;
+            if (user != null) {
+                return this.GetCurrentUser().Result.CanWrite;    
+            } else {
+                return false;
+            }
+
+        }
+        protected bool CurrentUserIsAdministrator()
+        {
+            ApplicationUser user = this.GetCurrentUser().Result;
+            if (user != null)
+            {
+                return this.GetCurrentUser().Result.IsAdministrator;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

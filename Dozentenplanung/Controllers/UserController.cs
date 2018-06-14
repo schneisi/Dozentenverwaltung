@@ -20,16 +20,21 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Index()
         {
+            this.PutRolesInViewBag();
             return View(this.UserManager.Users.ToList());
         }
 
         public async Task<IActionResult> applicationUser(string id) {
+            this.PutRolesInViewBag();
             ApplicationUser user = await this.UserManager.FindByIdAsync(id);
             return View(user);
         }
 
         public IActionResult CreateUserView() {
-            return View("Create");
+            if (this.CurrentUserIsAdministrator()) {
+                return View("Create");
+            }
+            return RedirectToAction("index");
         }
 
         public async Task<IActionResult> Create(string mail, string password) {
@@ -53,16 +58,26 @@ namespace Dozentenplanung.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> Save(string id, string password) {
+        public async Task<IActionResult> Save(string id, string password, bool IsAdministrator, bool CanWrite) {
             ApplicationUser user = await this.GetUserForId(id);
-            string token = await this.UserManager.GeneratePasswordResetTokenAsync(user);
-            await this.UserManager.ResetPasswordAsync(user, token, password);
+            if (!string.IsNullOrEmpty(password)) {
+                //Do not change password if there is no new password
+                string token = await this.UserManager.GeneratePasswordResetTokenAsync(user);
+                var result = await this.UserManager.ResetPasswordAsync(user, token, password);
+                if (!result.Succeeded) {
+                    return Content("Action failed: " + result.Errors.ElementAt(0), "text/html");
+                }
+            }
+
+            user.CanWrite = CanWrite;
+            user.SetAdministratorBooleanInContext(IsAdministrator, this.DatabaseContext);
+            this.DatabaseContext.SaveChanges();
             return this.RedirectToUsers();
         }
 
         public async Task<IActionResult> Delete(string id) {
             ApplicationUser user = await this.GetUserForId(id);
-            await this.UserManager.DeleteAsync(user);
+            await user.DeleteInMangerAndContext(this.UserManager, this.DatabaseContext);
             return RedirectToUsers();
         }
 

@@ -31,4 +31,7 @@
         <td>@Model.Notes</td>
     </tr>
 </table>
+@if (ViewBag.CanWrite)
+{
 <a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>
+}

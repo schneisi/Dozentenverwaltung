@@ -27,45 +27,53 @@ namespace Dozentenplanung.Controllers
             search.Lastname = lastname;
             ViewBag.Firstname = firstname;
             ViewBag.Lastname = lastname;
+            this.PutRolesInViewBag();
             return View(search.Search());
         }
         public IActionResult Edit(int? id)
         {
-            Lecturer theLecturer;
-            if (id.HasValue) {
-                theLecturer = this.LecturerForId(id.Value);
+            if (this.CurrentUserCanWrite()) {
+                Lecturer theLecturer;
+                if (id.HasValue)
+                {
+                    theLecturer = this.LecturerForId(id.Value);
+                }
+                else
+                {
+                    LecturerBuilder lecturerBuilder = new LecturerBuilder(this.DatabaseContext);
+                    lecturerBuilder.Lastname = "Nachname";
+                    lecturerBuilder.Firstname = "Vorname";
+                    lecturerBuilder.Mail = "mail@dhbw-loerrach.de";
+                    lecturerBuilder.Notes = "Notizen";
+                    lecturerBuilder.Save();
+                    theLecturer = lecturerBuilder.Lecturer();
+                }
+                List<SelectListItem> theSkills = new List<SelectListItem>();
+                foreach (Skill eachSkill in this.DatabaseContext.Skills)
+                {
+                    SelectListItem listItem = new SelectListItem();
+                    listItem.Text = eachSkill.Title;
+                    listItem.Value = eachSkill.Id.ToString();
+                    listItem.Selected = theLecturer.HasSkill(eachSkill);
+                    theSkills.Add(listItem);
+                }
+                ViewBag.Skills = theSkills;
+                return View(theLecturer);
             } else {
-                LecturerBuilder lecturerBuilder = new LecturerBuilder(this.DatabaseContext);
-                lecturerBuilder.Lastname = "Nachname";
-                lecturerBuilder.Firstname = "Vorname";
-                lecturerBuilder.Mail = "mail@dhbw-loerrach.de";
-                lecturerBuilder.Notes = "Notizen";
-                lecturerBuilder.Save();
-                theLecturer = lecturerBuilder.Lecturer();
+                return RedirectToAction("index");
             }
-            List<SelectListItem> theSkills = new List<SelectListItem>();
-            foreach (Skill eachSkill in this.DatabaseContext.Skills) {
-                SelectListItem listItem = new SelectListItem();
-                listItem.Text = eachSkill.Title;
-                listItem.Value = eachSkill.Id.ToString();
-                listItem.Selected = theLecturer.HasSkill(eachSkill);
-                theSkills.Add(listItem);
-            }
-            ViewBag.Skills = theSkills;
 
-            return View(theLecturer);
         }
 
         public IActionResult Lecturer(int id) {
+            this.PutRolesInViewBag();
             return View(this.LecturerForId(id));
-        }
-        public IActionResult Create() {
-            return View();
         }
 
         public IActionResult DeleteLecteurer(int id) {
             Lecturer lecturer = this.LecturerForId(id);
-            if (lecturer.deleteFromContext(this.DatabaseContext)) {
+            if (this.CurrentUserCanWrite() && lecturer.deleteFromContext(this.DatabaseContext)) {
+                //And connection in if statemant to ensure there is no illegal deletion
                 this.SaveDatabaseContext();
                 return RedirectToAction("Index", "Lecturer");
             }
@@ -89,10 +97,6 @@ namespace Dozentenplanung.Controllers
 
         private Lecturer LecturerForId(int id) {
             return this.DatabaseContext.LecturerForId(id);
-        }
-
-        public List<Lecturer> Lecturers() {
-            return this.DatabaseContext.Lecturers.ToList();
         }
     }
 }

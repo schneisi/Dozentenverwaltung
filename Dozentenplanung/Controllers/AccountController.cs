@@ -18,25 +18,45 @@ namespace Dozentenplanung.Controllers
         { }
 
 
-        public async Task<IActionResult> CreateDevAccount()
+        public async Task<IActionResult> CreateAdminAccount(string mail, string password)
         {
-            var result = await this.UserManager.CreateAsync(new ApplicationUser
-            {
-                UserName = "dev",
-                Email = "simsaschneider@icloud.com"
-            }, "password");
-            if (result.Succeeded){
-                return RedirectToAction("Login", "account");
+            //Checks again in case User creates request manually -> security reason
+            if (this.CanCreateAdminAccount()) {
+                var result = await this.UserManager.CreateAsync(new ApplicationUser
+                {
+                    UserName = mail,
+                    Email = mail,
+                    IsAdministrator = true,
+                    CanWrite = true
+                }, password);
+                if (result.Succeeded)
+                {
+                    await this.SignInManager.PasswordSignInAsync(mail, password, true, false);
+                    return RedirectToAction("index", "course");
+                }
+                else
+                {
+                    return Content("Creation failed", "text/html");
+                }
             } else {
-                return Content("Creation failed", "text/html");
+                return RedirectToAction("Login", "account");
             }
+
         }
 
 
         [Route("account/login")]
         public IActionResult Login(string ReturnUrl) {
-            ViewBag.redirectUrl = ReturnUrl;
-            return View();
+            if (this.CanCreateAdminAccount())
+            {
+                return RedirectToAction("register");
+            }
+            else
+            {
+                ViewBag.redirectUrl = ReturnUrl;
+                return View();
+            }
+
         }
 
 
@@ -67,48 +87,18 @@ namespace Dozentenplanung.Controllers
             }
         }
 
-        public IActionResult ResetPassword() {
-            return View();
-        }
-
-
-        [Route("account/CreatePasswordToken")]
-        public async Task<IActionResult> CreatePasswordToken(string email) {
-            var user = await this.UserManager.FindByEmailAsync(email);
-            if (user != null) {
-                string theLink = "";
-                string theToken = await this.UserManager.GeneratePasswordResetTokenAsync(user);
-                string theHostString = HttpContext.Request.Host.Host;
-                theLink += theHostString;
-                int? thePort = HttpContext.Request.Host.Port;
-                if (thePort.HasValue) {
-                    theLink = theLink + ":" + thePort.Value;
-                }
-                theLink = theLink + "/account/" + "SetNewPassword";
-
-                theLink = theLink + "?userId=" + user.Id + "&passwordToken=" + System.Web.HttpUtility.UrlEncode(theToken);
-                this.SendMail(true, user.Email, "Passwort zurücksetzen - Dozentenverwaltung", "<a href='" + theLink + "'>Passwort zurücksetzen");
-
-                return Content("ResetLink: " + theLink);
+        [Route("account/register")]
+        public IActionResult Register()
+        {
+            if (this.CanCreateAdminAccount()) {
+                return View();
             } else {
-                return Content("Fehler aufgetreten");
+                return RedirectToAction("login");
             }
         }
 
-        public IActionResult SetNewPassword(string userId, string passwordToken) {
-            ViewBag.passwordToken = passwordToken;
-            ViewBag.userId = userId;
-            return View();
-        }
-
-        public async Task<IActionResult> setNewPasswordWithToken (string userId, string password, string passwordToken) {
-            ApplicationUser user = await this.GetUserForId(userId);
-            var result = await this.UserManager.ResetPasswordAsync(user, passwordToken, password);
-            if (result.Succeeded) {
-                return RedirectToAction("index", "course");
-            } else {
-                return Content(result.Errors.ToString());
-            }
+        private bool CanCreateAdminAccount() {
+            return this.UserManager.Users.Count() == 0;
         }
     }
 }

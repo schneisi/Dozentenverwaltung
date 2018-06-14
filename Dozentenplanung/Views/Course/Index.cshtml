@@ -3,9 +3,10 @@
     ViewData["title"] = "Kurse";
     ViewData["menuId"] = "courses";
 }
-
+@if (ViewBag.CanWrite)
+{
 <a asp-controller="course" asp-action="edit" class="button is-success">Kurs erstellen</a>
-
+}
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
@@ -15,7 +16,8 @@
             <th />
         </tr>
     </thead>
-    @foreach (var eachCourse in Model) {
+    @foreach (var eachCourse in Model)
+    {
         <tr>
             <td onclick="location.href = '@(Url.Action("course", "course", new { id = eachCourse.Id }))'">
                 @Html.DisplayFor(modelItem => eachCourse.Designation)
@@ -26,9 +28,13 @@
             <td onclick="location.href = '@(Url.Action("course", "course", new { id = eachCourse.Id }))'">
                 @Html.DisplayFor(modelItem => eachCourse.Title)
             </td>
-            <td>
-                <a class="button" asp-controller="course" asp-action="edit" asp-route-id="@eachCourse.Id">Bearbeiten</a>
-            </td>
+            @if (ViewBag.CanWrite)
+            {
+                <td>
+                    <a class="button" asp-controller="course" asp-action="edit" asp-route-id="@eachCourse.Id">Bearbeiten</a>
+                </td>
+            }
+          
         </tr>
     }
 </table>

@@ -23,5 +23,15 @@
         <td>E-Mail:</td>
         <td>@Model.Email</td>
     </tr>
+    <tr>
+        <td>Hat Schreibrechte:</td>
+        <td>@Model.CanWriteString()</td>
+    </tr>
+    <tr>
+        <td>Administrator:</td>
+        <td>@Model.IsAdministratorString()</td>
+    </tr>
 </table>
-<a class="button" asp-controller="user" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>
+@if (ViewBag.IsAdministrator) {
+    <a class="button" asp-controller="user" asp-action="edit" asp-route-id=@Model.Id>Bearbeiten</a>
+}

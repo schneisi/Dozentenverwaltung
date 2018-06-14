@@ -19,47 +19,62 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Index()
         {
-            ModuleSearch moduleSearch = new ModuleSearch(this.DatabaseContext); 
+            ModuleSearch moduleSearch = new ModuleSearch(this.DatabaseContext);
+            this.PutRolesInViewBag();
             return View(moduleSearch.Search());
         }
         public IActionResult Module(int id)
         {
+            this.PutRolesInViewBag();
             return View(this.ModuleForId(id));
         }
         public IActionResult Edit (int? id, int? courseId)
         {
-            Module theModule;
-            if (id.HasValue) {
-                theModule = DatabaseContext.Modules.Find(id);
+            if (this.CurrentUserCanWrite()) {
+                Module theModule;
+                if (id.HasValue)
+                {
+                    theModule = DatabaseContext.Modules.Find(id);
+                }
+                else
+                {
+                    ModuleBuilder builder = new ModuleBuilder(this.DatabaseContext);
+                    builder.Course = this.CourseForId(courseId.Value);
+                    builder.Designation = "Modulbezeichnung";
+                    builder.Title = "Modultitel";
+                    builder.Save();
+                    theModule = builder.Module();
+                }
+
+                return View(theModule);    
             } else {
-                ModuleBuilder builder = new ModuleBuilder(this.DatabaseContext);
-                builder.Course = this.CourseForId(courseId.Value);
-                builder.Designation = "Modulbezeichnung";
-                builder.Title = "Modultitel";
-                builder.Save();
-                theModule = builder.Module();
+                return RedirectToAction("index");
             }
-
-            return View(theModule);
-
         }
 
         public IActionResult Delete(int id) {
             Module module = this.ModuleForId(id);
-            module.DeleteFromContext(this.DatabaseContext);
-            this.SaveDatabaseContext();
+            if (this.CurrentUserCanWrite()) {
+                module.DeleteFromContext(this.DatabaseContext);
+                this.SaveDatabaseContext();   
+            }
             return RedirectToAction("course", "course", new { id = module.CourseId });
         }
 
         [HttpPost]
         public IActionResult SaveModule(int id, int courseId, string title, string designation)
         {
-            Module module = this.ModuleForId(id);
-            ModuleBuilder moduleBuilder = new ModuleBuilder(this.DatabaseContext, module);
-            moduleBuilder.Title = title;
-            moduleBuilder.Designation = designation;
-            moduleBuilder.Save();
-            return RedirectToAction("course", "course", new { id = module.CourseId});
+            if (this.CurrentUserCanWrite()) {
+                Module module = this.ModuleForId(id);
+                ModuleBuilder moduleBuilder = new ModuleBuilder(this.DatabaseContext, module);
+                moduleBuilder.Title = title;
+                moduleBuilder.Designation = designation;
+                moduleBuilder.Save();
+                return RedirectToAction("course", "course", new { id = module.CourseId });
+            } else {
+                return RedirectToAction("index");
+            }
+
         }
 
 

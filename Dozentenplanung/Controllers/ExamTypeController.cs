@@ -19,41 +19,50 @@ namespace Dozentenplanung.Controllers
 
         public IActionResult Index()
         {
+            this.PutRolesInViewBag();
             return View("examTypes", this.DatabaseContext.ExamTypes);
         }
 
         public IActionResult Edit(int? id)
         {
-            ExamType examType;
-            if (id.HasValue)
+            if (this.CurrentUserIsAdministrator())
             {
-                examType = this.DatabaseContext.ExamTypeForId(id.Value);
+                ExamType examType;
+                if (id.HasValue)
+                {
+                    examType = this.DatabaseContext.ExamTypeForId(id.Value);
+                }
+                else
+                {
+                    ExamTypeBuilder examTypeBuilder = new ExamTypeBuilder(this.DatabaseContext);
+                    examTypeBuilder.Title = "Neue Prüfungsart";
+                    examTypeBuilder.Save();
+                    examType = examTypeBuilder.ExamType();
+                }
+                return View(examType);
+            } else {
+                return RedirectToAction("index");
             }
-            else
-            {
-                ExamTypeBuilder examTypeBuilder = new ExamTypeBuilder(this.DatabaseContext);
-                examTypeBuilder.Title = "Neue Prüfungsart";
-                examTypeBuilder.Save();
-                examType = examTypeBuilder.ExamType();
-            }
-
-            return View(examType);
         }
 
         public IActionResult Save(int id, string title, string description)
         {
-            ExamTypeBuilder builder = new ExamTypeBuilder(this.DatabaseContext, this.DatabaseContext.ExamTypeForId(id));
-            builder.Title = title;
-            builder.Save();
-            return RedirectToAction("index", "ExamType");
+            if (this.CurrentUserIsAdministrator()) {
+                ExamTypeBuilder builder = new ExamTypeBuilder(this.DatabaseContext, this.DatabaseContext.ExamTypeForId(id));
+                builder.Title = title;
+                builder.Save();    
+            }
+            return RedirectToAction("index");
         }
 
         public IActionResult Delete(int id)
         {
-            ExamType examType = this.DatabaseContext.ExamTypeForId(id);
-            examType.DeleteFromContext(this.DatabaseContext);
-            this.SaveDatabaseContext();
-            return RedirectToAction("index", "ExamType");
+            if (this.CurrentUserIsAdministrator()) {
+                ExamType examType = this.DatabaseContext.ExamTypeForId(id);
+                examType.DeleteFromContext(this.DatabaseContext);
+                this.SaveDatabaseContext();    
+            }
+            return RedirectToAction("index");
         }
     }
 }

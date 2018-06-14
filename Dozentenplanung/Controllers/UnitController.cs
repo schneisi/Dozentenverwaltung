@@ -51,57 +51,68 @@ namespace Dozentenplanung.Controllers
             ViewBag.Quarter = quarter;
             ViewBag.Status = status;
             ViewBag.CourseDesignation = courseDesignation;
+            this.PutRolesInViewBag();
             return View(unitSearch.Search());
         }
 
         public IActionResult Edit(int? id, int? moduleId) {
-            Unit unit;
-            if (id.HasValue) {
-                unit = this.DatabaseContext.UnitForId(id.Value);
+            if (this.CurrentUserCanWrite()) {
+                Unit unit;
+                if (id.HasValue)
+                {
+                    unit = this.DatabaseContext.UnitForId(id.Value);
+                }
+                else
+                {
+                    UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext);
+                    unitBuilder.Title = "";
+                    unitBuilder.Designation = "Unitbezeichnung";
+                    unitBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
+                    unitBuilder.Save();
+                    unit = unitBuilder.Unit();
+                }
+                List<SelectListItem> theSkills = new List<SelectListItem>();
+                foreach (Skill eachSkill in this.DatabaseContext.Skills)
+                {
+                    SelectListItem listItem = new SelectListItem();
+                    listItem.Text = eachSkill.Title;
+                    listItem.Value = eachSkill.Id.ToString();
+                    listItem.Selected = unit.HasSkill(eachSkill);
+                    theSkills.Add(listItem);
+                }
+                ViewBag.Skills = theSkills;
+                ViewBag.SuitableLecturers = this.DatabaseContext.LecturersWithSkills().Select(eachLecturer => new SelectListItem
+                {
+                    Text = eachLecturer.StringForUnit(unit),
+                    Value = eachLecturer.Id.ToString(),
+                    Selected = eachLecturer.Id == unit.LecturerId
+                });
+                ViewBag.ExamTypes = this.DatabaseContext.ExamTypes.Select(eachExamType => new SelectListItem
+                {
+                    Text = eachExamType.Title,
+                    Value = eachExamType.Id.ToString(),
+                    Selected = eachExamType.Id == unit.ExamTypeId
+                });
+                return View(unit);  
             } else {
-                UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext);
-                unitBuilder.Title = "";
-                unitBuilder.Designation = "Unitbezeichnung";
-                unitBuilder.Module = this.DatabaseContext.ModuleForId(moduleId.Value);
-                unitBuilder.Save();
-                unit = unitBuilder.Unit();
+                return RedirectToAction("index");
             }
-            List<SelectListItem> theSkills = new List<SelectListItem>();
-            foreach (Skill eachSkill in this.DatabaseContext.Skills)
-            {
-                SelectListItem listItem = new SelectListItem();
-                listItem.Text = eachSkill.Title;
-                listItem.Value = eachSkill.Id.ToString();
-                listItem.Selected = unit.HasSkill(eachSkill);
-                theSkills.Add(listItem);
-            }
-            ViewBag.Skills = theSkills;
-            ViewBag.SuitableLecturers = this.DatabaseContext.LecturersWithSkills().Select(eachLecturer => new SelectListItem
-            {
-                Text = eachLecturer.StringForUnit(unit),
-                Value = eachLecturer.Id.ToString(),
-                Selected = eachLecturer.Id == unit.LecturerId
-            });
-            ViewBag.ExamTypes = this.DatabaseContext.ExamTypes.Select(eachExamType => new SelectListItem
-            {
-                Text = eachExamType.Title,
-                Value = eachExamType.Id.ToString(),
-                Selected = eachExamType.Id == unit.ExamTypeId
-            });
 
-
-            return View(unit);
         }
 
         public IActionResult Unit(int id) {
+            this.PutRolesInViewBag();
             return View(this.DatabaseContext.UnitForId(id));
         }
 
         [HttpPost]
         public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
-            this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, Year, Quarter, DurationOfExam, ExamType, status);
-            return RedirectToAction("unit", "unit", new { id = id });
-
+            if (this.CurrentUserCanWrite()) {
+                this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, Year, Quarter, DurationOfExam, ExamType, status);
+                return RedirectToAction("unit", "unit", new { id = id });    
+            } else {
+                return RedirectToAction("index");
+            }
         }
 
         [HttpPost]
@@ -111,13 +122,17 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult Delete(int id) {
-            Unit unit = this.DatabaseContext.UnitForId(id);
-            unit.DeleteFromContext(this.DatabaseContext);
-            this.SaveDatabaseContext();
-            return RedirectToAction("module", "module", new { id = unit.ModuleId });
+            if (this.CurrentUserCanWrite()) {
+                Unit unit = this.DatabaseContext.UnitForId(id);
+                unit.DeleteFromContext(this.DatabaseContext);
+                this.SaveDatabaseContext();
+                return RedirectToAction("module", "module", new { id = unit.ModuleId });   
+            } else {
+                return RedirectToAction("index");
+            }
         }
 
-        public void CreateBuilderAndSave(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
+        private void CreateBuilderAndSave(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;

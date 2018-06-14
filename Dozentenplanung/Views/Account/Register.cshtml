@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["title"] = "Registrieren - Dozentenplanung";
+}
+
+
+<div class="hero-body">
+    <div class="container has-text-centered">
+        <div class="column is-6 is-offset-3">
+            <h3 class="title has-text-grey">Registrieren</h3>
+            <div class="box">
+                <form asp-controller="account" asp-action="CreateAdminAccount">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" name="mail" type="text" placeholder="Benutzername" autofocus="">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" name="password" type="password" placeholder="Passwort" value="password">
+                        </div>
+                    </div>
+                    <button type="submit" class="button is-block is-info is-fullwidth">Registrieren</button><br />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

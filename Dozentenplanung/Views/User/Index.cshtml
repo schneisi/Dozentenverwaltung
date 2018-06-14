@@ -3,7 +3,11 @@
     ViewData["title"] = "Benutzer";
     ViewData["menuId"] = "users";
 }
-<a class="button" asp-controller="user" asp-action="CreateUserView">User anlegen</a>
+
+@if (ViewBag.IsAdministrator) {
+    <a class="button is-success" asp-controller="user" asp-action="CreateUserView">User anlegen</a>
+}
+
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
@@ -25,7 +29,9 @@
                 @Html.DisplayFor(modelItem => eachUser.Email)
             </td>
             <td>
-                <a class="button" asp-controller="user" asp-action="edit" asp-route-id=@eachUser.Id>Bearbeiten</a>
+                @if (ViewBag.IsAdministrator) {
+                    <a class="button" asp-controller="user" asp-action="edit" asp-route-id=@eachUser.Id>Bearbeiten</a>
+                }
             </td>
         </tr>
     }

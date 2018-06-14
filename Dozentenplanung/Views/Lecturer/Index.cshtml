@@ -25,8 +25,12 @@
         </div>
     </div>
     <button type="submit" class="button" form="form">Suchen</button>
-    <a asp-controller="lecturer" asp-action="edit" class="button is-success">Dozent erstellen</a>
-   
+    @if (ViewBag.CanWrite)
+    {
+        <a asp-controller="lecturer" asp-action="edit" class="button is-success">Dozent erstellen</a>
+    }
+
+
 </form>
 
 
@@ -55,7 +59,10 @@
         <td onclick="location.href = '@(Url.Action("lecturer", "lecturer", new { id = eachLecturer.Id }))'">
             @Html.DisplayFor(modelItem => eachLecturer.Notes)
         </td>
+        @if (ViewBag.CanWrite)
+        {
         <td><a class="button" asp-controller="lecturer" asp-action="edit" asp-route-id="@eachLecturer.Id">Bearbeiten</a></td>
+        }
     </tr>
     }
 </table>

@@ -17,47 +17,55 @@ namespace Dozentenplanung.Controllers
         public CourseController(ApplicationDbContext aContext, UserManager<ApplicationUser> aUserManager, SignInManager<ApplicationUser> aSignInManager, IHttpContextAccessor httpContextAccessor) : base(aContext, aUserManager, aSignInManager, httpContextAccessor)
         {
         }
-        #region Views
+
         [Authorize]
         public IActionResult Index()
         {
+            this.PutRolesInViewBag();
             return View(this.Courses());
         }
 
         public IActionResult Edit(int? id)
         {
-            Course course;
-            if (id.HasValue)
-            {
-                course = this.CourseForId(id.Value);
+            if (this.CurrentUserCanWrite()) {
+                Course course;
+                if (id.HasValue)
+                {
+                    course = this.CourseForId(id.Value);
+                }
+                else
+                {
+                    CourseBuilder courseBuilder = new CourseBuilder(this.DatabaseContext);
+                    courseBuilder.Title = "Neuer Kurs";
+                    courseBuilder.Designation = "Bezeichnung";
+                    courseBuilder.Year = DateTime.Now.Year;
+                    courseBuilder.Save();
+                    course = courseBuilder.Course();
+                }
+                return View(course);
+            } else {
+                return RedirectToAction("index");
             }
-            else
-            {
-                CourseBuilder courseBuilder = new CourseBuilder(this.DatabaseContext);
-                courseBuilder.Title = "Neuer Kurs";
-                courseBuilder.Designation = "Bezeichnung";
-                courseBuilder.Year = DateTime.Now.Year;
-                courseBuilder.Save();
-                course = courseBuilder.Course();
-            }
-            return View(course);
+
         }
 
         public IActionResult Course(int id)
         {
+            this.PutRolesInViewBag();
             return View(this.CourseForId(id));
         }
-        #endregion
 
         public IActionResult DeleteCourse(int id)
         {
-            this.CourseForId(id).DeleteFromContext(this.DatabaseContext);
-            this.SaveDatabaseContext();
+            if (this.CurrentUserCanWrite()) {
+                this.CourseForId(id).DeleteFromContext(this.DatabaseContext);
+                this.SaveDatabaseContext();    
+            }
             return RedirectToAction("index", "course");
         }
 
         [HttpPost]
-        public IActionResult CreateCourse(string title, string designation, int year, int? id)
+        public IActionResult SaveCourse(string title, string designation, int year, int? id)
         {
             CourseBuilder courseBuilder = new CourseBuilder(this.DatabaseContext);
             if (id.HasValue) {

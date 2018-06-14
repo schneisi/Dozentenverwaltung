@@ -50,4 +50,6 @@
         <td>@Model.DurationOfExam</td>
     </tr>
 </table>
-<a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@Model.Id">Bearbeiten</a>
+@if (ViewBag.CanWrite) {
+    <a class="button" asp-controller="unit" asp-action="edit" asp-route-id="@Model.Id">Bearbeiten</a>
+}

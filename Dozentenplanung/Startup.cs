@@ -41,7 +41,7 @@ namespace Dozentenplanung
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 5;
+                options.Password.RequiredLength = 3;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
