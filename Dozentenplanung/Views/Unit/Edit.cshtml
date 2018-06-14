@@ -59,19 +59,18 @@
         <div class="column">
             <div class="field">
                 <label class="label">Quartal</label>
-                <div class="control">
-                    @Html.EditorFor(unit => unit.Quarter, new { htmlAttributes = new { @class = "input" } })
-                </div>
+                @Html.EditorFor(unit => unit.Quarter, new { htmlAttributes = new { @class = "input" } })
             </div>
         </div>
 
+
     </div>
     <div class="columns">
-        <div class="column"  >
-            <div class="container">
+        <div class="column">
+            <div class="field">
                 <label class="label">Skills</label>
                 <div class="control">
-                    <select class="selectize"  multiple name="skillIds" asp-items="@ViewBag.Skills"></select>
+                    <select class="selectize" multiple name="skillIds" asp-items="@ViewBag.Skills"></select>
                 </div>
             </div>
         </div>
@@ -94,16 +93,13 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="columns">
         <div class="column">
             <div class="field">
                 <label class="label">Prüfungsart</label>
                 <div class="control">
-                    <div class="select">
-                        <select name="examType" asp-items="@ViewBag.ExamTypes"></select>
-                    </div>
+                        <select class=selectize name="examType" asp-items="@ViewBag.ExamTypes"></select>
                 </div>
             </div>
         </div>
