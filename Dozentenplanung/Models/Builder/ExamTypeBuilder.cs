@@ -3,15 +3,20 @@ namespace Dozentenplanung.Models
 {
     public class ExamTypeBuilder : BaseBuilder
     {
+        public string Title { get; set; }
+        public bool IsDummy { get; set; }
+
         public ExamTypeBuilder(ApplicationDbContext aContext) : base(aContext)
         {
+            this.IsDummy = false;
         }
 
         public ExamTypeBuilder(ApplicationDbContext aContext, BaseObject anObject) : base(aContext, anObject)
         {
+            this.IsDummy = false;
         }
 
-        public string Title { get; set; }
+
 
         protected override BaseObject saveChanges()
         {
@@ -26,6 +31,7 @@ namespace Dozentenplanung.Models
             }
 
             examType.Title = this.Title;
+            examType.IsDummy = this.IsDummy;
 
             if (isNew())
             {

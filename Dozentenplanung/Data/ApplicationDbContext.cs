@@ -85,8 +85,7 @@ namespace Dozentenplanung
 
         //Lecturer
         public Lecturer LecturerForId(int id) {
-            return this.LecturersWithSkills()
-                       .SingleOrDefault(lecturer => lecturer.Id == id);
+            return this.LecturersWithSkills().SingleOrDefault(lecturer => lecturer.Id == id);
         }
         public Lecturer DummyNoneLecturer() 
         {
@@ -118,6 +117,9 @@ namespace Dozentenplanung
             if (this.DummyNoneLecturer() == null)
             {
                 Lecturer.CreateDummyInContext(this);
+            }
+            if (this.ExamTypes.Count() == 0) {
+                ExamType.CreateDummyInContext(this);
             }
         }
 

@@ -5,11 +5,23 @@ namespace Dozentenplanung.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public bool IsDummy { get; set; }
 
         public bool DeleteFromContext(ApplicationDbContext aContext)
         {
-            aContext.ExamTypes.Remove(this);
-            return true;
+            if (this.IsDummy) {
+                return false;
+            } else {
+                aContext.ExamTypes.Remove(this);
+                return true;
+            }
+        }
+
+        public static void CreateDummyInContext(ApplicationDbContext aContext) {
+            ExamTypeBuilder builder = new ExamTypeBuilder(aContext);
+            builder.Title = "Keine Prüfung";
+            builder.IsDummy = true;
+            builder.Save();
         }
     }
 }
