@@ -8,8 +8,8 @@ namespace Dozentenplanung.Models
         public string Designation { get; set; } 
         public string Title { get; set; }
         public int? Semester { get; set; }
-        public int? Year { get; set; } 
-        public int? Quarter { get; set; }
+        public DateTime? BeginDate { get; set; } 
+        public DateTime? EndDate { get; set; }
         public Module Module { get; set; }
         public Lecturer Lecturer { get; set; }
         public ExamType ExamType { get; set; }
@@ -22,8 +22,8 @@ namespace Dozentenplanung.Models
         {
             this.Skills = new List<Skill>();
             this.Semester = 1;
-            this.Year = DateTime.Now.Year;
-            this.Quarter = 1;
+            this.BeginDate = DateTime.Now;
+            this.EndDate = DateTime.Now;
             this.DurationOfExam = 60;
 
         }
@@ -44,8 +44,8 @@ namespace Dozentenplanung.Models
             if (!String.IsNullOrEmpty(this.Designation)) unit.Designation = this.Designation;
             if (!String.IsNullOrEmpty(this.Title)) unit.Title = this.Title;
             if (this.Semester.HasValue) unit.Semester = this.Semester.Value;
-            if (this.Year.HasValue) unit.Year = this.Year.Value;
-            if (this.Quarter.HasValue) unit.Quarter = this.Quarter.Value;
+            if (this.BeginDate.HasValue) unit.BeginDate = this.BeginDate.Value;
+            if (this.EndDate.HasValue) unit.EndDate = this.EndDate.Value;
             if (this.DurationOfExam.HasValue )unit.DurationOfExam = this.DurationOfExam.Value;
             if (this.Status.HasValue) unit.Status = this.Status.Value;
             if (this.ExamType != null) unit.ExamType = this.ExamType;

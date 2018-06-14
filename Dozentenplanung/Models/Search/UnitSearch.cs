@@ -9,8 +9,8 @@ namespace Dozentenplanung.Models
         public string Designation { get; set; }
         public string Title { get; set; }
         public int? Semester { get; set; }
-        public int? Year { get; set; }
-        public int? Quarter { get; set; }
+        public DateTime? BeginDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public int? LecturerId { get; set; }
         public int Status { get; set; }
         public string CourseDesignation { get; set; }
@@ -46,14 +46,14 @@ namespace Dozentenplanung.Models
                 query = query.Where(eachUnit => eachUnit.Semester == this.Semester);
             }
             //Search Year
-            if (this.Year.HasValue)
+            if (this.BeginDate.HasValue)
             {
-                query = query.Where(eachUnit => eachUnit.Year == this.Year);
+                query = query.Where(eachUnit => eachUnit.EndDate >= this.BeginDate);
             }
             //Search Quarter
-            if (this.Quarter.HasValue)
+            if (this.EndDate.HasValue)
             {
-                query = query.Where(eachUnit => eachUnit.Quarter == this.Quarter);
+                query = query.Where(eachUnit => eachUnit.BeginDate <= this.EndDate);
             }
             //Search Lecturer
             if (this.LecturerId.HasValue && !(this.DbContext.LecturerForId(this.LecturerId.Value).IsDummyAll)){

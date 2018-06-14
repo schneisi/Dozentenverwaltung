@@ -25,9 +25,6 @@
             <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
                 @Html.DisplayFor(modelItem => eachUser.UserName)
             </td>
-            <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
-                @Html.DisplayFor(modelItem => eachUser.Email)
-            </td>
             <td>
                 @if (ViewBag.IsAdministrator) {
                     <a class="button" asp-controller="user" asp-action="edit" asp-route-id=@eachUser.Id>Bearbeiten</a>

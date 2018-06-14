@@ -11,13 +11,13 @@
                 <form asp-controller="account" asp-action="loginUser" asp-route-returnurl="@ViewBag.redirectUrl">
                     <div class="field">
                         <div class="control">
-                            <input class="input" name="username" type="text" placeholder="Benutzername" value="dev" autofocus="">
+                            <input class="input" name="username" type="text" placeholder="Benutzername" autofocus="">
                         </div>
                     </div>
 
                     <div class="field">
                         <div class="control">
-                            <input class="input" name="password" type="password" placeholder="Passwort" value="password">
+                            <input class="input" name="password" type="password" placeholder="Passwort">
                         </div>
                     </div>
                     <button type="submit" class="button is-block is-info is-fullwidth">Login</button>

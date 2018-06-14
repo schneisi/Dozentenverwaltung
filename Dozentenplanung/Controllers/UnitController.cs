@@ -23,14 +23,14 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public IActionResult Index(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status, string courseDesignation)
+        public IActionResult Index(string designation, string title, int? semester, DateTime? beginDate, DateTime? endDate, int? lecturerId, string status, string courseDesignation)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
             unitSearch.Title = title;
             unitSearch.Semester = semester;
-            unitSearch.Year = year;
-            unitSearch.Quarter = quarter;
+            unitSearch.BeginDate = beginDate;
+            unitSearch.EndDate = endDate;
             unitSearch.LecturerId = lecturerId;
             unitSearch.SetStatus(status);
             unitSearch.CourseDesignation = courseDesignation;
@@ -47,8 +47,8 @@ namespace Dozentenplanung.Controllers
             ViewBag.UnitTitle = title;
             ViewBag.Designation = designation;
             ViewBag.Semester = semester;
-            ViewBag.Year = year;
-            ViewBag.Quarter = quarter;
+            if (beginDate.HasValue) { ViewBag.BeginDate = beginDate.Value.ToString("yyyy-MM-dd"); }
+            if (endDate.HasValue) { ViewBag.EndDate = endDate.Value.ToString("yyyy-MM-dd"); }
             ViewBag.Status = status;
             ViewBag.CourseDesignation = courseDesignation;
             this.PutRolesInViewBag();
@@ -106,9 +106,9 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
+        public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, DateTime BeginDate, DateTime EndDate, int DurationOfExam, int ExamType, int status) {
             if (this.CurrentUserCanWrite()) {
-                this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, Year, Quarter, DurationOfExam, ExamType, status);
+                this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, BeginDate, EndDate, DurationOfExam, ExamType, status);
                 return RedirectToAction("unit", "unit", new { id = id });    
             } else {
                 return RedirectToAction("index");
@@ -116,8 +116,8 @@ namespace Dozentenplanung.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetSkills(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
-            this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, Year, Quarter, DurationOfExam, ExamType, status);
+        public IActionResult SetSkills(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, DateTime BeginDate, DateTime EndDate, int DurationOfExam, int ExamType, int status) {
+            this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, BeginDate, EndDate, DurationOfExam, ExamType, status);
             return RedirectToAction("edit", "unit", new { id = id });
         }
 
@@ -132,14 +132,14 @@ namespace Dozentenplanung.Controllers
             }
         }
 
-        private void CreateBuilderAndSave(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
+        private void CreateBuilderAndSave(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, DateTime BeginDate, DateTime EndDate, int DurationOfExam, int ExamType, int status) {
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;
             unitBuilder.Lecturer = this.DatabaseContext.LecturerForId(lecturer);
             unitBuilder.Semester = Semester;
-            unitBuilder.Year = Year;
-            unitBuilder.Quarter = Quarter;
+            unitBuilder.BeginDate = BeginDate;
+            unitBuilder.EndDate = EndDate;
             unitBuilder.SetExamType(ExamType);
             unitBuilder.DurationOfExam = DurationOfExam;
             unitBuilder.Status = status;

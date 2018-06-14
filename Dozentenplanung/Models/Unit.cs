@@ -16,8 +16,8 @@ namespace Dozentenplanung.Models
 
         public string Designation { get; set; }
 
-        public int Year { get; set; }
-        public int Quarter { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int Hours { get; set; }
 
@@ -46,14 +46,35 @@ namespace Dozentenplanung.Models
         {
             Title = "Titel";
             Designation = "Code";
-            Year = 2018;
-            Quarter = 2;
+            BeginDate = DateTime.Now;
+            EndDate = DateTime.Now;
             Hours = 10;
             Semester = 1;
             DurationOfExam = 60;
             UnitSkills = new List<UnitSkill>();
         }
 
+        public string BeginDateString {
+            get {
+                return this.BeginDate.ToString("dd.MM.yyyy");
+            }
+        }
+
+        public string EndDateString
+        {
+            get
+            {
+                return this.EndDate.ToString("dd.MM.yyyy");
+            }
+        }
+
+        public string BeginDateHtmlString() {
+            return this.BeginDate.ToString("yyyy-MM-dd");
+        }
+        public string EndDateHtmlString()
+        {
+            return this.EndDate.ToString("yyyy-MM-dd");
+        }
 
         public bool HasLecturer()
         {
@@ -67,6 +88,7 @@ namespace Dozentenplanung.Models
         public string CourseDesignation {
             get { return this.Module.Course.Designation; }
         }
+
         public bool IsStatusOpen
         {
             get { return this.Status == 0; }
@@ -125,8 +147,8 @@ namespace Dozentenplanung.Models
             unitBuilder.Title = this.Title;
             unitBuilder.Module = aModule;
             unitBuilder.Semester = this.Semester;
-            unitBuilder.Year = this.Year;
-            unitBuilder.Quarter = this.Quarter;
+            unitBuilder.BeginDate = this.BeginDate;
+            unitBuilder.EndDate = this.BeginDate;
             unitBuilder.ExamType = this.ExamType;
             unitBuilder.Skills = this.Skills().ToList();
             unitBuilder.DurationOfExam = this.DurationOfExam;

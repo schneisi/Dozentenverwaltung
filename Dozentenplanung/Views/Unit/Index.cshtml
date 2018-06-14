@@ -33,17 +33,17 @@
     <div class="columns">
         <div class="column">
             <div class="field">
-                <label class="label">Jahr</label>
+                <label class="label">Beginn</label>
                 <div class="control">
-                    <input name="year" class="input" type="text" placeholder="Jahr der Unit" value=@ViewBag.Year>
+                    <input name="beginDate" class="input" type="date" placeholder="Beginndatum" value=@ViewBag.BeginDate>
                 </div>
             </div>
         </div>
         <div class="column">
             <div class="field">
-                <label class="label">Quartal</label>
+                <label class="label">Ende</label>
                 <div class="control">
-                    <input name="quarter" class="input" type="number" placeholder="Quartal der Unit" value=@ViewBag.Quarter>
+                    <input name="endDate" class="input" type="date" placeholder="Enddatum" value=@ViewBag.EndDate>
                 </div>
             </div>
         </div>
@@ -93,8 +93,8 @@
             <th>Name</th>
             <th>Kurs</th>
             <th>Semester</th>
-            <th>Jahr</th>
-            <th>Quartal</th>
+            <th>Beginn</th>
+            <th>Ende</th>
             <th>Prüfungsart</th>
             <th>Prüfungsdauer</th>
             <th>Dozent</th>
@@ -116,13 +116,10 @@
                 @Html.DisplayFor(modelItem => eachUnit.CourseDesignation)
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Semester)
+                @Html.DisplayFor(modelItem => eachUnit.BeginDateString)
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Year)
-            </td>
-            <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.Quarter)
+                @Html.DisplayFor(modelItem => eachUnit.EndDateString)
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
                 @Html.DisplayFor(modelItem => eachUnit.ExamType.Title)

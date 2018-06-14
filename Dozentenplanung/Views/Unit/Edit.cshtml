@@ -36,27 +36,25 @@
         </div>
         <div class="column">
             <div class="field">
-                <label class="label">Jahr</label>
-                <div class="control">
-                    @Html.EditorFor(unit => unit.Year, new { htmlAttributes = new { @class = "input" } })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="columns">
-        <div class="column">
-            <div class="field">
                 <label class="label">Dozent</label>
                 <div class="control">
                     <select class="selectize" name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="columns">
+        
         <div class="column">
             <div class="field">
-                <label class="label">Quartal</label>
-                @Html.EditorFor(unit => unit.Quarter, new { htmlAttributes = new { @class = "input" } })
+                <label class="label">Beginn</label>
+                <input class="input" name="beginDate" type="date" value=@Model.BeginDateHtmlString() />
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Ende</label>
+                <input class="input" name="endDate" type="date" value=@Model.EndDateHtmlString() />
             </div>
         </div>
 

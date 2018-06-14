@@ -21,14 +21,14 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public ActionResult UnitReport(string designation, string title, int? semester, int? year, int? quarter, int? lecturerId, string status)
+        public ActionResult UnitReport(string designation, string title, int? semester, DateTime beginDate, DateTime endDate, int? lecturerId, string status)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
             unitSearch.Title = title;
             unitSearch.Semester = semester;
-            unitSearch.Year = year;
-            unitSearch.Quarter = quarter;
+            unitSearch.BeginDate = beginDate;
+            unitSearch.EndDate = endDate;
             unitSearch.LecturerId = lecturerId;
             unitSearch.SetStatus(status);
 
