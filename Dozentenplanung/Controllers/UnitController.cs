@@ -99,6 +99,25 @@ namespace Dozentenplanung.Controllers
 
         [HttpPost]
         public IActionResult Save(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
+            this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, Year, Quarter, DurationOfExam, ExamType, status);
+            return RedirectToAction("unit", "unit", new { id = id });
+
+        }
+
+        [HttpPost]
+        public IActionResult SetSkills(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
+            this.CreateBuilderAndSave(id, title, designation, lecturer, SkillIds, Semester, Year, Quarter, DurationOfExam, ExamType, status);
+            return RedirectToAction("edit", "unit", new { id = id });
+        }
+
+        public IActionResult Delete(int id) {
+            Unit unit = this.DatabaseContext.UnitForId(id);
+            unit.DeleteFromContext(this.DatabaseContext);
+            this.SaveDatabaseContext();
+            return RedirectToAction("module", "module", new { id = unit.ModuleId });
+        }
+
+        public void CreateBuilderAndSave(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, int Year, int Quarter, int DurationOfExam, int ExamType, int status) {
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;
@@ -116,14 +135,6 @@ namespace Dozentenplanung.Controllers
             }
             unitBuilder.Skills = skillList;
             unitBuilder.Save();
-            return RedirectToAction("unit", "unit", new {id = id});
-        }
-
-        public IActionResult Delete(int id) {
-            Unit unit = this.DatabaseContext.UnitForId(id);
-            unit.DeleteFromContext(this.DatabaseContext);
-            this.SaveDatabaseContext();
-            return RedirectToAction("module", "module", new { id = unit.ModuleId });
         }
     }
 }

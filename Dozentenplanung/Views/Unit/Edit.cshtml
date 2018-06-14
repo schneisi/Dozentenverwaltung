@@ -55,14 +55,12 @@
             </div>
         </div>
 
-
         <div class="column">
             <div class="field">
                 <label class="label">Quartal</label>
                 @Html.EditorFor(unit => unit.Quarter, new { htmlAttributes = new { @class = "input" } })
             </div>
         </div>
-
 
     </div>
     <div class="columns">
@@ -99,7 +97,7 @@
             <div class="field">
                 <label class="label">Prüfungsart</label>
                 <div class="control">
-                        <select class=selectize name="examType" asp-items="@ViewBag.ExamTypes"></select>
+                    <select class=selectize name="examType" asp-items="@ViewBag.ExamTypes"></select>
                 </div>
             </div>
         </div>
@@ -115,6 +113,7 @@
 
     </div>
     <a asp-controller="unit" asp-action="delete" asp-route-id="@Model.Id" class="button is-danger">Löschen</a>
+    <button type="submit" asp-action="SetSkills" asp-route-id="@Model.Id" asp-controller="unit" class="button" form="form">Skills übernehmen</button>
     <button type="submit" class="button is-success" form="form">Speichern</button>
 </form>
 
