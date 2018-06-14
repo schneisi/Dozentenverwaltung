@@ -98,6 +98,7 @@ namespace Dozentenplanung.Controllers
         }
 
         private bool CanCreateAdminAccount() {
+            //Answer true if there is no user
             return this.UserManager.Users.Count() == 0;
         }
     }

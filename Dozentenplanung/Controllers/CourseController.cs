@@ -22,7 +22,7 @@ namespace Dozentenplanung.Controllers
         public IActionResult Index()
         {
             this.PutRolesInViewBag();
-            return View(this.Courses());
+            return View(this.DatabaseContext.Courses.ToList());
         }
 
         public IActionResult Edit(int? id)
@@ -78,12 +78,8 @@ namespace Dozentenplanung.Controllers
             return RedirectToAction("course", "course", new { id = courseBuilder.Course().Id});
         }
 
-        private List<Course> Courses()
-        {
-            return this.DatabaseContext.Courses.ToList();
-        }
-
         public IActionResult CopyCourse(int id) {
+            //Copy the course with the given id
             Course course = this.CourseForId(id);
             Course newCourse = course.CopyCourse(this.DatabaseContext);
             return RedirectToAction("course", "course", new { id = newCourse.Id });

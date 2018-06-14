@@ -55,6 +55,7 @@ namespace Dozentenplanung.Models
         }
 
         public string BeginDateString {
+            //Answer the string for the begin date
             get {
                 return this.BeginDate.ToString("dd.MM.yyyy");
             }
@@ -62,6 +63,7 @@ namespace Dozentenplanung.Models
 
         public string EndDateString
         {
+            //Answer the string for the end date
             get
             {
                 return this.EndDate.ToString("dd.MM.yyyy");
@@ -69,58 +71,66 @@ namespace Dozentenplanung.Models
         }
 
         public string BeginDateHtmlString() {
+            //Answer the begin date string for the browser field
             return this.BeginDate.ToString("yyyy-MM-dd");
         }
         public string EndDateHtmlString()
         {
+            //Answer the end date string for the browser field
             return this.EndDate.ToString("yyyy-MM-dd");
         }
 
         public bool HasLecturer()
         {
+            //Answer whether the receiver has an assigned lecturer
             return !this.Lecturer.IsDummyNone;
         }
 
         public string LecturerName
         {
+            //Answer the name of the lecturer
             get { return this.Lecturer.Fullname; }
         }
         public string CourseDesignation {
+            //Answer the designation (code) of the course
             get { return this.Module.Course.Designation; }
         }
 
         public bool IsStatusOpen
         {
+            //Answer whether the status is open
             get { return this.Status == 0; }
         }
         public bool IsStatusRequested
         {
+            //Answer whether the status is requested
             get { return this.Status == 1; }
         }
         public bool IsStatusConfirmed
         {
+            //Answer whether the status is confirmed
             get { return this.Status == 2; }
         }
 
         public void DeleteFromContext(ApplicationDbContext aContext)
         {
+            //Delete the receiver from the given context
             aContext.Units.Remove(this);
         }
 
         public bool HasSkill(Skill aSkill)
         {
+            //Answer whether the receiver has the given skill
             foreach (UnitSkill eachUnitSkill in this.UnitSkills)
             {
-                if (eachUnitSkill.Skill == aSkill)
-                {
-                    return true;
-                }
+                if (eachUnitSkill.Skill == aSkill) return true;
             }
             return false;
         }
 
         public virtual HashSet<Skill> Skills()
         {
+            //Answer the Skills of the receiver
             HashSet<Skill> skillsSet = new HashSet<Skill>();
             foreach (UnitSkill eachUnitSkill in this.UnitSkills)
             {
@@ -131,6 +141,7 @@ namespace Dozentenplanung.Models
 
         public string StatusIconString()
         {
+            //Answer the path of the icon, depentend on the status
             string iconName = "";
             if (this.HasLecturer()) {
                 if (this.IsStatusConfirmed) iconName = "green_dot";
@@ -142,8 +153,9 @@ namespace Dozentenplanung.Models
             return "/img/" + iconName + ".png";
         }
 
-        public void CopyToModule(Module aModule, ApplicationDbContext dbContext) {
-            UnitBuilder unitBuilder = new UnitBuilder(dbContext);
+        public void CopyToModule(Module aModule, ApplicationDbContext aContext) {
+            //Copy the receiver to the given module and context
+            UnitBuilder unitBuilder = new UnitBuilder(aContext);
             unitBuilder.Title = this.Title;
             unitBuilder.Module = aModule;
             unitBuilder.Semester = this.Semester;

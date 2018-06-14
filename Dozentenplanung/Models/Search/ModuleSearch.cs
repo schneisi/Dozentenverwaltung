@@ -17,18 +17,9 @@ namespace Dozentenplanung.Models
 
         public List<Module> Search() {
             IQueryable<Module> query = this.DbContext.AllModules();
-            if (this.HasValue(this.Title))
-            {
-                query = query.Where(eachModule => eachModule.Title.Contains(this.Title));
-            }
-            if (this.HasValue(this.Designation))
-            {
-                query = query.Where(eachModule => eachModule.Designation.Contains(this.Designation));
-            }
-            if (this.CourseId.HasValue)
-            {
-                query = query.Where(eachModule => eachModule.CourseId == this.CourseId.Value);
-            }
+            if (this.HasValue(this.Title)) query = query.Where(eachModule => eachModule.Title.Contains(this.Title));
+            if (this.HasValue(this.Designation)) query = query.Where(eachModule => eachModule.Designation.Contains(this.Designation));
+            if (this.CourseId.HasValue) query = query.Where(eachModule => eachModule.CourseId == this.CourseId.Value);
             this.Result = query.ToList();
             return Result;
         }

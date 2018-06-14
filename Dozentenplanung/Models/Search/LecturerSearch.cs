@@ -20,24 +20,12 @@ namespace Dozentenplanung.Models
 
         public List<Lecturer> Search() {
             IQueryable<Lecturer> query = this.DbContext.Lecturers;
-            if (this.HasValue(this.Firstname)) {
-                query = query.Where(eachLecturer => eachLecturer.Firstname.Contains(this.Firstname));
-            }
-            if (this.HasValue(this.Lastname)) {
-                query = query.Where(eachLecturer => eachLecturer.Lastname.Contains(this.Lastname));
-            }
-            if (!this.ShowDummyNone) {
-                query = query.Where(eachLecturer => !eachLecturer.IsDummyNone);
-            }
-            if (!this.ShowDummyNone)
-            {
-                query = query.Where(eachLecturer => !eachLecturer.IsDummyAll);
-            }
+            if (this.HasValue(this.Firstname)) query = query.Where(eachLecturer => eachLecturer.Firstname.Contains(this.Firstname));
+            if (this.HasValue(this.Lastname)) query = query.Where(eachLecturer => eachLecturer.Lastname.Contains(this.Lastname));
+            if (!this.ShowDummyNone) query = query.Where(eachLecturer => !eachLecturer.IsDummyNone);
+            if (!this.ShowDummyAll) query = query.Where(eachLecturer => !eachLecturer.IsDummyAll);
             this.Result = query.ToList();
             return Result;
         }
-
-
-
     }
 }

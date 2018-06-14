@@ -79,6 +79,7 @@ namespace Dozentenplanung.Controllers
 
 
         private Module ModuleForId(int anId) {
+            //Answer the module with the given id
             return this.DatabaseContext.ModuleForId(anId);
         }
     }

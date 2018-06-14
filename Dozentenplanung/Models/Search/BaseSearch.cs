@@ -11,6 +11,7 @@ namespace Dozentenplanung.Models
 
         protected bool HasValue(string aString)
         {
+            //Answer whether the given string if not empty or nil
             return !String.IsNullOrEmpty(aString);
         }
     }

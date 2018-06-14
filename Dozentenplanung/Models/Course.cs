@@ -29,6 +29,7 @@ namespace Dozentenplanung.Models
         }
 
         public bool DeleteFromContext(ApplicationDbContext aContext) {
+            //Delete the receiver
             foreach (Module eachModule in this.Modules) {
                 eachModule.DeleteFromContext(aContext);
             }
@@ -37,8 +38,9 @@ namespace Dozentenplanung.Models
         }
 
 
-        public Course CopyCourse(ApplicationDbContext dbContext) {
-            CourseBuilder courseBuilder = new CourseBuilder(dbContext);
+        public Course CopyCourse(ApplicationDbContext aContext) {
+            //Copy the receiver with all its modules and units
+            CourseBuilder courseBuilder = new CourseBuilder(aContext);
             courseBuilder.Title = this.Title;
             courseBuilder.Year = this.Year;
             courseBuilder.Designation = this.Designation;
@@ -46,7 +48,7 @@ namespace Dozentenplanung.Models
             Course course = courseBuilder.Course();
 
             foreach(Module eachModule in this.Modules) {
-                eachModule.CopyToCourse(course, dbContext);
+                eachModule.CopyToCourse(course, aContext);
             }
 
             return course;

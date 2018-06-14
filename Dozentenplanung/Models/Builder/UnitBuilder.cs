@@ -73,14 +73,6 @@ namespace Dozentenplanung.Models
             }
             return unit;
 		}
-        public void AddSkill(Skill aSkill)
-        {
-            this.Skills.Add(aSkill);
-        }
-
-        public void SetExamType(int anId) {
-            this.ExamType = this.DatabaseContext.ExamTypeForId(anId);
-        }
 
         public Unit Unit() {
             return (Unit)this.Object;

@@ -26,12 +26,6 @@ namespace Dozentenplanung.Models
         public List<LecturerSkill> LecturerSkills { get; set; }
 
 
-        public string Fullname {
-            get {
-                return this.Firstname + " " + this.Lastname;
-            }
-        }
-
         public Lecturer() {
             this.Firstname = "";
             this.Lastname = "";
@@ -44,8 +38,15 @@ namespace Dozentenplanung.Models
 
 
         //API
-        public static void CreateDummyInContext(ApplicationDbContext aContext)
+        public string Fullname
         {
+            //Answer the full name of the receiver
+            get { return this.Firstname + " " + this.Lastname; }
+        }
+
+        public static void CreateDummiesInContext(ApplicationDbContext aContext)
+        {
+            //Create the dummy objects in the given context
             Lecturer dummyNoneLecturer = new Lecturer();
             dummyNoneLecturer.IsDummyNone = true;
             dummyNoneLecturer.Lastname = "Keiner";
@@ -58,6 +59,7 @@ namespace Dozentenplanung.Models
         }
         public bool deleteFromContext(ApplicationDbContext aContext)
         {
+            //Delete the receiver from the context
             UnitSearch search = new UnitSearch(aContext);
             search.LecturerId = this.Id;
             Lecturer dummyLecturer = aContext.DummyNoneLecturer();
@@ -71,16 +73,16 @@ namespace Dozentenplanung.Models
         }
 
         public bool HasSkill(Skill aSkill) {
+            //Answer true if the receiver has the given skill
             foreach (LecturerSkill eachLecturerSkill in this.LecturerSkills) {
-                if (eachLecturerSkill.Skill == aSkill) {
-                    return true;
-                }
+                if (eachLecturerSkill.Skill == aSkill) return true;
             }
             return false;
         }
 
         public virtual HashSet<Skill> Skills()
         {
+            //Answer all skills of the receiver
             HashSet<Skill> skillsList = new HashSet<Skill>();
             foreach (LecturerSkill eachLecturerSkill in this.LecturerSkills)
             {
@@ -90,6 +92,7 @@ namespace Dozentenplanung.Models
         }
 
         public String StringForUnit(Unit aUnit) {
+            //Answer the representation string for the given unit with or without the recommendation
             string returnString = this.Fullname;
             if (!this.IsDummyNone && aUnit.Skills().IsSubsetOf(this.Skills())) {
                 returnString += " (Empfohlen)";

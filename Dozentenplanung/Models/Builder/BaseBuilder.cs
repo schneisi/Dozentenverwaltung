@@ -7,7 +7,6 @@ namespace Dozentenplanung.Models
     {
         public BaseObject Object { get; set; }
         protected ApplicationDbContext DatabaseContext { get; set; }
-        public List<BuilderError> Errors { get; set; }
 
         public BaseBuilder(ApplicationDbContext aContext)
         {
@@ -18,16 +17,16 @@ namespace Dozentenplanung.Models
         }
 
         public bool isNew() {
+            //Answer whether the receiver creates a new object
             return this.Object == null;
-        }
-        public bool hasError() {
-            return this.Errors.Count > 1;
         }
         public void Save()
         {
+            //Save the object
             this.Save(true);
         }
         public void Save(bool aCommitBoolean) {
+            //Save the object. Commit the changes according to the given parameter
             BaseObject theObject = this.saveChanges();
             if (aCommitBoolean) {
                 this.DatabaseContext.SaveChanges();
@@ -36,17 +35,5 @@ namespace Dozentenplanung.Models
         }
 
         protected abstract BaseObject saveChanges();
-    }
-
-
-
-    public class BuilderError {
-        public int Number { get; set; }
-        public string Text { get; set; }
-
-        public BuilderError(int aNumber, string aText) {
-            this.Number = aNumber;
-            this.Text = aText;
-        }
     }
 }

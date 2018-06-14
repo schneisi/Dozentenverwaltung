@@ -36,6 +36,7 @@ namespace Dozentenplanung.Models
         }
 
         private string StringForBoolean(bool aBoolean) {
+            //Answer the string for the given boolean
             if (aBoolean) {
                 return "Ja";
             } else {
@@ -44,12 +45,10 @@ namespace Dozentenplanung.Models
         }
 
         private bool IsTheOnlyAdministratorInContext(ApplicationDbContext aDbContext) {
+            //Answer true if the receiver is the only user with admin privileges
             foreach (ApplicationUser eachUser in aDbContext.Users)
             {
-                if (eachUser.IsAdministrator && eachUser != this)
-                {
-                    return false;
-                }
+                if (eachUser.IsAdministrator && eachUser != this) return false;
             }
             return true;
         }

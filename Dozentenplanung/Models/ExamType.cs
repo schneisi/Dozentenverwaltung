@@ -9,6 +9,7 @@ namespace Dozentenplanung.Models
 
         public bool DeleteFromContext(ApplicationDbContext aContext)
         {
+            //Delete the receiver if is no dummy object
             if (this.IsDummy) {
                 return false;
             } else {

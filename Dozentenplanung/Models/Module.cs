@@ -19,25 +19,22 @@ namespace Dozentenplanung.Models
 
         public List<Unit> Units { get; set; }
 
-        public string CourseDesignation
-        {
-            get { return this.Course.Designation; }
-        }
-
         public void DeleteFromContext(ApplicationDbContext aContext)
         {
+            //Delete the receiver from the given context
             aContext.Modules.Remove(this);
         }
 
 
-        public void CopyToCourse(Course aCourse, ApplicationDbContext dbContext) {
-            ModuleBuilder moduleBuilder = new ModuleBuilder(dbContext);
+        public void CopyToCourse(Course aCourse, ApplicationDbContext aContext) {
+            //Copy the receiver with its units to the given course in the given context
+            ModuleBuilder moduleBuilder = new ModuleBuilder(aContext);
             moduleBuilder.Title = this.Title;
             moduleBuilder.Course = aCourse;
             moduleBuilder.Save();
             Module module = moduleBuilder.Module();
             foreach (Unit eachUnit in this.Units) {
-                eachUnit.CopyToModule(module, dbContext);
+                eachUnit.CopyToModule(module, aContext);
             }
         }
     }

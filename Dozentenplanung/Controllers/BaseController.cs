@@ -34,34 +34,29 @@ namespace Dozentenplanung.Controllers
         }
 
         protected async Task<ApplicationUser> GetCurrentUser() {
+            //Answer the current user
             return await this.GetUserForId(this.UserId);
         }
 
         protected void SaveDatabaseContext() {
+            //Save changes into the database
             this.DatabaseContext.SaveChanges();
         }
 
-        protected Course CourseForId(int anIdInt)
+        protected Course CourseForId(int anId)
         {
-            return this.DatabaseContext.CourseForId(anIdInt);
+            //Answer the course for the given id
+            return this.DatabaseContext.CourseForId(anId);
         }
 
-        protected async Task<ApplicationUser> GetUserForId(string id) {
-            return await this.UserManager.FindByIdAsync(id);
+        protected async Task<ApplicationUser> GetUserForId(string anId) {
+            //Answer the user for the given id
+            return await this.UserManager.FindByIdAsync(anId);
         }
 
-        protected void SendMail(bool useHtml, string receiver, string subject, string content) {
-            MailHelper theMailHelper = new MailHelper
-            {
-                Subject = subject,
-                Content = content,
-                RecipientAddress = receiver,
-                isHtmlMail = useHtml
-            };
-            theMailHelper.Send();
-        }
 
         protected void PutRolesInViewBag() {
+            //Store the role booleans in the ViewBag
             ViewBag.CanWrite = this.CurrentUserCanWrite();
             ViewBag.IsAdministrator = this.CurrentUserIsAdministrator();
         }
@@ -69,6 +64,7 @@ namespace Dozentenplanung.Controllers
 
         protected bool CurrentUserCanWrite()
         {
+            //Answer whether the current user has write role
             ApplicationUser user = this.GetCurrentUser().Result;
             if (user != null) {
                 return this.GetCurrentUser().Result.CanWrite;    
@@ -79,6 +75,7 @@ namespace Dozentenplanung.Controllers
         }
         protected bool CurrentUserIsAdministrator()
         {
+            //Answer whether the current user is an admin
             ApplicationUser user = this.GetCurrentUser().Result;
             if (user != null)
             {

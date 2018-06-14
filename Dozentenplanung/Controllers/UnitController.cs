@@ -133,6 +133,7 @@ namespace Dozentenplanung.Controllers
         }
 
         private void CreateBuilderAndSave(int id, string title, string designation, int lecturer, List<int> SkillIds, int Semester, DateTime BeginDate, DateTime EndDate, int DurationOfExam, int ExamType, int status) {
+            //Create a bilder with the given attributes and save the change
             UnitBuilder unitBuilder = new UnitBuilder(this.DatabaseContext, this.DatabaseContext.UnitForId(id));
             unitBuilder.Title = title;
             unitBuilder.Designation = designation;
@@ -140,7 +141,7 @@ namespace Dozentenplanung.Controllers
             unitBuilder.Semester = Semester;
             unitBuilder.BeginDate = BeginDate;
             unitBuilder.EndDate = EndDate;
-            unitBuilder.SetExamType(ExamType);
+            unitBuilder.ExamType = this.DatabaseContext.ExamTypeForId(ExamType);
             unitBuilder.DurationOfExam = DurationOfExam;
             unitBuilder.Status = status;
             List<Skill> skillList = new List<Skill>();

@@ -95,8 +95,9 @@ namespace Dozentenplanung.Controllers
             return RedirectToAction("Index", "Lecturer");
         }
 
-        private Lecturer LecturerForId(int id) {
-            return this.DatabaseContext.LecturerForId(id);
+        private Lecturer LecturerForId(int anId) {
+            //Answer the lecturer with the given id
+            return this.DatabaseContext.LecturerForId(anId);
         }
     }
 }

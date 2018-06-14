@@ -60,8 +60,6 @@ namespace Dozentenplanung
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider aServiceProvider)
         {
-            //IoCContainer.Provider = (ServiceProvider)aServiceProvider;
-
             app.UseAuthentication();
 
             if (env.IsDevelopment())
@@ -81,10 +79,6 @@ namespace Dozentenplanung
                     name: "default",
                     template: "{controller=Course}/{action=Index}/{id?}");
             });
-
-            //RolesData.SeedRoles(aServiceProvider).Wait();
-            MailHelper.Initialize(aServiceProvider);
-            //MailHelper.SendTestMail();
         }
     }
 }

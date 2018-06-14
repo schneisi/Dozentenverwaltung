@@ -34,7 +34,7 @@ namespace Dozentenplanung.Controllers
             if (this.CurrentUserIsAdministrator()) {
                 return View("Create");
             }
-            return RedirectToAction("index");
+            return RedirectToUsers();
         }
 
         public async Task<IActionResult> Create(string mail, string password) {
@@ -82,6 +82,7 @@ namespace Dozentenplanung.Controllers
         }
 
         public IActionResult RedirectToUsers() {
+            //Redirect the user 
             return RedirectToAction("Index");
         }
     }

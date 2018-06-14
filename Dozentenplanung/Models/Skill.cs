@@ -15,6 +15,7 @@ namespace Dozentenplanung.Models
 
         public bool DeleteFromContext(ApplicationDbContext aContext)
         {
+            //Delete the receiver from the given context
             aContext.Skills.Remove(this);
             return true;
         }
