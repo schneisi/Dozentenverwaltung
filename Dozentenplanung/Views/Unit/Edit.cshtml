@@ -48,9 +48,7 @@
             <div class="field">
                 <label class="label">Dozent</label>
                 <div class="control">
-                    <div class="select">
-                        <select name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
-                    </div>
+                    <select class="selectize" name="lecturer" asp-items="@ViewBag.SuitableLecturers"></select>
                 </div>
             </div>
         </div>

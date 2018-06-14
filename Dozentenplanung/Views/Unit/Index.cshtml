@@ -67,7 +67,7 @@
                 <label class="label">Dozent</label>
                 <div class="control">
                     <div class="select">
-                        <select name="lecturerId" asp-items="@ViewBag.Lecturers"></select>
+                        <select class="selectisize" name="lecturerId" asp-items="@ViewBag.Lecturers"></select>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                 @Html.DisplayFor(modelItem => eachUnit.Quarter)
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
-                @Html.DisplayFor(modelItem => eachUnit.ExamType)
+                @Html.DisplayFor(modelItem => eachUnit.ExamType.Title)
             </td>
             <td onclick="location.href = '@(Url.Action("unit", "unit", new { id = eachUnit.Id }))'">
                 @Html.DisplayFor(modelItem => eachUnit.DurationOfExam)
