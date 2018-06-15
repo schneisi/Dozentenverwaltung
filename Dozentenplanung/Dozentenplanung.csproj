@@ -21,6 +21,7 @@
     <Content Remove="wwwroot\images\banner2.svg" />
     <Content Remove="Views\Home\Index.cshtml" />
     <Content Remove="wwwroot\css\Report.css" />
+    <Content Remove="Views\Dev\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\lib\" />
@@ -29,8 +30,6 @@
     <Folder Include="wwwroot\css\" />
     <Folder Include="Views\Module\" />
     <Folder Include="Data\" />
-    <Folder Include="IoC\" />
-    <Folder Include="Views\Dev\" />
     <Folder Include="Views\Unit\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\User\" />
@@ -39,7 +38,6 @@
     <Folder Include="Views\Profile\" />
     <Folder Include="Views\ExamType\" />
     <Folder Include="Models\Search\" />
-    <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Database.db" />
@@ -47,5 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\css\Report.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="IoC\IoCContainer.cs" />
   </ItemGroup>
 </Project>

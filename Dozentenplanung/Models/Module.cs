@@ -10,7 +10,6 @@ namespace Dozentenplanung.Models
         public int Id { get; set; }
 
         public string Designation { get; set; }
-        //public string ModuleCode { get; set; } --> für mich eindeutiger + es gibt einen unterschied Modul und Unitocde
 
         public string Title { get; set; }
 
