@@ -43,7 +43,7 @@
             <div class="field">
                 <label class="label">Notizen</label>
                 <div class="control">
-                    @Html.EditorFor(lecturer => lecturer.Notes, new { htmlAttributes = new { @class = "input" } })
+                    <textarea name="notes" class="textarea">@Model.Notes</textarea>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="container">
                 <label class="label">Skills</label>
                 <div class="control">
-                    <select style="width:25%;" multiple name="skillIds" asp-items="@ViewBag.Skills" ></select>
+                    <select multiple name="skillIds" asp-items="@ViewBag.Skills" ></select>
                  </div>
             </div>
         </div>
