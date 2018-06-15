@@ -21,7 +21,7 @@ namespace Dozentenplanung.Controllers
         {
         }
 
-        public ActionResult UnitReport(string designation, string title, int? semester, DateTime beginDate, DateTime endDate, int? lecturerId, string status)
+        public ActionResult UnitReport(string designation, string title, int? semester, DateTime? beginDate, DateTime? endDate, int? lecturerId, string status)
         {
             UnitSearch unitSearch = new UnitSearch(this.DatabaseContext);
             unitSearch.Designation = designation;
@@ -36,7 +36,5 @@ namespace Dozentenplanung.Controllers
             report.Search = unitSearch;
             return Content(report.CreateReport(), "text/html");
         }
-
-
     }
 }

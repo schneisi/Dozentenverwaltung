@@ -48,7 +48,6 @@ namespace Dozentenplanung.Models
             Designation = "Code";
             BeginDate = DateTime.Now;
             EndDate = DateTime.Now;
-            Hours = 10;
             Semester = 1;
             DurationOfExam = 60;
             UnitSkills = new List<UnitSkill>();

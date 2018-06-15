@@ -25,7 +25,7 @@ namespace Dozentenplanung.Helper
         }
 
         public string CreateHtml() {
-            string resultString = "<table class='reportTable'>";
+            string resultString = "<table class='reportTable table is-bordered is-striped is-fullwidth'>";
 
             foreach (string eachHeading in headings) {
                 resultString += "<th>" + eachHeading + "</th>";
