@@ -58,7 +58,7 @@ namespace Dozentenplanung.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> Save(string id, string password, bool IsAdministrator, bool CanWrite) {
+        public async Task<IActionResult> Save(string id, string email, string password, bool IsAdministrator, bool CanWrite) {
             ApplicationUser user = await this.GetUserForId(id);
             if (!string.IsNullOrEmpty(password)) {
                 //Do not change password if there is no new password
@@ -68,7 +68,8 @@ namespace Dozentenplanung.Controllers
                     return Content("Action failed: " + result.Errors.ElementAt(0), "text/html");
                 }
             }
-
+            user.Email = email;
+            user.UserName = email;
             user.CanWrite = CanWrite;
             user.SetAdministratorBooleanInContext(IsAdministrator, this.DatabaseContext);
             this.DatabaseContext.SaveChanges();
