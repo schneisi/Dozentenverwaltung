@@ -47,6 +47,7 @@ namespace Dozentenplanung.Models
             //Search CourseDesignation
             if (this.HasValue(this.CourseDesignation))  query = query.Where(eachUnit => eachUnit.Module.Course.Designation.Contains(this.CourseDesignation));
 
+            query = query.OrderBy(eachUnit => eachUnit.BeginDate);
             this.Result = query.ToList();
             return this.Result;
         }

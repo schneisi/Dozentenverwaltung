@@ -71,20 +71,26 @@ namespace Dozentenplanung.Controllers
         [Route("account/loginUser")]
         public async Task<IActionResult> LoginUser(string ReturnUrl, string username, string password) {
             bool theSuccessBoolean = false;
-            ApplicationUser user = await this.UserManager.FindByNameAsync(username);
-            if (user != null) {
-                var result = await this.SignInManager.PasswordSignInAsync(user, password, true, false);
-                theSuccessBoolean = result.Succeeded;
-            }
-            if (theSuccessBoolean) {
-                if (string.IsNullOrEmpty(ReturnUrl)) {
-                    return RedirectToAction("Index", "Course");
-                } else {
-                    return Redirect(ReturnUrl);
+            if (!string.IsNullOrEmpty(username)) {
+                ApplicationUser user = await this.UserManager.FindByNameAsync(username);
+                if (user != null)
+                {
+                    var result = await this.SignInManager.PasswordSignInAsync(user, password, true, false);
+                    theSuccessBoolean = result.Succeeded;
                 }
-            } else {
-                return RedirectToAction("login", "account");
+                if (theSuccessBoolean)
+                {
+                    if (string.IsNullOrEmpty(ReturnUrl))
+                    {
+                        return RedirectToAction("Index", "Course");
+                    }
+                    else
+                    {
+                        return Redirect(ReturnUrl);
+                    }
+                }
             }
+            return RedirectToAction("loginFailed", "account");
         }
 
         [Route("account/register")]
@@ -95,6 +101,12 @@ namespace Dozentenplanung.Controllers
             } else {
                 return RedirectToAction("login");
             }
+        }
+
+        [Route("account/loginFailed")]
+        public IActionResult LoginFailed()
+        {
+            return View();
         }
 
         private bool CanCreateAdminAccount() {
