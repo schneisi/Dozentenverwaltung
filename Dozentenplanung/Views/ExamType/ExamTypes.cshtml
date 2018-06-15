@@ -11,16 +11,12 @@
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th />
         </tr>
     </thead>
     @foreach (var eachType in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => eachType.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => eachType.Title)
             </td>

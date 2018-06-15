@@ -11,25 +11,29 @@
 <table class="table is-fullwidth is-hoverable is-striped">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
             <th>E-Mail</th>
+            <th>Schreibrecht</th>
+            <th>Admin</th>
             <th />
         </tr>
     </thead>
     @foreach (var eachUser in Model) {
-        <tr>
-            <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
-                @Html.DisplayFor(modelItem => eachUser.Id)
-            </td>
-            <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
-                @Html.DisplayFor(modelItem => eachUser.UserName)
-            </td>
-            <td>
-                @if (ViewBag.IsAdministrator) {
-                    <a class="button" asp-controller="user" asp-action="edit" asp-route-id=@eachUser.Id>Bearbeiten</a>
-                }
-            </td>
-        </tr>
+    <tr>
+        <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
+            @Html.DisplayFor(modelItem => eachUser.UserName)
+        </td>
+        <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
+            @Html.DisplayFor(modelItem => eachUser.CanWrite)
+        </td>
+        <td onclick="location.href = '@(Url.Action("applicationUser", "user", new { id = eachUser.Id }))'">
+            @Html.DisplayFor(modelItem => eachUser.IsAdministrator)
+        </td>
+        <td>
+            @if (ViewBag.IsAdministrator)
+        {
+            <a class="button" asp-controller="user" asp-action="edit" asp-route-id=@eachUser.Id>Bearbeiten</a>
+    }
+        </td>
+    </tr>
     }
 </table>
