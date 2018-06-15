@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["title"] = "Login - Dozentenplanung";
+}
+
+
+<div class="hero-body">
+    <div class="container has-text-centered">
+        <div class="column is-6 is-offset-3">
+            <h3 class="title has-text-grey">Login</h3>
+            <div class="box">
+                <form asp-controller="account" asp-action="loginUser" asp-route-returnurl="@ViewBag.redirectUrl">
+                    <article class="message is-danger">
+                        <div class="message-header">
+                            <p>Login fehlgeschlagen</p>
+                        </div>
+                        <div class="message-body">
+                            Überprüfen Sie Ihre Login-Daten und versuchen Sie es erneut
+                        </div>
+                    </article>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" name="username" type="text" placeholder="Benutzername" autofocus="">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" name="password" type="password" placeholder="Passwort">
+                        </div>
+                    </div>
+                    <button type="submit" class="button is-block is-info is-fullwidth">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
